@@ -14,6 +14,7 @@ data class Recipe(
         val name:String?=null,
         val description:String?=null,
         val numPersons:Int?=null,
+        @Enumerated(value = EnumType.STRING)
         val difficultyLevel: DifficultyLevel?=null,
         val prepTime:Int?=null,
         val avRating:Int?=null,
@@ -22,4 +23,11 @@ data class Recipe(
         @ManyToOne
         @JoinColumn(name = "userId")
         val user: User?=null,
+        @ManyToMany
+        @JoinTable(name = "of_category",
+                joinColumns = [JoinColumn(name = "recipeId")],
+                inverseJoinColumns = [JoinColumn(name = "categoryId")],
+        )
+        val categoryList: MutableList<Category> = arrayListOf()
+
         ){}
