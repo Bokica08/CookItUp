@@ -1,9 +1,12 @@
 package com.sorsix.cookitup.model
 
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.sorsix.cookitup.model.enumeration.DifficultyLevel
+import lombok.Data
+import java.time.LocalDateTime
+import javax.persistence.*
 
+@Data
+@Entity
 data class Recipe(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,5 +15,11 @@ data class Recipe(
         val description:String?=null,
         val numPersons:Int?=null,
         val difficultyLevel: DifficultyLevel?=null,
-        val prepTime:Int?=null
+        val prepTime:Int?=null,
+        val avRating:Int?=null,
+        val viewCount:Int?=null,
+        val createdOn:LocalDateTime?=null,
+        @ManyToOne
+        @JoinColumn(name = "userId")
+        val user: User?=null,
         ){}

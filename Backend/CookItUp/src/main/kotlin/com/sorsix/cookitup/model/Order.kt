@@ -1,9 +1,11 @@
 package com.sorsix.cookitup.model
 
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.sorsix.cookitup.model.enumeration.OrderStatus
+import lombok.Data
+import javax.persistence.*
 
+@Entity
+@Data
 data class Order(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +13,14 @@ data class Order(
         val phoneNumber:String?=null,
         val address:String?=null,
         val orderStatus: OrderStatus?=null,
-
-) {
+        @ManyToOne
+        @JoinColumn(name = "recipeId")
+        val recipe: Recipe?=null,
+        @ManyToOne
+        @JoinColumn(name = "customerId")
+        val customer: User?=null,
+        @ManyToOne
+        @JoinColumn(name = "adminId")
+        val admin: User?=null,
+        ) {
 }

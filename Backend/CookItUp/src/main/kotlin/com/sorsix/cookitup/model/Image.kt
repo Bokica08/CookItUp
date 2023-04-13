@@ -1,14 +1,24 @@
 package com.sorsix.cookitup.model
 
+import lombok.Data
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 
+@Entity
+@Data
 data class Image(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val imageId: Long? = null,
-        val byteArray: ByteArray?=null
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val imageId: Long? = null,
+    val byteArray: ByteArray?=null,
+    @ManyToOne
+    @JoinColumn(name = "recipeId")
+    val recipe: Recipe? = null,
+
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
