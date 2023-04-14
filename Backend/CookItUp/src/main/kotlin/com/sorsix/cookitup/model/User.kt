@@ -27,7 +27,6 @@ abstract class User(
         return Collections.singletonList(role)
     }
 
-
     override fun isAccountNonExpired(): Boolean {
         return true
     }

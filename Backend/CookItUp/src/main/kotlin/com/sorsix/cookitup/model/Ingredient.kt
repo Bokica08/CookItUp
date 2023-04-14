@@ -8,7 +8,7 @@ import javax.persistence.Id
 
 @Entity
 @Data
-data class Ingredient(
+class Ingredient(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val ingredientId: Long? = null,

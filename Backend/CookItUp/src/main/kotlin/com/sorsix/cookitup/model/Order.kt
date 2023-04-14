@@ -1,14 +1,13 @@
 package com.sorsix.cookitup.model
 
 import com.sorsix.cookitup.model.enumeration.OrderStatus
-import com.sorsix.cookitup.model.enumeration.Role
 import lombok.Data
 import javax.persistence.*
 
 @Entity
 @Data
 @Table(name="orders")
-data class Order(
+class Order(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val orderId: Long? = null,
@@ -22,9 +21,9 @@ data class Order(
         val recipe: Recipe?=null,
         @ManyToOne
         @JoinColumn(name = "customerId")
-        val customer: User?=null,
+        val customer: Customer?=null,
         @ManyToOne
         @JoinColumn(name = "adminId")
-        val admin: User?=null,
+        val admin: Admin?=null,
         ) {
 }

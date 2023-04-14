@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Data
 @Entity
-data class Recipe(
+class Recipe(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val recipeId: Long? = null,
@@ -22,7 +22,7 @@ data class Recipe(
         val createdOn:LocalDateTime?=null,
         @ManyToOne
         @JoinColumn(name = "userId")
-        val user: User?=null,
+        val customer: Customer?=null,
         @ManyToMany
         @JoinTable(name = "of_category",
                 joinColumns = [JoinColumn(name = "recipeId")],

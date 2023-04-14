@@ -1,0 +1,19 @@
+package com.sorsix.cookitup.service.implementation
+
+import com.sorsix.cookitup.model.Customer
+import com.sorsix.cookitup.model.Recipe
+import com.sorsix.cookitup.model.Review
+import com.sorsix.cookitup.repository.ReviewRepository
+import com.sorsix.cookitup.service.ReviewService
+import org.springframework.stereotype.Service
+
+@Service
+class ReviewServiceImplementation(private val repository: ReviewRepository) : ReviewService {
+    override fun findAllByCustomer(customer: Customer): List<Review> {
+        return repository.findAllByCustomer(customer)
+    }
+
+    override fun findAllByRecipe(recipe: Recipe): List<Review> {
+        return repository.findAllByRecipe(recipe)
+    }
+}

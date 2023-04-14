@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Data
-data class Review(
+class Review(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val reviewId: Long? = null,
@@ -19,7 +19,7 @@ data class Review(
         val recipe: Recipe?=null,
         @ManyToOne
         @JoinColumn(name = "userId")
-        val user: User?=null,
+        val customer: Customer?=null,
 
 ) {
 }
