@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 @RequestMapping("/api/recipe")
 class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService) {
+    // Get all recipes
     @GetMapping
     fun getAllRecipes() : ResponseEntity<Any> {
         return ResponseEntity.ok(recipeService.getAll())
     }
+    // 2 methods for adding recipe to the system, separate method for adding the images, onSubmit on frontend will call these 2 methods together
     @PostMapping
     fun addRecipe(@RequestBody recipeDTO: RecipeDTO, request: HttpServletRequest) : ResponseEntity<Any>{
         val recipe = recipeService.save(recipeDTO)
@@ -40,11 +42,13 @@ class RecipeController(val recipeService: RecipeService, val imageRepository: Im
             request.session.removeAttribute("recipe")
         }
     }
+    // Get details for specific recipe
     @GetMapping("/{id}")
     fun getDetailsForRecipe(@PathVariable id:Long):ResponseEntity<Any>{
         val recipe: RecipeInfoDTO = recipeService.getDetailsForRecipe(id)
         return ResponseEntity.ok(recipe)
     }
+    // Add review for recipe
     @PostMapping("/addReview/{id}")
     fun addReviewForRecipe(@PathVariable id:Long, @RequestBody reviewDTO: ReviewDTO, request: HttpServletRequest):ResponseEntity<Any>{
         val recipe = recipeService.getRecipeById(id)
@@ -52,5 +56,20 @@ class RecipeController(val recipeService: RecipeService, val imageRepository: Im
             request.session.getAttribute("username") as String
         )))
         return ResponseEntity.ok(review)
+    }
+    // Get the top-rated recipes
+    @GetMapping("/topRated")
+    fun getTopRatedRecipes() : ResponseEntity<Any> {
+        return ResponseEntity.ok(recipeService.getTopRatedRecipes())
+    }
+    // Get the most viewed recipes
+    @GetMapping("/mostViewed")
+    fun getMostViewedRecipes() : ResponseEntity<Any> {
+        return ResponseEntity.ok(recipeService.getMostViewedRecipes())
+    }
+    // Get the newest recipes
+    @GetMapping("/newest")
+    fun getNewestRecipes() : ResponseEntity<Any> {
+        return ResponseEntity.ok(recipeService.getNewestRecipes())
     }
 }

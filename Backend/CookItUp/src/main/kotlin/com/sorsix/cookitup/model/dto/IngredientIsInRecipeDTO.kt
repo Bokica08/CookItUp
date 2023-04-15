@@ -7,5 +7,4 @@ data class IngredientIsInRecipeDTO(
     val name:String,
     val quantity:Int,
     val measure: String
-) {
-}
+)

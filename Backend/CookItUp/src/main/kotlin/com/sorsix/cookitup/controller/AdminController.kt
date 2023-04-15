@@ -18,10 +18,12 @@ class AdminController(
     val categoryRepository: CategoryRepository,
     val ingredientRepository: IngredientRepository,
 ) {
+    // Add category to the system
     @PostMapping("/category")
     fun addCategory(@RequestBody categoryDTO: CategoryDTO) : ResponseEntity<Any> {
       return ResponseEntity.ok(categoryRepository.save(Category(null,categoryDTO.name)))
     }
+    // Add ingredient to the system
     @PostMapping("/ingredient")
     fun addIngredient(@RequestBody ingredientDTO: IngredientDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(ingredientRepository.save(Ingredient(null,ingredientDTO.name,ingredientDTO.description)))

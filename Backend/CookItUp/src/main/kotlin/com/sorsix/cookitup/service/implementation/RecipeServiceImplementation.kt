@@ -103,4 +103,16 @@ class RecipeServiceImplementation(
     override fun getRecipeById(id: Long): Recipe {
         return recipeRepository.getReferenceById(id)
     }
+
+    override fun getNewestRecipes(): List<Recipe> {
+        return recipeRepository.findAll().sortedByDescending { it.createdOn }.subList(0,5)
+    }
+
+    override fun getTopRatedRecipes(): List<Recipe> {
+        return recipeRepository.findAll().sortedByDescending { it.avRating }.subList(0,5)
+    }
+
+    override fun getMostViewedRecipes(): List<Recipe> {
+        return recipeRepository.findAll().sortedByDescending { it.viewCount }.subList(0,5)
+    }
 }

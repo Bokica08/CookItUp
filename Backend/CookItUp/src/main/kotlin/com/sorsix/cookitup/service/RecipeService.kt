@@ -19,4 +19,7 @@ interface RecipeService {
     fun save(recipeDTO: RecipeDTO) : Recipe
     fun getDetailsForRecipe(id: Long) : RecipeInfoDTO
     fun getRecipeById(id: Long) : Recipe
+    fun getNewestRecipes() : List<Recipe>
+    fun getTopRatedRecipes() : List<Recipe>
+    fun getMostViewedRecipes() : List<Recipe>
 }

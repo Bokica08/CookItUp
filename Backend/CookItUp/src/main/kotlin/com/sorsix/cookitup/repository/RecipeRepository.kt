@@ -11,5 +11,5 @@ interface RecipeRepository : JpaRepository<Recipe, Long> {
     fun findAllByCustomer(customer: Customer) : List<Recipe>
     fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel) : List<Recipe>
     fun findAllByNameContainingIgnoreCase(name: String) : List<Recipe>
-
+    override fun findAll() : List<Recipe>
 }
