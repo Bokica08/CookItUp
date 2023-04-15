@@ -9,6 +9,7 @@ import java.util.*
 class IngredientIsInRecipeId(
     val ingredientId:Long,
     val recipeId:Long):Serializable{
+    constructor():this(0L,0L)
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false

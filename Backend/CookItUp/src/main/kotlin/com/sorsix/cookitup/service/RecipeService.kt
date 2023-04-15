@@ -4,6 +4,8 @@ import com.sorsix.cookitup.model.Category
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.Ingredient
 import com.sorsix.cookitup.model.Recipe
+import com.sorsix.cookitup.model.dto.RecipeDTO
+import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 
 interface RecipeService {
@@ -14,4 +16,7 @@ interface RecipeService {
     fun findAllByRecipe(recipe: Recipe) : List<Ingredient>
     fun findAllByIngredient(ingredient: Ingredient) : List<Recipe>
     fun getAll() : List<Recipe>
+    fun save(recipeDTO: RecipeDTO) : Recipe
+    fun getDetailsForRecipe(id: Long) : RecipeInfoDTO
+    fun getRecipeById(id: Long) : Recipe
 }

@@ -1,5 +1,6 @@
 package com.sorsix.cookitup.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 import lombok.Data
 import java.time.LocalDateTime
@@ -24,10 +25,9 @@ class Recipe(
         @JoinColumn(name = "userId")
         val customer: Customer?=null,
         @ManyToMany
+        @JsonManagedReference
         @JoinTable(name = "of_category",
                 joinColumns = [JoinColumn(name = "recipeId")],
                 inverseJoinColumns = [JoinColumn(name = "categoryId")],
         )
-        val categoryList: MutableList<Category> = arrayListOf()
-
-        ){}
+        val categoryList: MutableList<Category> = arrayListOf())

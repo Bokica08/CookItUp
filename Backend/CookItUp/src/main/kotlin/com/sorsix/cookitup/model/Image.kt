@@ -14,6 +14,8 @@ class Image(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val imageId: Long? = null,
+    val name: String? = null,
+    val type: String? = null,
     val byteArray: ByteArray?=null,
     @ManyToOne
     @JoinColumn(name = "recipeId")

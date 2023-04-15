@@ -16,4 +16,8 @@ class ReviewServiceImplementation(private val repository: ReviewRepository) : Re
     override fun findAllByRecipe(recipe: Recipe): List<Review> {
         return repository.findAllByRecipe(recipe)
     }
+
+    override fun addReview(review: Review): Review {
+        return repository.save(review)
+    }
 }
