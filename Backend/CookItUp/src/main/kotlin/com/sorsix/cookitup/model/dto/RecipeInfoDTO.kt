@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 
 @Data
 data class RecipeInfoDTO(
+    val id:Long?=null,
     val name:String?=null,
     val description:String?=null,
     val numPersons:Int?=null,

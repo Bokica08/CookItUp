@@ -9,17 +9,17 @@ import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 
 interface RecipeService {
-    fun findAllByCustomer(customer: Customer) : List<Recipe>
-    fun findAllByCategoryListContains(category: Category) : List<Recipe>
-    fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel) : List<Recipe>
-    fun findAllByNameContainingIgnoreCase(name: String) : List<Recipe>
+    fun findAllByCustomer(customer: Customer) : List<RecipeInfoDTO>
+    fun findAllByCategoryListContains(category: Category) : List<RecipeInfoDTO>
+    fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel) : List<RecipeInfoDTO>
+    fun findAllByNameContainingIgnoreCase(name: String) : List<RecipeInfoDTO>
     fun findAllByRecipe(recipe: Recipe) : List<Ingredient>
-    fun findAllByIngredient(ingredient: Ingredient) : List<Recipe>
-    fun getAll() : List<Recipe>
+    fun findAllByIngredient(ingredient: Ingredient) : List<RecipeInfoDTO>
+    fun getAll() : List<RecipeInfoDTO>
     fun save(recipeDTO: RecipeDTO) : Recipe
     fun getDetailsForRecipe(id: Long) : RecipeInfoDTO
     fun getRecipeById(id: Long) : Recipe
-    fun getNewestRecipes() : List<Recipe>
-    fun getTopRatedRecipes() : List<Recipe>
-    fun getMostViewedRecipes() : List<Recipe>
+    fun getNewestRecipes() : List<RecipeInfoDTO>
+    fun getTopRatedRecipes() : List<RecipeInfoDTO>
+    fun getMostViewedRecipes() : List<RecipeInfoDTO>
 }

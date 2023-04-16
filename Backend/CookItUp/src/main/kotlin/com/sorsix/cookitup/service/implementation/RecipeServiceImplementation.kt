@@ -21,20 +21,20 @@ class RecipeServiceImplementation(
     private val ingredientRepository: IngredientRepository,
     private val imageRepository: ImageRepository
 ) : RecipeService{
-    override fun findAllByCustomer(customer: Customer): List<Recipe> {
-        return recipeRepository.findAllByCustomer(customer)
+    override fun findAllByCustomer(customer: Customer): List<RecipeInfoDTO> {
+        return recipeRepository.findAllByCustomer(customer).map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
     }
 
-    override fun findAllByCategoryListContains(category: Category): List<Recipe> {
-        return recipeRepository.findAll().filter { it.categoryList.contains(category) }
+    override fun findAllByCategoryListContains(category: Category): List<RecipeInfoDTO> {
+        return recipeRepository.findAll().filter { it.categoryList.contains(category) }.map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
     }
 
-    override fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel): List<Recipe> {
-        return recipeRepository.findAllByDifficultyLevel(difficultyLevel)
+    override fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel): List<RecipeInfoDTO> {
+        return recipeRepository.findAllByDifficultyLevel(difficultyLevel).map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
     }
 
-    override fun findAllByNameContainingIgnoreCase(name: String): List<Recipe> {
-        return recipeRepository.findAllByNameContainingIgnoreCase(name)
+    override fun findAllByNameContainingIgnoreCase(name: String): List<RecipeInfoDTO> {
+        return recipeRepository.findAllByNameContainingIgnoreCase(name).map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
     }
 
     override fun findAllByRecipe(recipe: Recipe): List<Ingredient> {
@@ -43,14 +43,14 @@ class RecipeServiceImplementation(
         }.toList()
     }
 
-    override fun findAllByIngredient(ingredient: Ingredient): List<Recipe> {
+    override fun findAllByIngredient(ingredient: Ingredient): List<RecipeInfoDTO> {
         return ingredientIsInRecipeRepository.findAllByIngredient(ingredient).map {
             ingredientIsInRecipe -> ingredientIsInRecipe.recipe
-        }.toList()
+        }.map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.toList()
     }
 
-    override fun getAll(): List<Recipe> {
-        return recipeRepository.findAll()
+    override fun getAll(): List<RecipeInfoDTO> {
+        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
     }
 
     override fun save(recipeDTO: RecipeDTO): Recipe {
@@ -85,6 +85,7 @@ class RecipeServiceImplementation(
         val ingredientList: List<Ingredient> = this.findAllByRecipe(recipe)
         val imageList: List<Image> = imageRepository.getAllByRecipe(recipe)
         return RecipeInfoDTO(
+            recipe.recipeId,
             recipe.name,
             recipe.description,
             recipe.numPersons,
@@ -104,15 +105,15 @@ class RecipeServiceImplementation(
         return recipeRepository.getReferenceById(id)
     }
 
-    override fun getNewestRecipes(): List<Recipe> {
-        return recipeRepository.findAll().sortedByDescending { it.createdOn }.subList(0,5)
+    override fun getNewestRecipes(): List<RecipeInfoDTO> {
+        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.sortedByDescending { it.createdOn }.subList(0,5)
     }
 
-    override fun getTopRatedRecipes(): List<Recipe> {
-        return recipeRepository.findAll().sortedByDescending { it.avRating }.subList(0,5)
+    override fun getTopRatedRecipes(): List<RecipeInfoDTO> {
+        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.sortedByDescending { it.avRating }.subList(0,5)
     }
 
-    override fun getMostViewedRecipes(): List<Recipe> {
-        return recipeRepository.findAll().sortedByDescending { it.viewCount }.subList(0,5)
+    override fun getMostViewedRecipes(): List<RecipeInfoDTO> {
+        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.sortedByDescending { it.viewCount }.subList(0,5)
     }
 }
