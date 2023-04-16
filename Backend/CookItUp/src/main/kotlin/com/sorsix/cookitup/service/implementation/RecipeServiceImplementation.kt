@@ -63,7 +63,7 @@ class RecipeServiceImplementation(
                 recipeDTO.description,
                 recipeDTO.numPersons,
                 DifficultyLevel.valueOf(recipeDTO.difficultyLevel),
-                recipeDTO.prepTime, 0, 0, LocalDateTime.now(),
+                recipeDTO.prepTime, 0.0 ,0, LocalDateTime.now(),
                 customerRepository.findById(recipeDTO.customerId).get(),
                 categoryList
         )

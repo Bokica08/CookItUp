@@ -16,7 +16,7 @@ data class RecipeInfoDTO(
     val numPersons:Int?=null,
     val difficultyLevel: DifficultyLevel?=null,
     val prepTime:Int?=null,
-    val avRating:Int?=null,
+    val avRating:Double?=null,
     val viewCount:Int?=null,
     val createdOn: LocalDateTime?=null,
     val customer: Customer?=null,
