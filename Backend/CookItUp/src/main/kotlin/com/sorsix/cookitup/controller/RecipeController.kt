@@ -37,7 +37,6 @@ class RecipeController(val recipeService: RecipeService, val imageRepository: Im
                 imageRepository.save(Image(null,image.name,image.contentType, image.bytes,
                     request.session.getAttribute("recipe") as Recipe?
                 ))
-                println(image.bytes)
             }
             request.session.removeAttribute("recipe")
         }
