@@ -5,4 +5,5 @@ data class UserInfoDTO(
     private val lastname: String,
     private val username: String,
     private val roles: List<String> ){
+
 }

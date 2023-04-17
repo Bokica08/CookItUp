@@ -2,7 +2,9 @@ package com.sorsix.cookitup.service
 
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.User
+import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.dto.RegisterDTO
+import com.sorsix.cookitup.model.dto.UserInfoDTO
 import org.springframework.security.core.userdetails.UserDetailsService
 
 interface UserService : UserDetailsService {
@@ -10,4 +12,5 @@ interface UserService : UserDetailsService {
     fun register(userDTO: RegisterDTO): User
     fun getUser(username: String, password: String): User
     fun getCustomerByUsername(username: String): Customer
+    fun findByUsername(username: String) : CustomerInfoDTO
 }

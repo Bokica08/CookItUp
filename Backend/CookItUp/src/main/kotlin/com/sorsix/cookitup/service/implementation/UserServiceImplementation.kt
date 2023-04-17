@@ -3,7 +3,9 @@ package com.sorsix.cookitup.service.implementation
 import com.sorsix.cookitup.model.Admin
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.User
+import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.dto.RegisterDTO
+import com.sorsix.cookitup.model.dto.UserInfoDTO
 import com.sorsix.cookitup.model.enumeration.Role
 import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.repository.UserRepository
@@ -48,4 +50,9 @@ class UserServiceImplementation(val customerRepository: CustomerRepository, val 
     override fun getCustomerByUsername(username: String): Customer {
         return customerRepository.getByUsername(username)
     }
+
+    override fun findByUsername(username: String): CustomerInfoDTO {
+        return userRepository.findByUsername(username)
+    }
+
 }

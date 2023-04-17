@@ -71,4 +71,9 @@ class RecipeController(val recipeService: RecipeService, val imageRepository: Im
     fun getNewestRecipes() : ResponseEntity<Any> {
         return ResponseEntity.ok(recipeService.getNewestRecipes())
     }
+    @GetMapping("/{name}")
+    fun getRecipesByName(@PathVariable name:String):ResponseEntity<Any>
+    {
+        return ResponseEntity.ok(recipeService.findAllByNameContainingIgnoreCase(name))
+    }
 }
