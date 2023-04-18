@@ -52,7 +52,7 @@ class UserServiceImplementation(val customerRepository: CustomerRepository, val 
     }
 
     override fun findByUsername(username: String): CustomerInfoDTO {
-        return userRepository.findByUsername(username)
+        return customerRepository.findByUsername(username)
     }
 
 }

@@ -30,4 +30,11 @@ class Recipe(
                 joinColumns = [JoinColumn(name = "recipeId")],
                 inverseJoinColumns = [JoinColumn(name = "categoryId")],
         )
-        val categoryList: MutableList<Category> = arrayListOf())
+        val categoryList: MutableList<Category> = arrayListOf(),
+@ManyToMany
+@JsonManagedReference
+@JoinTable(name = "favorites",
+        joinColumns = [JoinColumn(name = "recipeId")],
+        inverseJoinColumns = [JoinColumn(name = "userId")],
+)
+val favoriteList: MutableList<Category> = arrayListOf())
