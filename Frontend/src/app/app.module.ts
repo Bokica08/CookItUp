@@ -7,21 +7,28 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { UserInfoComponent } from './components/user-info/user-info.component';
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RecipesComponent
+    RecipesComponent,
+    LoginComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
-  providers: [],
+  providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -37,4 +37,4 @@ class Recipe(
         joinColumns = [JoinColumn(name = "recipeId")],
         inverseJoinColumns = [JoinColumn(name = "userId")],
 )
-val favoriteList: MutableList<Category> = arrayListOf())
+val favoriteList: MutableList<Customer> = arrayListOf())
