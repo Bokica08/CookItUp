@@ -1,9 +1,13 @@
 package com.sorsix.cookitup.model.dto
 
+import com.sorsix.cookitup.model.enumeration.Role
+import lombok.Data
+
+@Data
 data class UserInfoDTO(
-    private val firstname: String,
-    private val lastname: String,
-    private val username: String,
-    private val roles: List<String> ){
+     val firstname: String,
+     val lastname: String,
+     val username: String,
+     val role: String ){
 
 }
