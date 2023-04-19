@@ -7,7 +7,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { dataResolverGetAdmin, dataResolverLoggedIn } from './resolver/dataResolverService';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
+  {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'recipes', component: RecipesComponent},
   {
     path:'login',component:LoginComponent

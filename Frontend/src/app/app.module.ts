@@ -10,6 +10,7 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

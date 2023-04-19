@@ -40,7 +40,7 @@ export class UserInfoComponent implements OnInit{
   }
   getRecipe()
   {
-    this.httpClient.get<any>("http://localhost:8080/api/customer/info",).subscribe(res=>
+    this.httpClient.get<any>("http://localhost:8080/api/customer/addFavorite/2",).subscribe(res=>
     {
       console.log(res);
       debugger
