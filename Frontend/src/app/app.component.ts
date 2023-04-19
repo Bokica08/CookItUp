@@ -18,7 +18,10 @@ export class AppComponent implements OnInit{
   constructor(private storageService: StorageService, private authService: AuthService,private activateRoute: ActivatedRoute,) {
    }
   ngOnInit(): void {
-    
+    this.isLoggedIn=this.storageService.isLoggedIn();
+    const user = this.storageService.getUser();
+      this.roles = user.roles;
+      this.username = user.username;
   }
   title = 'Frontend';
   logout(): void {

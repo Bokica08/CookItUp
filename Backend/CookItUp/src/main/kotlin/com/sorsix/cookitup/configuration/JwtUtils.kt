@@ -32,14 +32,14 @@ class JwtUtils {
             .secure(true).httpOnly(true).build()
     }
 
-    val cleanJwtCookie: ResponseCookie
-        get() = ResponseCookie.from(jwtCookie!!, null.toString()).path("/").sameSite("None").secure(true).httpOnly(true).build()
-
-    fun getUserNameFromJwtToken(token: String?): String {
+    fun getCleanJwtCookie(): ResponseCookie? {
+        return ResponseCookie.from(jwtCookie!!, null.toString()).path("/").sameSite("None").secure(true).httpOnly(true).build()
+    }
+    fun getUserNameFromJwtToken(token: String): String {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body.subject
     }
 
-    fun validateJwtToken(authToken: String?): Boolean {
+    fun validateJwtToken(authToken: String): Boolean {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken)
             return true
@@ -57,7 +57,7 @@ class JwtUtils {
         return false
     }
 
-    fun generateTokenFromUsername(username: String?): String {
+    fun generateTokenFromUsername(username: String): String {
         return Jwts.builder()
             .setSubject(username)
             .setIssuedAt(Date())

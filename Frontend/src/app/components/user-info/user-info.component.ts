@@ -38,12 +38,12 @@ export class UserInfoComponent implements OnInit{
     
     
   }
-  getRecipe(id:number)
+  getRecipe()
   {
-    this.httpClient.get<any>("http://localhost:8080/api/customer/addFavorite/"+id,).subscribe(res=>
+    this.httpClient.get<any>("http://localhost:8080/api/customer/info",).subscribe(res=>
     {
       console.log(res);
-      
+      debugger
     })
   }
 }

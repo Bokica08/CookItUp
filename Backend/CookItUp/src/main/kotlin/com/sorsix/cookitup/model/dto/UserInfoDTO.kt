@@ -8,6 +8,6 @@ data class UserInfoDTO(
      val firstname: String,
      val lastname: String,
      val username: String,
-     val role: String ){
+     val role: List<String> ){
 
 }

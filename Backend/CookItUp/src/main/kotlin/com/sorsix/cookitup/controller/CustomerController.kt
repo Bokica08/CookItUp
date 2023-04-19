@@ -19,7 +19,7 @@ class CustomerController(val userService: UserService, val reviewService: Review
 ,val orderService:OrderService, val recipeService: RecipeService) {
     @GetMapping("/info")
     fun getCustomerInfo(request:HttpServletRequest): ResponseEntity<CustomerInfoDTO> {
-        println(request.remoteUser)
+        println(SecurityContextHolder.getContext().authentication.name)
         return ResponseEntity.ok(this.userService.findByUsername(request.remoteUser))
     }
     @GetMapping("/myReviews")
