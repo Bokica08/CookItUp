@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany
 @Data
 class Customer(
     userId: Long, firstname: String, lastname: String, username: String, email: String, password: String, role: Role,
-    var phoneNumber: String, var address: String,
+    var phoneNumber: String?, var address: String?,
     @ManyToMany(mappedBy = "favoriteList")
     @JsonBackReference
     val recipeList: MutableList<Recipe> = arrayListOf()

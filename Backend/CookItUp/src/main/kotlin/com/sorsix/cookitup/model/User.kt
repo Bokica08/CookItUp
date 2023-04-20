@@ -21,7 +21,7 @@ abstract class User(
     private var username: String = "",
     open val email: String? = null,
     private var password: String = "",
-    @Enumerated(value = EnumType.STRING) open val role: Role? = null
+    @Enumerated(value = EnumType.STRING) open var role: Role? = null
 ) : UserDetails {
     override fun getAuthorities(): Collection<GrantedAuthority?>? {
         return Collections.singletonList(role)
