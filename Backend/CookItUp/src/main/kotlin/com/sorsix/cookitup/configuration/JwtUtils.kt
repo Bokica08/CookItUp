@@ -1,15 +1,18 @@
 package com.sorsix.cookitup.configuration
 
 import com.sorsix.cookitup.model.User
-import io.jsonwebtoken.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.ResponseCookie
-import org.springframework.stereotype.Component
-import org.springframework.web.util.WebUtils
-import java.util.*
-import javax.servlet.http.HttpServletRequest
+import java.time.LocalDate;
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
+import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
+import io.jsonwebtoken.*;
 
 
 @Component
@@ -22,8 +25,13 @@ class JwtUtils {
 
     @Value("\${bezkoder.app.jwtCookieName}")
     private val jwtCookie: String? = null
-    fun getJwtFromCookies(request: HttpServletRequest?): String? {
-        return WebUtils.getCookie(request!!, jwtCookie!!)?.value
+    fun getJwtFromCookies(request: HttpServletRequest): String? {
+        val cookie:Cookie?=WebUtils.getCookie(request,jwtCookie!!)
+        if(cookie!=null)
+        {
+            return cookie.value
+        }
+        return null
     }
 
     fun generateJwtCookie(userPrincipal: User): ResponseCookie {
@@ -32,14 +40,14 @@ class JwtUtils {
             .secure(true).httpOnly(true).build()
     }
 
-    val cleanJwtCookie: ResponseCookie
-        get() = ResponseCookie.from(jwtCookie!!, null.toString()).path("/").sameSite("None").secure(true).httpOnly(true).build()
-
-    fun getUserNameFromJwtToken(token: String?): String {
+    fun getCleanJwtCookie(): ResponseCookie? {
+        return ResponseCookie.from(jwtCookie!!, null.toString()).path("/").sameSite("None").secure(true).httpOnly(true).build()
+    }
+    fun getUserNameFromJwtToken(token: String): String {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body.subject
     }
 
-    fun validateJwtToken(authToken: String?): Boolean {
+     fun validateJwtToken(authToken: String): Boolean {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken)
             return true
@@ -57,7 +65,7 @@ class JwtUtils {
         return false
     }
 
-    fun generateTokenFromUsername(username: String?): String {
+    fun generateTokenFromUsername(username: String): String {
         return Jwts.builder()
             .setSubject(username)
             .setIssuedAt(Date())

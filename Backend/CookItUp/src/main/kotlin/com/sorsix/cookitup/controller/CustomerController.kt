@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/api/customer")
+@CrossOrigin(origins = ["http://localhost:4200"], allowCredentials = "true", maxAge = 3600)
 class CustomerController(val userService: UserService, val reviewService: ReviewService
 ,val orderService:OrderService, val recipeService: RecipeService) {
     @GetMapping
@@ -31,7 +32,8 @@ class CustomerController(val userService: UserService, val reviewService: Review
     }
     @GetMapping("/info")
     fun getCustomerInfo(request:HttpServletRequest): ResponseEntity<CustomerInfoDTO> {
-        return ResponseEntity.ok(this.userService.findByUsername(SecurityContextHolder.getContext().authentication.name))
+        println(SecurityContextHolder.getContext().authentication.name)
+        return ResponseEntity.ok(this.userService.findByUsername(request.remoteUser))
     }
     @GetMapping("/myReviews")
     fun getCustomerReviews(request: HttpServletRequest):ResponseEntity<Any>
@@ -53,7 +55,7 @@ class CustomerController(val userService: UserService, val reviewService: Review
         val recipesForCustomer:List<RecipeInfoDTO> =customer.recipeList.map { r->recipeService.getDetailsForRecipe(r.recipeId!!) }
         return ResponseEntity.ok(recipesForCustomer)
     }
-    @PostMapping("/addFavorite/{id}")
+    @GetMapping("/addFavorite/{id}")
     fun addToFavorite(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
     {
         // treba da se odi preku userService za da mozhe da se zacchuvaat promenite u baza

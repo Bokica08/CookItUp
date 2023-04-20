@@ -19,15 +19,19 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class AuthTokenFilter(private val jwtUtils: JwtUtils, private val userDetailsService: UserService) :
     OncePerRequestFilter() {
+
     @Throws(ServletException::class, IOException::class)
-    override fun doFilterInternal(
+    protected override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        println("Hello")
         try {
             val jwt = parseJwt(request)
+            println(jwt)
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+
                 val username = jwtUtils.getUserNameFromJwtToken(jwt)
                 val userDetails: UserDetails = userDetailsService.loadUserByUsername(username)
                 val authentication = UsernamePasswordAuthenticationToken(
