@@ -16,7 +16,3 @@ fun main(args: Array<String>) {
 	runApplication<CookItUpApplication>(*args)
 }
 
-@Bean
-fun passwordEncoder(): PasswordEncoder {
-	return BCryptPasswordEncoder(10)
-}

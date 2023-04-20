@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Recipe } from "../models/recipe";
+import { Category } from "../models/category";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,11 @@ export class RecipeService {
     }
     getTopRatedRecipes(): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(`${this.recipeUrl}/topRated`);
+    }
+    getCategories(): Observable<Category[]> {
+        return this.http.get<Category[]>(`${this.recipeUrl}/getCategories`);
+    }
+    getAllRecipesByCategory(category:String): Observable<Recipe[]> {
+        return this.http.get<Recipe[]>(`${this.recipeUrl}/category/${category}`)
     }
 }

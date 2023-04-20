@@ -6,6 +6,7 @@ import com.sorsix.cookitup.model.Review
 import com.sorsix.cookitup.model.dto.RecipeDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.dto.ReviewDTO
+import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.ImageRepository
 import com.sorsix.cookitup.service.RecipeService
 import com.sorsix.cookitup.service.ReviewService
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/api/recipe")
-class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService) {
+class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService,
+val categoryRepository: CategoryRepository) {
     // Get all recipes
     @GetMapping
     fun getAllRecipes() : ResponseEntity<Any> {
@@ -71,9 +73,17 @@ class RecipeController(val recipeService: RecipeService, val imageRepository: Im
     fun getNewestRecipes() : ResponseEntity<Any> {
         return ResponseEntity.ok(recipeService.getNewestRecipes())
     }
+    @GetMapping("/getCategories")
+    fun getCategories() : ResponseEntity<Any> {
+        return ResponseEntity.ok(categoryRepository.findAll())
+    }
     @GetMapping("/{name}")
     fun getRecipesByName(@PathVariable name:String):ResponseEntity<Any>
     {
         return ResponseEntity.ok(recipeService.findAllByNameContainingIgnoreCase(name))
+    }
+    @GetMapping("/category/{category}")
+    fun getRecipesByCategory(@PathVariable category: String):ResponseEntity<Any>{
+        return ResponseEntity.ok(recipeService.findAllByCategoryListContains(category = categoryRepository.findByNameIgnoreCase(category)))
     }
 }
