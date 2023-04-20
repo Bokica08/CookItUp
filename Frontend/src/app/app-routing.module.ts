@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
-import { LoginComponent } from './components/login/login.component';
-import { UserInfoComponent } from './components/user-info/user-info.component';
+import { UrlnotfoundComponent } from './components/urlnotfound/urlnotfound.component';
 import { dataResolverGetAdmin, dataResolverLoggedIn } from './resolver/dataResolverService';
+import { UserInfoComponent } from './components/user-info/user-info.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -14,7 +15,10 @@ const routes: Routes = [
   },
   {
     path:'info',component:UserInfoComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}
-  }
+  },
+  {path:'home',component: HomeComponent},
+  {path:'category/:category', component: RecipesComponent},
+  {path:'**', component: UrlnotfoundComponent}
 ];
 
 @NgModule({

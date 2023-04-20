@@ -1,0 +1,17 @@
+.card-group .card{
+    margin-right: 10px;
+}
+.card-group {
+    width: 80%;
+    margin: 0 auto;
+}
+.mainPageImage{
+    width: 85%;
+}
+.addRecipeButton{
+    padding-top: -20px;
+}
+.bottom-20{
+    bottom: 20%;
+    padding: 15px;
+}

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-home',
@@ -13,12 +14,13 @@ export class HomeComponent {
   newest: Recipe[] = [];
   topRated: Recipe[] = [];
   mostViewed: Recipe[] = [];
+  categories: Category[] = [];
   imageUrl: string | undefined
   constructor(private route: ActivatedRoute,
-    private recipeService: RecipeService,
-    private _sanitizer: DomSanitizer){}
+    private recipeService: RecipeService){}
   ngOnInit(): void {
-    this.getRecipes()    
+    this.getRecipes()
+    this.getCategories()   
   }
   getRecipes() {
     this.recipeService.getNewestRecipes().subscribe(
@@ -29,5 +31,8 @@ export class HomeComponent {
     );
     this.recipeService.getMostViewedRecipes().subscribe(r => this.mostViewed = r);
     this.recipeService.getTopRatedRecipes().subscribe(r => this.topRated = r);
+  }
+  getCategories() {
+    this.recipeService.getCategories().subscribe(c => this.categories = c)
   }
 }

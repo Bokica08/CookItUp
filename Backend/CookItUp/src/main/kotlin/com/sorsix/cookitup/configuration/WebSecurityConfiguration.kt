@@ -32,10 +32,6 @@ class WebSecurityConfiguration(
     private val unauthorizedHandler: AuthEntryPointJwt,
     private val passwordEncoder: PasswordEncoder
     ) {
-//    @Bean
-//    fun passwordEncoder(): PasswordEncoder {
-//        return BCryptPasswordEncoder(10)
-//    }
     @Bean
     fun authenticationProvider(): DaoAuthenticationProvider {
         val authProvider = DaoAuthenticationProvider()

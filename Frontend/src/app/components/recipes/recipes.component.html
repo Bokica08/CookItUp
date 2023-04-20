@@ -1,1 +1,18 @@
-<p>recipes works!</p>
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">Hello filters</div>
+            <div class="col-md-9 card-group mb-5">
+                <div *ngFor="let recipe of allRecipes" class="card">
+                    <img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray"
+                        alt="Recipe image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{recipe.name}}</h5>
+                        <p class="card-text">{{recipe.avRating}}</p>
+                        <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
