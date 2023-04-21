@@ -1,0 +1,17 @@
+#searchResult{
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+}
+#searchResult > div > div{
+    border: 1px solid black;
+    border-radius: 5%;
+    max-width: 250px;
+    max-height: 80px;
+    overflow: hidden;
+}
+#searchResult img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}

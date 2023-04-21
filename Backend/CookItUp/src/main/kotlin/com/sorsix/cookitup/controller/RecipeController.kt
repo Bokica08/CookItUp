@@ -44,9 +44,9 @@ val categoryRepository: CategoryRepository) {
         }
     }
     // Get details for specific recipe
-    @GetMapping("/{id}")
-    fun getDetailsForRecipe(@PathVariable id:Long):ResponseEntity<Any>{
-        val recipe: RecipeInfoDTO = recipeService.getDetailsForRecipe(id)
+    @GetMapping("/details/{id}")
+    fun getDetailsForRecipe(@PathVariable id:String):ResponseEntity<Any>{
+        val recipe: RecipeInfoDTO = recipeService.getDetailsForRecipe(id.toLong())
         return ResponseEntity.ok(recipe)
     }
     // Add review for recipe
@@ -77,7 +77,7 @@ val categoryRepository: CategoryRepository) {
     fun getCategories() : ResponseEntity<Any> {
         return ResponseEntity.ok(categoryRepository.findAll())
     }
-    @GetMapping("/{name}")
+    @GetMapping("/search/{name}")
     fun getRecipesByName(@PathVariable name:String):ResponseEntity<Any>
     {
         return ResponseEntity.ok(recipeService.findAllByNameContainingIgnoreCase(name))

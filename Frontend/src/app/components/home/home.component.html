@@ -1,36 +1,41 @@
 <div class="bg-light">
+    <div class="container">
     <div class="d-flex align-items-center flex-column mb-5">
         <img src="https://i.pinimg.com/originals/be/c4/de/bec4de77e9c454368367727167fcb65f.jpg" class="mainPageImage">
         <button class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x">Додај рецепт</button>
     </div>
+    <h3>Most Viewed Recipes</h3>
     <div class="card-group mb-5">
         <div *ngFor="let recipe of mostViewed" class="card">
-            <img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
+            <img class="card-img-top" routerLink="/recipe/{{recipe.id}}" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
             <div class="card-body">
-            <h5 class="card-title">{{recipe.name}}</h5>
-            <p class="card-text">{{recipe.avRating}}</p>
+            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
+            <p class="card-text">{{recipe.viewCount}}</p>
             <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
             </div>
         </div>
     </div>
+    <h3>Top Rated Recipes</h3>
     <div class="card-group mb-5">
         <div *ngFor="let recipe of topRated" class="card">
-            <img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
+            <img class="card-img-top" routerLink="/recipe/{{recipe.id}}" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
             <div class="card-body">
-            <h5 class="card-title">{{recipe.name}}</h5>
+            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
             <p class="card-text">{{recipe.avRating}}</p>
             <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
             </div>
         </div>
     </div>
-    <div class="card-group mb-5">
+    <h3>Newest Recipes</h3>
+    <div class="card-group pb-5">
         <div *ngFor="let recipe of newest" class="card">
-            <img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
+            <img class="card-img-top" routerLink="/recipe/{{recipe.id}}" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
             <div class="card-body">
-            <h5 class="card-title">{{recipe.name}}</h5>
-            <p class="card-text">{{recipe.avRating}}</p>
+            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
+            <p class="card-text">{{recipe.createdOn}}</p>
             <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
             </div>
         </div>
     </div>
+</div>
 </div>
