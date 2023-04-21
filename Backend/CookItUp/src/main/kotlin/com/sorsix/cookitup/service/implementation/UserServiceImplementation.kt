@@ -1,16 +1,10 @@
 package com.sorsix.cookitup.service.implementation
 
-import com.sorsix.cookitup.model.Admin
-import com.sorsix.cookitup.model.Customer
-import com.sorsix.cookitup.model.Recipe
-import com.sorsix.cookitup.model.User
+import com.sorsix.cookitup.model.*
 import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.dto.RegisterDTO
 import com.sorsix.cookitup.model.enumeration.Role
-import com.sorsix.cookitup.repository.AdminRepository
-import com.sorsix.cookitup.repository.CustomerRepository
-import com.sorsix.cookitup.repository.RecipeRepository
-import com.sorsix.cookitup.repository.UserRepository
+import com.sorsix.cookitup.repository.*
 import com.sorsix.cookitup.service.UserService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -20,7 +14,7 @@ import javax.transaction.Transactional
 
 
 @Service
-class UserServiceImplementation(val adminRepository: AdminRepository,val recipeRepository: RecipeRepository,val customerRepository: CustomerRepository, val userRepository: UserRepository,val passwordEncoder: PasswordEncoder): UserService {
+class UserServiceImplementation(val pendingAdminRepository: PendingAdminRepository,val adminRepository: AdminRepository,val recipeRepository: RecipeRepository,val customerRepository: CustomerRepository, val userRepository: UserRepository,val passwordEncoder: PasswordEncoder): UserService {
     override fun loadUserByUsername(username: String): User {
         return userRepository.findAllByUsername(username).first()
     }
@@ -40,16 +34,14 @@ class UserServiceImplementation(val adminRepository: AdminRepository,val recipeR
                 )
             )
         else {
-            return userRepository.save(
-                Customer(
+            return pendingAdminRepository.save(
+                PendingAdmin(
                     0L, userDTO.firstName,
                     userDTO.lastName,
                     userDTO.username,
                     userDTO.email,
                     passwordEncoder.encode(userDTO.password),
-                    Role.ROLE_PENDING_ADMIN,
-                    null,
-                    null
+                    Role.ROLE_PENDING_ADMIN
                 )
             )
         }
@@ -88,15 +80,14 @@ class UserServiceImplementation(val adminRepository: AdminRepository,val recipeR
     }
 
     override fun authorizePendingAdmin(username: String?): Optional<User> {
-        val user: User = userRepository.findByUsername(username)
+        val user: PendingAdmin = pendingAdminRepository.findByUsername(username)
         if (user.role!=Role.ROLE_PENDING_ADMIN) {
             throw TODO()
         }
         user.role=Role.ROLE_ADMIN
-        userRepository.save(user)
-        //tuka frla error
-        //pending_admin e zapisan kako customer i treba da se trgne od tabelata customer i da se
-        // stai u admin tabelata ali ima constrains i frla greski
-        return Optional.of(adminRepository.save(user))
+        val admin= Admin(user.userId,user.firstname,user.lastname,user.username,user.email,user.password,user.role)
+        pendingAdminRepository.delete(user)
+        adminRepository.save(admin)
+        return Optional.of(admin)
     }
 }

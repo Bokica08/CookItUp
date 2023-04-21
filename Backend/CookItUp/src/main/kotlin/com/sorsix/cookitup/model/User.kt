@@ -15,13 +15,13 @@ import javax.persistence.*
 @Data
 @Table(name = "users")
 abstract class User(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) open var userId: Long? = null,
-    open val firstname: String? = null,
-    open val lastname: String? = null,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) open var userId: Long,
+    open val firstname: String ,
+    open val lastname: String ,
     private var username: String = "",
-    open val email: String? = null,
+    open val email: String,
     private var password: String = "",
-    @Enumerated(value = EnumType.STRING) open var role: Role? = null
+    @Enumerated(value = EnumType.STRING) open var role: Role
 ) : UserDetails {
     override fun getAuthorities(): Collection<GrantedAuthority?>? {
         return Collections.singletonList(role)
