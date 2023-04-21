@@ -1,0 +1,73 @@
+<section class="vh-80 gradient-custom">
+    <div class="container py-5 h-80">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+                <form #f="ngForm" (ngSubmit)="submit(f)">
+                    <div class="mb-md-5 mt-md-4 pb-5">
+  
+                        <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+                        <p class="text-white-50 mb-5">Please enter information here</p>
+        
+                        <div class="form-outline form-white mb-4">
+                          <input required #username="ngModel" type="text" id="typeEmailX" class="form-control form-control-lg" name="username" [(ngModel)]="register.username" />
+                          <label class="form-label" for="username">Username</label><br>
+                          <span *ngIf="(username.invalid && username.touched)  || (f.submitted && username.invalid)" class="error text-danger">Username filed is required</span>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                          <input required #firstName="ngModel" type="text" id="firstName" class="form-control form-control-lg"name="firstName" [(ngModel)]="register.firstName" />
+                          <label class="form-label" for="firstName">Firstname</label><br>
+                          <span *ngIf="(firstName.invalid && firstName.touched)  || (f.submitted && firstName.invalid)" class="error text-danger">Firstname filed is required</span>
+        
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                          <input required #lastName="ngModel" type="text" id="lastName" class="form-control form-control-lg" name="lastName" [(ngModel)]="register.lastName" />
+                          <label class="form-label" for="lastName">Lastname</label><br>
+                          <span *ngIf="(lastName.invalid && lastName.touched)  || (f.submitted && lastName.invalid)" class="error text-danger">Lastname filed is required</span>
+        
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                          <input required #password="ngModel" type="password" id="password" class="form-control form-control-lg" name="password" [(ngModel)]="register.password" />
+                          <label class="form-label" for="password">Password</label><br>
+                          <span *ngIf="(password.invalid && password.touched) || (f.submitted && password.invalid)" class="error text-danger">Password filed is required</span>
+        
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                          <input required #repeatedPassword="ngModel" type="password" id="repeatedPassword" pattern="{{register.password}}"
+                           class="form-control form-control-lg" name="repeatedPassword" [(ngModel)]="register.repeatedPassword" />
+                          <label class="form-label" for="repeatedPassword">Repeated Password</label><br>
+                          <span *ngIf="f.submitted && repeatedPassword.errors!['pattern'] || (repeatedPassword.invalid && repeatedPassword.touched)" class="error text-danger">Password and Repeated Password do not match</span>
+        
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <input required  #email="ngModel" type="text" id="email" email class="form-control form-control-lg" name="email" [(ngModel)]="register.email" />
+                            <label class="form-label" for="email">Email</label><br>
+                            <span *ngIf="email.errors?.['email'] || f.submitted"  class="error text-danger">Email format is not valid</span>
+          
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <select required #role="ngModel" class="form-select form-select-lg mb-1"  [(ngModel)]="register.role" name="role">
+                                <option *ngFor="let r of this.roles" [ngValue]="r.value">{{r.name}}</option>
+                            </select>
+                            <label class="form-label" for="role">Role</label><br>
+                            <span *ngIf="(role.invalid && role.touched)  || (f.submitted && role.invalid)" class="error text-danger">Please select role</span>
+        
+                        </div>
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button><br>
+                        <span *ngIf="f.valid && f.submitted" class="successes text-success">Successfully registered</span>
+                      </div>
+          
+
+                </form>
+                <div>
+                    <p class="mb-0">Already have an account? <a href="/login" class="text-white-50 fw-bold">Log in</a>
+    
+                    </p>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

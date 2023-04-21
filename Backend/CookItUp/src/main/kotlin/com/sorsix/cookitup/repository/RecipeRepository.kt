@@ -5,6 +5,7 @@ import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 interface RecipeRepository : JpaRepository<Recipe, Long> {

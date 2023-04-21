@@ -11,6 +11,7 @@ interface CustomerRepository : JpaRepository<Customer, Long> {
     fun getByUsername(username: String): Customer
     fun findByUserId(id:Long):Customer
     fun findByUsername(username: String) : CustomerInfoDTO
+    fun deleteById(id:Long?):Customer
 
 
 }

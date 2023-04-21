@@ -1,5 +1,6 @@
 package com.sorsix.cookitup.model.dto
 
+import com.sorsix.cookitup.model.enumeration.Role
 import lombok.Data
 
 @Data
@@ -9,8 +10,7 @@ data class RegisterDTO(
     var repeatedPassword: String,
     var firstName: String,
     var lastName: String,
-    var email: String,
-    var phoneNumber: String? = null,
-    var address: String? = null,
+    var role:Role,
+    var email: String
 ) {
 }

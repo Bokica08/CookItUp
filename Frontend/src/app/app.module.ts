@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -27,14 +28,15 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
+    AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]
