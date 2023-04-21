@@ -52,6 +52,7 @@
                             </select>
                             <label class="form-label" for="role">Role</label><br>
                             <span *ngIf="(role.invalid && role.touched)  || (f.submitted && role.invalid)" class="error text-danger">Please select role</span>
+                            <span *ngIf="role.value=='ROLE_PENDING_ADMIN'" class="text-info">NOTE: You will become admin after one of the admins approves your request</span>
         
                         </div>
                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button><br>
