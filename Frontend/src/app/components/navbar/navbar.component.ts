@@ -14,8 +14,12 @@ export class NavbarComponent {
     private recipeService: RecipeService){}
   ngOnInit(): void {
     this.getCategories()   
+    console.log(this.categories);
+    
+    
   }
   getCategories() {
     this.recipeService.getCategories().subscribe(c => this.categories = c)
+
   }
 }
