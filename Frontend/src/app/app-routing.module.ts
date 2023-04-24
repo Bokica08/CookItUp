@@ -12,7 +12,6 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
-import { DetailsRecipeComponent } from './components/details-recipe/details-recipe.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -22,7 +21,6 @@ const routes: Routes = [
   {
     path:'register',component:RegisterComponent
   },
-  {path:'details/:id',component:DetailsRecipeComponent},
   {path:'addRecipe',component:AddReipeComponent,resolve:{data:dataResolverGetCategories}},
   {path:'home',component: HomeComponent},
   {path:'category/:category', component: RecipesComponent},

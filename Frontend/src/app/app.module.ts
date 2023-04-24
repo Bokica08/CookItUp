@@ -21,8 +21,6 @@ import { ContactComponent } from './components/contact/contact.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { DetailsRecipeComponent } from './components/details-recipe/details-recipe.component';
 
 
 
@@ -37,7 +35,6 @@ import { DetailsRecipeComponent } from './components/details-recipe/details-reci
     LoginComponent,
     UserInfoComponent,
     AddReipeComponent,
-    DetailsRecipeComponent,
     RecipeDetailsComponent,
     AboutUsComponent,
     ContactComponent,
@@ -50,7 +47,6 @@ import { DetailsRecipeComponent } from './components/details-recipe/details-reci
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgMultiSelectDropDownModule.forRoot()
     ],
   providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]
