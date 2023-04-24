@@ -1,12 +1,9 @@
 package com.sorsix.cookitup.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.sorsix.cookitup.model.enumeration.Role
 import lombok.Data
 import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 
 @Entity
@@ -19,6 +16,4 @@ class Customer(
     val recipeList: MutableList<Recipe> = arrayListOf()
 
 ) : User(userId, firstname, lastname, username, email, password, role,
-    ) {
-
-}
+    )

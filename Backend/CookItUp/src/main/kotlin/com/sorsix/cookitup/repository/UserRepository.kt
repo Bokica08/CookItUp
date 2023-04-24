@@ -1,7 +1,6 @@
 package com.sorsix.cookitup.repository
 
 import com.sorsix.cookitup.model.User
-import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.enumeration.Role
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

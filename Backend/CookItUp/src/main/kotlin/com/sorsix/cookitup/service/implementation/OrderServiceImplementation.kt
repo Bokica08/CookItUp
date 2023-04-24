@@ -19,7 +19,7 @@ class OrderServiceImplementation(private val repository: OrderRepository) : Orde
     }
 
     override fun save(orderDTO: OrderDTO): Order {
-        val order:Order=Order(null,orderDTO.phoneNumber,orderDTO.address,orderDTO.orderStatus,orderDTO.numPersons,orderDTO.recipe,orderDTO.customer,orderDTO.admin)
+        val order =Order(null,orderDTO.phoneNumber,orderDTO.address,orderDTO.orderStatus,orderDTO.numPersons,orderDTO.recipe,orderDTO.customer,orderDTO.admin)
         return repository.save(order)
     }
 

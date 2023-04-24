@@ -15,5 +15,4 @@ data class OrderDTO(
     val recipe: Recipe?=null,
     val customer: Customer?=null,
     val admin: Admin?=null
-) {
-}
+)

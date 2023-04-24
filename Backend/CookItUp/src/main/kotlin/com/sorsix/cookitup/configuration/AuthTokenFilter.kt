@@ -21,7 +21,7 @@ class AuthTokenFilter(private val jwtUtils: JwtUtils, private val userDetailsSer
     OncePerRequestFilter() {
 
     @Throws(ServletException::class, IOException::class)
-    protected override fun doFilterInternal(
+    override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain

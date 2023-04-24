@@ -21,5 +21,4 @@ class Review(
         @JoinColumn(name = "userId")
         val customer: Customer?=null,
 
-) {
-}
+)

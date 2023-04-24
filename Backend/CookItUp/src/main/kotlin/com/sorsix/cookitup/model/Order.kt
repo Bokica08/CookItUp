@@ -25,5 +25,4 @@ class Order(
         @ManyToOne
         @JoinColumn(name = "adminId")
         val admin: Admin?=null,
-        ) {
-}
+        )

@@ -6,11 +6,9 @@ import com.sorsix.cookitup.model.dto.RegisterDTO
 import com.sorsix.cookitup.model.enumeration.Role
 import com.sorsix.cookitup.repository.*
 import com.sorsix.cookitup.service.UserService
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
-import javax.transaction.Transactional
 
 
 @Service
@@ -66,7 +64,7 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
         recipe.favoriteList.add(customer)
         customerRepository.save(customer)
         recipeRepository.save(recipe)
-        return 1;
+        return 1
 
 
     }

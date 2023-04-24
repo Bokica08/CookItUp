@@ -18,4 +18,5 @@ export class Recipe {
     categoryList!: Category[];
     ingredientList!: Ingredient[];
     imageList!: Image[];
+    customerName!: string
 }

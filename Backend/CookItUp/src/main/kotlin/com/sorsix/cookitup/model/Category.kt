@@ -15,5 +15,4 @@ class Category(
         @JsonBackReference
         val recipeList: MutableList<Recipe> = arrayListOf()
 
-) {
-}
+)

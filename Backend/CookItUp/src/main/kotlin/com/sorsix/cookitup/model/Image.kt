@@ -21,5 +21,4 @@ class Image(
     @JoinColumn(name = "recipeId")
     val recipe: Recipe? = null,
 
-) {
-}
+)

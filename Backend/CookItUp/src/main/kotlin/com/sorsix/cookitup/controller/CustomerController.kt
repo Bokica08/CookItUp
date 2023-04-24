@@ -28,7 +28,7 @@ class CustomerController(val userService: UserService, val reviewService: Review
             String(
                 Base64.getDecoder()
                     .decode(authToken)
-            ).split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().get(0)
+            ).split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
         }
     }
     @GetMapping("/info")

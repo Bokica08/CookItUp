@@ -13,5 +13,4 @@ data class CustomerInfoDTO (
      var address: String,
      val role: Role,
 
-){
-}
+)

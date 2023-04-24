@@ -12,5 +12,4 @@ data class RegisterDTO(
     var lastName: String,
     var role:Role,
     var email: String
-) {
-}
+)

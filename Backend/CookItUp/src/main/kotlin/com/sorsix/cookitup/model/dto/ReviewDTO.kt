@@ -6,5 +6,4 @@ import lombok.Data
 data class ReviewDTO(
     val content: String?=null,
     val stars:Int,
-) {
-}
+)
