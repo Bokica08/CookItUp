@@ -3,6 +3,7 @@ package com.sorsix.cookitup.controller
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
+import com.sorsix.cookitup.model.dto.RecipePreviewDTO
 import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.RecipeService
@@ -56,6 +57,14 @@ class CustomerController(val userService: UserService, val reviewService: Review
         val recipesForCustomer:List<RecipeInfoDTO> =customer.recipeList.map { r->recipeService.getDetailsForRecipe(r.recipeId!!) }
         return ResponseEntity.ok(recipesForCustomer)
     }
+    @GetMapping("/myRecipes")
+    fun getCustomerRecipes(request:HttpServletRequest):ResponseEntity<Any>
+    {
+
+        val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
+        val recipes = recipeService.findAllByCustomer(customer)
+        return ResponseEntity.ok(recipes)
+    }
     @GetMapping("/addFavorite/{id}")
     fun addToFavorite(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
     {
@@ -65,7 +74,7 @@ class CustomerController(val userService: UserService, val reviewService: Review
         userService.addToFavorites(request.remoteUser,id)
         return ResponseEntity.ok(customer)
     }
-    @GetMapping("/customerCount")
+    @GetMapping("/customersCount")
     fun getCustomerCount() : ResponseEntity<Any>{
         return ResponseEntity.ok(customerRepository.count())
     }

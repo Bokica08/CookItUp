@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerService } from 'src/app/services/customer.service';
+import { OrderService } from 'src/app/services/order.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -15,12 +17,16 @@ export class AboutUsComponent {
     { src: 'https://img.freepik.com/free-vector/gradient-delivery-concept-with-phone_23-2149164058.jpg?w=740&t=st=1682299870~exp=1682300470~hmac=a63fa1a02b1ebc477b5e22e77e801b068c9196c8630509b525f88410c7c6c20a', alt: 'Orders', text: 'Processed orders', count:0 }
   ];
   constructor(private route: ActivatedRoute,
-    private recipeService: RecipeService){}
+    private recipeService: RecipeService,
+    private customerService: CustomerService,
+    private orderService: OrderService){}
   ngOnInit(): void {
     this.getAllCounts() 
   }
   getAllCounts(){
     this.recipeService.getCategoriesCount().subscribe((n)=>this.images[2].count=n)
     this.recipeService.getRecipesCount().subscribe((n)=>this.images[1].count=n)
+    this.orderService.getNumberOfOrders().subscribe((n)=>this.images[3].count=n)
+    this.customerService.getNumberOfCustomers().subscribe((n)=>this.images[0].count=n)
   }
 }

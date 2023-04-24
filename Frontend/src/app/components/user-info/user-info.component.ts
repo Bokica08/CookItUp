@@ -23,7 +23,6 @@ export class UserInfoComponent implements OnInit{
   constructor(private userService:UserService,private activateRoute: ActivatedRoute,private strorageService:StorageService,private httpClient:HttpClient){
     this.isLoggedIn=this.activateRoute.snapshot.data['data5']
     this.user=this.activateRoute.snapshot.data['data6']
-    
   }
 
   ngOnInit(): void {

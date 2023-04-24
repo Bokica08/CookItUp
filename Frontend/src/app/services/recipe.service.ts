@@ -51,4 +51,5 @@ export class RecipeService {
     getCategoriesCount():Observable<number> {
         return this.http.get<number>(`${this.recipeUrl}/categoriesCount`)
     }
+    
 }
