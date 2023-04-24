@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="project-info-box mt-0">
+                <h5>{{recipe.name}}</h5>
+                <p class="mb-0">{{recipe.description}}</p>
+            </div><!-- / project-info-box -->
+
+            <div class="project-info-box">
+                <p><b>City: </b>{{recipe.numPersons}}</p>
+                <p><b>Address:</b> {{recipe.difficultyLevel}}</p>
+                <p><b>Elevation:</b> {{recipe.avRating}}</p>
+                <p><b>X coordinate: </b>{{recipe.viewCount}}</p>
+                <ul>
+                    <li *ngFor="let c of recipe.categoryList">{{c.name}}</li>
+                </ul>
+            </div><!-- / project-info-box -->    prepTime!: number;
+            avRating!: number;
+            viewCount!: number;
+            createdOn!: string;
+            customer!: Customer;
+            categoryList!: Category[];
+            ingredientList!: Ingredient[];
+            imageList!: Image[];
+
+</div>

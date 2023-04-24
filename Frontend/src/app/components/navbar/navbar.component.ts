@@ -17,7 +17,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  categories: Category[] = [];
+  categories: Category[] = [];    
   recipes : Recipe[] | undefined
   searchTerms = new Subject<string>();
   searchResultsVisible = false;
@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
         
   } 
   getCategories() {
+
     this.recipeService.getCategories().subscribe((c) => (this.categories = c));
   }
   hideSearchResults() {

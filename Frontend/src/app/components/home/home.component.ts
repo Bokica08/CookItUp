@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Category } from 'src/app/models/category';
 
 @Component({

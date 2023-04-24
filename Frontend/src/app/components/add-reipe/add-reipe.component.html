@@ -1,0 +1,112 @@
+<h2 class="text-center mt-3">New Recipe</h2>
+<hr />
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+    <div class="mt-4">
+        <div class="row mb-3 w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="name">Name</label><br>
+            <div class="col-md-4">
+                <input required #name="ngModel" type="text" id="name" class="form-control" name="name"
+                    [(ngModel)]="recipe!.name" />
+            </div>
+        </div>
+        <div class="row mb-3 w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="numPersons">numPersons</label><br>
+            <div class="col-md-4">
+                <input required #numPersons="ngModel" type="number" id="numPersons" class="form-control"
+                    name="numPersons" [(ngModel)]="recipe!.numPersons" />
+            </div>
+        </div>
+        <div class="mb-3 row w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="prepTime">prepTime</label><br>
+            <div class="col-md-4">
+                <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control" name="prepTime"
+                    [(ngModel)]="recipe!.prepTime" />
+            </div>
+        </div>
+        <div class="mb-3 row w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="city">Difficulty level</label><br>
+            <span class="col-md-2">
+                <input checked #difficultyLevel="ngModel" type="radio" name="difficultyLevel" value="Easy" [(ngModel)]="recipe!.difficultyLevel">
+                Easy
+            </span>
+            <span class="col-md-2">
+                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Medium" [(ngModel)]="recipe!.difficultyLevel">
+                Medium
+            </span>
+            <span class="col-md-1">
+                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard" [(ngModel)]="recipe!.difficultyLevel">
+                Hard
+            </span>
+        </div>
+        <div class="row mb-3 w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="description">Description</label><br>
+            <div class="col-md-4">
+                <input required #description="ngModel" type="textarea" id="description" class="form-control"
+                    name="description" [(ngModel)]="recipe!.description" />
+            </div>
+        </div>
+        Categories:
+        <div class="mb-3 row w-80">
+            <div class="col-md-3"></div>
+
+            <select required #categoryList="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="recipe.categoryList" multiple="multiple">
+                <option *ngFor="let c of this.categories" [ngValue]="c.categoryId">{{c.name}}</option>
+            </select>
+        </div>
+        <a  class="m-3 btn btn-success" (click)="addBox()">Add Ingredient</a>
+        <div *ngFor="let box of boxes" class="box">
+            <div class="container">
+                <div class="row justify-content-center mb-3">
+                    <label class="form-label col-md-2 font-weight-bold text-right" for="">Quantity:</label>
+                    <div class="col-3">
+                        <input required  type="number" id="kolicina" class="form-control"
+                            style="width: 300px;" name="kolicina" />
+                    </div>
+                    <div class="col-3">
+
+                        <select class="form-select" style="width: 300px;">
+                            <option *ngFor="let m of measures">{{m}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select required #ingredientList="ngModel" class="form-select" style="width: 300px;" [(ngModel)]="recipe!.ingredientList" [ngModelOptions]="{standalone: true}">
+                            >
+                            <option *ngFor="let i of ingredients" [ngValue]="i.ingredientId">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-3 bg-primary m-3"></div>
+                    <div class="col-6 bg-primary m-3"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="container">
+            <h2>Image Upload Form</h2>
+                <div class="form-group">
+                    <label for="image1">Upload Required Image:</label>
+                    <input  type="file" class="form-control-file m-3" id="image1" value="imageList" name="image1" required>
+                </div>
+                <div class="form-group">
+                    <label for="image2">Upload Optional Image 1:</label>
+                    <input type="file" class="form-control-file m-3" id="image2" name="image2">
+                </div>
+                <div class="form-group">
+                    <label for="image3">Upload Optional Image 2:</label>
+                    <input type="file" class="form-control-file m-3" id="image3" name="image3">
+                </div>
+        </div>
+        
+    </div>
+    <button class="btn btn-info m-3" type="submit">Create</button><br>
+</form>
+<div class="row" style="margin-bottom: 4em;">
+    <div class="col-md-12"></div>
+</div>

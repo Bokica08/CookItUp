@@ -43,7 +43,7 @@ export class UserInfoComponent implements OnInit{
   getRecipe()
   {
 
-    this.httpClient.get<any>("http://localhost:8080/api/admin/pending/authorizeAdmin?username=test").subscribe(res=>
+    this.httpClient.get<any>("http://localhost:8080/api/admin/pending/authorizeAdmin?username=qweqwe").subscribe(res=>
     {
       console.log(res);
       debugger
