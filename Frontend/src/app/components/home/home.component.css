@@ -2,16 +2,15 @@
     margin-right: 10px;
 }
 .card-group {
-    width: 80%;
     margin: 0 auto;
 }
 .mainPageImage{
-    width: 85%;
+    width: 100%;
 }
 .addRecipeButton{
     padding-top: -20px;
 }
 .bottom-20{
-    bottom: 20%;
-    padding: 15px;
+    bottom: 12.5%;
+    padding: 0.75em;
 }

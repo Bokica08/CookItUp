@@ -3,6 +3,7 @@ package com.sorsix.cookitup.service.implementation
 import com.sorsix.cookitup.model.*
 import com.sorsix.cookitup.model.dto.RecipeDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
+import com.sorsix.cookitup.model.dto.RecipePreviewDTO
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 import com.sorsix.cookitup.model.enumeration.Measure
 import com.sorsix.cookitup.model.manyToMany.IngredientIsInRecipe
@@ -21,20 +22,20 @@ class RecipeServiceImplementation(
     private val ingredientRepository: IngredientRepository,
     private val imageRepository: ImageRepository
 ) : RecipeService{
-    override fun findAllByCustomer(customer: Customer): List<RecipeInfoDTO> {
-        return recipeRepository.findAllByCustomer(customer).map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
+    override fun findAllByCustomer(customer: Customer): List<RecipePreviewDTO> {
+        return recipeRepository.findAllByCustomer(customer).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
-    override fun findAllByCategoryListContains(category: Category): List<RecipeInfoDTO> {
-        return recipeRepository.findAll().filter { it.categoryList.contains(category) }.map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
+    override fun findAllByCategoryListContains(category: Category): List<RecipePreviewDTO> {
+        return recipeRepository.findAll().filter { it.categoryList.contains(category) }.map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
-    override fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel): List<RecipeInfoDTO> {
-        return recipeRepository.findAllByDifficultyLevel(difficultyLevel).map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
+    override fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel): List<RecipePreviewDTO> {
+        return recipeRepository.findAllByDifficultyLevel(difficultyLevel).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
-    override fun findAllByNameContainingIgnoreCase(name: String): List<RecipeInfoDTO> {
-        return recipeRepository.findAllByNameContainingIgnoreCase(name).map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
+    override fun findAllByNameContainingIgnoreCase(name: String): List<RecipePreviewDTO> {
+        return recipeRepository.findAllByNameContainingIgnoreCase(name).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun findAllByRecipe(recipe: Recipe): List<Ingredient> {
@@ -49,8 +50,8 @@ class RecipeServiceImplementation(
         }.map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.toList()
     }
 
-    override fun getAll(): List<RecipeInfoDTO> {
-        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }
+    override fun getAll(): List<RecipePreviewDTO> {
+        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun save(recipeDTO: RecipeDTO): Recipe {
@@ -105,15 +106,37 @@ class RecipeServiceImplementation(
         return recipeRepository.getReferenceById(id)
     }
 
-    override fun getNewestRecipes(): List<RecipeInfoDTO> {
-        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.sortedByDescending { it.createdOn }.subList(0,5)
+    override fun getNewestRecipes(): List<RecipePreviewDTO> {
+        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }.sortedByDescending { it.createdOn }.subList(0,5)
     }
 
-    override fun getTopRatedRecipes(): List<RecipeInfoDTO> {
-        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.sortedByDescending { it.avRating }.subList(0,5)
+    override fun getTopRatedRecipes(): List<RecipePreviewDTO> {
+        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }.sortedByDescending { it.avRating }.subList(0,5)
     }
 
-    override fun getMostViewedRecipes(): List<RecipeInfoDTO> {
-        return recipeRepository.findAll().map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.sortedByDescending { it.viewCount }.subList(0,5)
+    override fun getMostViewedRecipes(): List<RecipePreviewDTO> {
+        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }.sortedByDescending { it.viewCount }.subList(0,5)
     }
+
+    override fun getPreviewForRecipe(id: Long): RecipePreviewDTO {
+        val recipe = recipeRepository.getReferenceById(id)
+        val imageList: List<Image> = imageRepository.getAllByRecipe(recipe)
+        return RecipePreviewDTO(
+            recipe.recipeId,
+            recipe.name,
+            recipe.numPersons,
+            recipe.difficultyLevel,
+            recipe.prepTime,
+            recipe.avRating,
+            recipe.viewCount,
+            recipe.createdOn!!.toLocalDate(),
+            recipe.customer!!.username,
+            imageList
+        )
+    }
+
+    override fun getNumberOfRecipes(): Long {
+        return recipeRepository.count()
+    }
+
 }

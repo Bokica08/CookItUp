@@ -26,10 +26,8 @@ class AuthTokenFilter(private val jwtUtils: JwtUtils, private val userDetailsSer
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        println("Hello")
         try {
             val jwt = parseJwt(request)
-            println(jwt)
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 
                 val username = jwtUtils.getUserNameFromJwtToken(jwt)
