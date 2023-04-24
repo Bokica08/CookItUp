@@ -1,12 +1,14 @@
 <div class="bg-light">
   <div class="container">
-    <div class="row mt-3" style="height: 70%">
+    <div class="row pt-4" style="height: 70%">
       <div class="col-5">
         <img
           class="img-fluid"
           [src]="'data:image/jpg;base64,' + recipe!!.imageList[0].byteArray"
           alt="Recipe image"
         />
+        <a class="btn btn-success" (click)="addToFavorites()"><img [src]="img">
+        {{buttonText}}</a>
       </div>
       <div class="col-7">
         <h1 class="display-6">{{ recipe?.name }}</h1>
@@ -26,6 +28,7 @@
       </div>
     </div>
     <div class="row m-3">
+      <div class="col-8">
       <ul class="list-group list-group-horizontal">
         <li class="list-group-item" *ngFor="let c of recipe?.categoryList">
           <a
@@ -35,6 +38,13 @@
           >
         </li>
       </ul>
+    </div>
+    <div class="col-4">
+      <a class="btn btn-info">TODO() Order ingredients for recipe</a>
+      <!-- if already in favorites = button disabled -->
+      <!-- if user not logged in button is hidden -->
+      <!-- if the logged user is the one that posted the recipe, button disabled -->
+    </div>
     </div>
     <div class="row mb-3">
       <h1 class="display-6">Instruction:</h1>
@@ -76,11 +86,16 @@
           <a class="btn btn-info">TODO() Add review</a>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->
+          <!-- if the logged user is the one that posted the recipe, button disabled -->
         </form>
       </div>
       <div *ngFor="let r of recipe?.reviews">
         {{ r.content }} - {{ r.stars }} - {{ r.username }} - {{ r.reviewedOn }}
       </div>
+    </div>
+    <div class="row mb-3">
+        <h1 class="display-6">Simillar Recipes: </h1>
+        <p>Low priority, could be implemented, find simillar based on ingredients or category</p>
     </div>
   </div>
 </div>

@@ -1,0 +1,23 @@
+<div class="bg-light pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row card-group flex-wrap mb-5">
+                    <div *ngFor="let recipe of myRecipes" class="card col-lg-3 col-md-4">
+                        <a routerLink="/recipe/{{recipe.id}}"><img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray"
+                            alt="Recipe image"></a>
+                        <div class="card-body">
+                            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
+                            <p class="card-text">{{recipe.avRating}}</p>
+                            <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
+                            <p>
+                                <a class="btn btn-warning">Edit</a>
+                                <a class="btn btn-danger">Delete</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/order")
 class OrderController(val orderService: OrderService) {
 
     @PostMapping

@@ -21,6 +21,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
+import { MyRecipesComponent } from './components/my-recipes/my-recipes.component';
+import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite-recipes.component';
 
 
 
@@ -39,7 +41,9 @@ import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
     AboutUsComponent,
     ContactComponent,
     FaqComponent,
-    RegisterComponent
+    RegisterComponent,
+    MyRecipesComponent,
+    FavoriteRecipesComponent
   ],
   imports: [
     BrowserModule,

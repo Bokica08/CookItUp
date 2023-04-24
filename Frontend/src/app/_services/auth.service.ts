@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Register } from '../models/register';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
-
+const USER_KEY = 'auth-user';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
@@ -26,6 +26,7 @@ export class AuthService {
     );
   }
   logout(): Observable<any> {
+    window.sessionStorage.removeItem(USER_KEY);
     return this.http.post(AUTH_API + 'logout', { }, httpOptions);
   }
   register(register:Register):Observable<any>
