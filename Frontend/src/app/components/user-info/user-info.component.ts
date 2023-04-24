@@ -18,10 +18,12 @@ export class UserInfoComponent implements OnInit{
   showAdminBoard: any;
   showModeratorBoard: any;
   username: any;
+  text="test"
   userAccount:any;
   constructor(private userService:UserService,private activateRoute: ActivatedRoute,private strorageService:StorageService,private httpClient:HttpClient){
     this.isLoggedIn=this.activateRoute.snapshot.data['data5']
     this.user=this.activateRoute.snapshot.data['data6']
+    
   }
 
   ngOnInit(): void {
@@ -40,7 +42,8 @@ export class UserInfoComponent implements OnInit{
   }
   getRecipe()
   {
-    this.httpClient.get<any>("http://localhost:8080/api/customer/addFavorite/2",).subscribe(res=>
+
+    this.httpClient.get<any>("http://localhost:8080/api/admin/pending/authorizeAdmin?username=test").subscribe(res=>
     {
       console.log(res);
       debugger

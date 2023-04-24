@@ -60,9 +60,9 @@ class CustomerController(val userService: UserService, val reviewService: Review
     fun addToFavorite(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
     {
         // treba da se odi preku userService za da mozhe da se zacchuvaat promenite u baza
-        // userService.addToVisited(request.remoteUser, id)
+        // userService.addToFave(request.remoteUser, id)
         val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
-        customer.recipeList.add(recipeService.getRecipeById(id))
+        userService.addToFavorites(request.remoteUser,id)
         return ResponseEntity.ok(customer)
     }
     @GetMapping("/customerCount")

@@ -19,6 +19,7 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -36,13 +37,14 @@ import { FaqComponent } from './components/faq/faq.component';
     AboutUsComponent,
     ContactComponent,
     FaqComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
+    AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]
