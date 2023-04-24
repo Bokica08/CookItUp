@@ -1,51 +1,86 @@
 <div class="bg-light">
   <div class="container">
-    <div class="row">
-      <h2 style="color: #b54f41">
-        <b>{{recipe?.name}}</b>
-      </h2>
-      <div>
-        <div class="d-flex whiteBackground">
-          <div class="fitAll">
-            <img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe!!.imageList[0].byteArray"
-                        alt="Recipe image">
-          </div>
-          <div class="width50">
-            <div>
-              <span class="textMaroon">Просечна оценка: </span>
-              <span>{{recipe?.avRating}}</span>
-            </div>
-            <div>
-              <span class="textMaroon">Број на прегледи: </span>
-              <span>{{recipe?.viewCount}}</span>
-            </div>
-            <div>
-              <span class="textMaroon">Комплексност: </span>
-              <span>{{recipe?.difficultyLevel}}</span>
-            </div>
-            <div>
-              <span class="textMaroon">Препорачано за: </span>
-              <span>{{recipe?.numPersons}} луѓе</span>
-            </div>
-            <div>
-              <span class="textMaroon">Време: </span>
-              <span
-                >{{recipe?.prepTime}} минути</span
-              >
-            </div>
-            <div>
-              <span class="textMaroon">Автор: </span>
-              <span>{{recipe?.customer?.username}}</span>
-            </div>
-            <div style="margin-bottom: 5px">
-              <span class="textMaroon">Состојки: </span>
-              <p>{{recipe!!.ingredientList[0].name}}</p>
-            </div>
-          </div>
+    <div class="row mt-3" style="height: 70%">
+      <div class="col-5">
+        <img
+          class="img-fluid"
+          [src]="'data:image/jpg;base64,' + recipe!!.imageList[0].byteArray"
+          alt="Recipe image"
+        />
+      </div>
+      <div class="col-7">
+        <h1 class="display-6">{{ recipe?.name }}</h1>
+        <p>{{ recipe?.numPersons }} persons, {{ recipe?.prepTime }} minutes</p>
+        <p>
+          Difficulty: {{ recipe?.difficultyLevel }}, Average Rating:
+          {{ recipe?.avRating }}
+        </p>
+        <p>Total views: {{ recipe?.viewCount }}</p>
+        <p>
+          Added by: {{ recipe?.customer?.username }} on {{ recipe?.createdOn }}
+        </p>
+        <h6 class="display-6">Ingredients</h6>
+        <div *ngFor="let ing of recipe?.ingredientList">
+          {{ ing.quantity }} {{ ing.measure }} {{ ing.name }}
         </div>
       </div>
-      <h3>Начин на подготовка:</h3>
-      <p style="max-width: 100%">{{recipe?.description}}</p>
+    </div>
+    <div class="row m-3">
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item" *ngFor="let c of recipe?.categoryList">
+          <a
+            class="link-class text-dark"
+            routerLink="/category/{{ c.name.toLocaleLowerCase() }}"
+            >{{ c.name }}</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="row mb-3">
+      <h1 class="display-6">Instruction:</h1>
+      <div>{{ recipe?.description }}</div>
+    </div>
+    <div class="row mb-3">
+      <h1 class="display-6">Additional images:</h1>
+      <div>
+        <div *ngIf="recipe!!.imageList[1] != undefined">
+          <img
+            class="img-recipe-details"
+            [src]="'data:image/jpg;base64,' + recipe!!.imageList[1].byteArray"
+            alt="Recipe image"
+          />
+        </div>
+        <div *ngIf="recipe!!.imageList[2] != undefined">
+          <img
+            class="img-recipe-details"
+            [src]="'data:image/jpg;base64,' + recipe!!.imageList[2].byteArray"
+            alt="Recipe image"
+          />
+        </div>
+        <div
+          *ngIf="
+            recipe!!.imageList[1] == undefined &&
+            recipe!!.imageList[2] == undefined
+          "
+        >
+          No more images available
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <h1 class="display-6">Reviews:</h1>
+      <div>
+        <form>
+          <input type="text" placeholder="Content not required" />
+          <input type="number" min="1" max="5" placeholder="Rating" />
+          <a class="btn btn-info">TODO() Add review</a>
+          <!-- after adding button is disabled -->
+          <!-- if user not logged in this form won't show -->
+        </form>
+      </div>
+      <div *ngFor="let r of recipe?.reviews">
+        {{ r.content }} - {{ r.stars }} - {{ r.username }} - {{ r.reviewedOn }}
+      </div>
     </div>
   </div>
 </div>

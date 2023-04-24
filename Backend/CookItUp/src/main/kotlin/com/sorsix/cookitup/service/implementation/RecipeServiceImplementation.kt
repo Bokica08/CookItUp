@@ -1,15 +1,14 @@
 package com.sorsix.cookitup.service.implementation
 
 import com.sorsix.cookitup.model.*
-import com.sorsix.cookitup.model.dto.RecipeDTO
-import com.sorsix.cookitup.model.dto.RecipeInfoDTO
-import com.sorsix.cookitup.model.dto.RecipePreviewDTO
+import com.sorsix.cookitup.model.dto.*
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 import com.sorsix.cookitup.model.enumeration.Measure
 import com.sorsix.cookitup.model.manyToMany.IngredientIsInRecipe
 import com.sorsix.cookitup.model.manyToMany.IngredientIsInRecipeId
 import com.sorsix.cookitup.repository.*
 import com.sorsix.cookitup.service.RecipeService
+import com.sorsix.cookitup.service.ReviewService
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -20,7 +19,8 @@ class RecipeServiceImplementation(
     private val customerRepository: CustomerRepository,
     private val categoryRepository: CategoryRepository,
     private val ingredientRepository: IngredientRepository,
-    private val imageRepository: ImageRepository
+    private val imageRepository: ImageRepository,
+    private val reviewService: ReviewService
 ) : RecipeService{
     override fun findAllByCustomer(customer: Customer): List<RecipePreviewDTO> {
         return recipeRepository.findAllByCustomer(customer).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
@@ -84,7 +84,13 @@ class RecipeServiceImplementation(
     override fun getDetailsForRecipe(id: Long): RecipeInfoDTO {
         val recipe = recipeRepository.getReferenceById(id)
         val ingredientList: List<Ingredient> = this.findAllByRecipe(recipe)
+        val ingredientIsInRecipeList: List<IngredientIsInRecipeDTO> = ingredientList.map {
+            ing -> this.getIngredientInRecipe(id, ing.ingredientId!!)
+        }
         val imageList: List<Image> = imageRepository.getAllByRecipe(recipe)
+        val reviewList: List<ReviewForRecipeDTO> = reviewService.findAllByRecipe(recipe).map {
+            reviewService.getReviewInfo(it.reviewId!!)
+        }
         return RecipeInfoDTO(
             recipe.recipeId,
             recipe.name,
@@ -94,11 +100,12 @@ class RecipeServiceImplementation(
             recipe.prepTime,
             recipe.avRating,
             recipe.viewCount,
-            recipe.createdOn,
+            recipe.createdOn!!.toLocalDate(),
             recipe.customer,
             recipe.categoryList,
-            ingredientList,
-            imageList
+            ingredientIsInRecipeList,
+            imageList,
+            reviewList
         )
     }
 
@@ -137,6 +144,12 @@ class RecipeServiceImplementation(
 
     override fun getNumberOfRecipes(): Long {
         return recipeRepository.count()
+    }
+
+    override fun getIngredientInRecipe(recipeId: Long, ingredientId: Long): IngredientIsInRecipeDTO {
+        return ingredientIsInRecipeRepository.findById(IngredientIsInRecipeId(ingredientId,recipeId)).map {
+            IngredientIsInRecipeDTO(it.ingredient.name!!, it.quantity, it.measure.toString())
+        }.get()
     }
 
 }

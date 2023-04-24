@@ -14,6 +14,7 @@ import com.sorsix.cookitup.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import java.time.LocalDateTime
 import javax.servlet.http.HttpServletRequest
 
 @RestController
@@ -53,7 +54,8 @@ val categoryRepository: CategoryRepository) {
     @PostMapping("/addReview/{id}")
     fun addReviewForRecipe(@PathVariable id:Long, @RequestBody reviewDTO: ReviewDTO, request: HttpServletRequest):ResponseEntity<Any>{
         val recipe = recipeService.getRecipeById(id)
-        val review = reviewService.addReview(Review(null,reviewDTO.content,reviewDTO.stars, recipe,userService.getCustomerByUsername(
+        val review = reviewService.addReview(Review(null,reviewDTO.content,reviewDTO.stars,
+            LocalDateTime.now() ,recipe,userService.getCustomerByUsername(
             request.session.getAttribute("username") as String
         )))
         return ResponseEntity.ok(review)

@@ -2,7 +2,9 @@ import { Category } from "./category";
 import { Customer } from "./customer";
 import { DifficultyLevel } from "./difficultyLevel";
 import { Image } from "./image";
+import { IngInRecipe } from "./ingInRecipe";
 import { Ingredient } from "./ingredient";
+import { ReviewInfo } from "./reviewInfo";
 
 export class Recipe {
     id!: number;
@@ -16,7 +18,8 @@ export class Recipe {
     createdOn!: string;
     customer!: Customer;
     categoryList!: Category[];
-    ingredientList!: Ingredient[];
+    ingredientList!: IngInRecipe[];
     imageList!: Image[];
-    customerName!: string
+    customerName!: string;
+    reviews!: ReviewInfo[];
 }

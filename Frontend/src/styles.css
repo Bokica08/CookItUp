@@ -42,3 +42,8 @@
     color: black;
     cursor: pointer;
 }
+.img-recipe-details{
+    max-height: 100%;
+    width: auto;
+    /* object-fit: cover; */
+}

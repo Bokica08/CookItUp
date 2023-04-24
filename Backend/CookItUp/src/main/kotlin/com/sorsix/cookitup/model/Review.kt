@@ -1,6 +1,7 @@
 package com.sorsix.cookitup.model
 
 import lombok.Data
+import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -14,6 +15,7 @@ class Review(
         val reviewId: Long? = null,
         val content: String?=null,
         val stars:Int?=null,
+        val reviewedOn: LocalDateTime?=null,
         @ManyToOne
         @JoinColumn(name = "recipeId")
         val recipe: Recipe?=null,
@@ -21,4 +23,4 @@ class Review(
         @JoinColumn(name = "userId")
         val customer: Customer?=null,
 
-)
+        )

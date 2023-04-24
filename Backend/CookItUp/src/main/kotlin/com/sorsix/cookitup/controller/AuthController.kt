@@ -36,13 +36,11 @@ class AuthController(
         val userInfo =UserInfoDTO(
             firstname = userDetails.firstname, lastname = userDetails.lastname,
             username = userDetails.username, role = roles
-
         )
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,jwtCookie.toString())
             .body(
                 userInfo
-
-            )
+        )
     }
 
     @PostMapping("/logout")

@@ -27,6 +27,8 @@ export class RecipeDetailsComponent {
     this.recipeService.getDetailsForRecipe(id).subscribe(
       r => {
         this.recipe = r;
+        console.log(r.reviews);
+        
       }
     );
   }
