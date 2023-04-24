@@ -1,3 +1,41 @@
+<div class="bg-light">
+  <div class="container pt-3 pb-5">
+    <h1 class="display-3 pb-3">About us</h1>
+    <p>
+      At our website, users can discover an extensive collection of recipes
+      spanning diverse cuisines and cooking styles. Whether they are in search
+      of quick and easy weeknight meals, impressive dishes for special
+      occasions, or healthy options for a balanced diet, our platform caters to
+      all tastes. Each recipe is accompanied by detailed step-by-step
+      instructions, including cooking times and techniques, making it accessible
+      and enjoyable for cooks of all levels of experience, even for those who
+      are new to the kitchen.
+    </p>
+    <div class="row">
+      <div class="col-md-3 pt-3 pb-3" *ngFor="let image of images">
+        <div class="text-center">
+          <img
+            class="rounded-circle"
+            [src]="image.src"
+            [alt]="image.alt"
+            width="150"
+            height="150"
+          />
+          <p>Over {{ image.count }} {{ image.text }}</p>
+        </div>
+      </div>
+    </div>
+    <p>
+      In summary, our online recipe and grocery shopping platform is designed to
+      simplify the cooking process for busy home cooks. With a diverse selection
+      of recipes and integrated grocery shopping, our platform makes it easy for
+      users to plan, shop, and cook delicious meals at home. Say goodbye to the
+      stress of meal planning and grocery shopping, and let our platform be your
+      go-to resource for convenient and delicious home cooking.
+    </p>
+  </div>
+</div>
+
 <!-- kratok paragraf -->
 <!-- 4 kartichki -->
 <!-- customers number -->

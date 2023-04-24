@@ -4,10 +4,7 @@ import com.sorsix.cookitup.model.dto.OrderDTO
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.UserService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
 @RestController
@@ -19,5 +16,9 @@ class OrderController(val orderService: OrderService,val userService: UserServic
     {
         val order=orderService.save(orderDto);
         return ResponseEntity.ok(order)
+    }
+    @GetMapping("/ordersCount")
+    fun getOrdersCount():ResponseEntity<Any>{
+        return ResponseEntity.ok(orderService.getNumberOfOrders())
     }
 }

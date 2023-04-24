@@ -1,41 +1,186 @@
-<div class="bg-light">
+<div class="bg-dark text-white">
+  <div class="container pb-1">
+    <div class="d-flex align-items-center flex-column mb-5 pt-3">
+      <img src="../../../assets/ingredients.jpg" class="mainPageImage" />
+      <button
+        class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x"
+      >
+        Додај рецепт
+      </button>
+    </div>
+    </div>
+    </div>
+    <div class="bg-light pt-4 pb-4">
     <div class="container">
-    <div class="d-flex align-items-center flex-column mb-5">
-        <img src="https://i.pinimg.com/originals/be/c4/de/bec4de77e9c454368367727167fcb65f.jpg" class="mainPageImage">
-        <button class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x">Додај рецепт</button>
-    </div>
-    <h3>Most Viewed Recipes</h3>
-    <div class="card-group mb-5">
-        <div *ngFor="let recipe of mostViewed" class="card">
-            <img class="card-img-top" routerLink="/recipe/{{recipe.id}}" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
-            <div class="card-body">
-            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
-            <p class="card-text">{{recipe.viewCount}}</p>
-            <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
-            </div>
+    <h1 class="display-6">Most Viewed Recipes</h1>
+    <div class="card-group">
+      <div
+        *ngFor="let recipe of mostViewed"
+        class="card m-3 card-border-radius"
+      >
+        <img
+          class="card-img-top"
+          routerLink="/recipe/{{ recipe.id }}"
+          [src]="'data:image/jpg;base64,' + recipe.imageList[0].byteArray"
+          alt="Recipe image"
+        />
+        <div class="card-body">
+          <a
+            class="card-title custom-card-title link-class text-dark"
+            routerLink="/recipe/{{ recipe.id }}"
+            >{{ recipe.name }}</a
+          >
+          <div class="card-text">
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 1)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 1)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 2)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 2)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 3)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 3)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 4)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 4)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 5)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 5)"
+            ></span>
+          </div>
+          <div class="card-text d-flex justify-content-between">
+            <p>{{ recipe.viewCount }} views</p>
+            <p>{{ recipe.difficultyLevel }}</p>
+          </div>
+          <div class="card-text d-flex justify-content-between text-muted">
+            <p>{{ recipe.createdOn }}</p>
+            <p>{{ recipe.customerName }}</p>
+          </div>
         </div>
+      </div>
     </div>
-    <h3>Top Rated Recipes</h3>
-    <div class="card-group mb-5">
-        <div *ngFor="let recipe of topRated" class="card">
-            <img class="card-img-top" routerLink="/recipe/{{recipe.id}}" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
-            <div class="card-body">
-            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
-            <p class="card-text">{{recipe.avRating}}</p>
-            <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
-            </div>
+    </div>
+    </div>
+    <div class="bg-dark text-white pt-4 pb-4">
+    <div class="container">
+    <h3 class="display-6">Top Rated Recipes</h3>
+    <div class="card-group ">
+      <div *ngFor="let recipe of topRated" class="card m-3 card-border-radius bg-dark">
+        <img
+          class="card-img-top"
+          routerLink="/recipe/{{ recipe.id }}"
+          [src]="'data:image/jpg;base64,' + recipe.imageList[0].byteArray"
+          alt="Recipe image"
+        />
+        <div class="card-body">
+          <a
+            class="card-title custom-card-title link-class text-white"
+            routerLink="/recipe/{{ recipe.id }}"
+            >{{ recipe.name }}</a
+          >
+          <div class="card-text">
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 1)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 1)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 2)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 2)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 3)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 3)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 4)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 4)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 5)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 5)"
+            ></span>
+          </div>
+          <div class="card-text d-flex justify-content-between">
+            <p>{{ recipe.viewCount }} views</p>
+            <p>{{ recipe.difficultyLevel }}</p>
+          </div>
+          <div class="card-text d-flex justify-content-between text-muted">
+            <p>{{ recipe.createdOn }}</p>
+            <p>{{ recipe.customerName }}</p>
+          </div>
         </div>
+      </div>
     </div>
-    <h3>Newest Recipes</h3>
-    <div class="card-group pb-5">
-        <div *ngFor="let recipe of newest" class="card">
-            <img class="card-img-top" routerLink="/recipe/{{recipe.id}}" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray" alt="Recipe image">
-            <div class="card-body">
-            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
-            <p class="card-text">{{recipe.createdOn}}</p>
-            <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
-            </div>
+    </div>
+    </div>
+    <div class="bg-light pt-4 pb-4">
+    <div class="container">
+    <h3 class="display-6">Newest Recipes</h3>
+    <div class="card-group">
+      <div *ngFor="let recipe of newest" class="card m-3 card-border-radius bg-light">
+        <img
+          class="card-img-top"
+          routerLink="/recipe/{{ recipe.id }}"
+          [src]="'data:image/jpg;base64,' + recipe.imageList[0].byteArray"
+          alt="Recipe image"
+        />
+        <div class="card-body">
+          <a
+            class="card-title custom-card-title link-class text-dark"
+            routerLink="/recipe/{{ recipe.id }}"
+            >{{ recipe.name }}</a
+          >
+          <div class="card-text">
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 1)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 1)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 2)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 2)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 3)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 3)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 4)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 4)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe.avRating, 5)"
+              [class.half-filled]="isStarHalfFilled(recipe.avRating, 5)"
+            ></span>
+          </div>
+          <div class="card-text d-flex justify-content-between">
+            <p>{{ recipe.viewCount }} views</p>
+            <p>{{ recipe.difficultyLevel }}</p>
+          </div>
+          <div class="card-text d-flex justify-content-between text-muted">
+            <p>{{ recipe.createdOn }}</p>
+            <p>{{ recipe.customerName }}</p>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

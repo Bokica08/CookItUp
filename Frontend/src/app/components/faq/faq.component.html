@@ -1,1 +1,23 @@
-<h1>Frequently Asked Questions (FAQ)</h1>
+<div class="bg-light">
+    <div class="container pt-3 pb-3">
+        <h1 class="display-5 pb-5">Frequently Asked Questions (FAQ)</h1>
+        <div class="pb-5">  
+            <div class="card" *ngFor="let q of faq">
+              <div class="card-header" [attr.id]="'heading' + q.title">
+                <h5 class="mb-0 p-2">
+                  <a class="faq-a" (click)="onAccordionItemClick(q)" [attr.data-toggle]="'collapse'" [attr.data-target]="'#collapse' + q.title" [attr.aria-expanded]="q.isExpanded ? 'true' : 'false'" [attr.aria-controls]="'collapse' + q.title">
+                    {{ q.title }}
+                  </a>
+                </h5>
+              </div>
+          
+              <div [attr.id]="'collapse' + q.title" class="collapse" [class.show]="q.isExpanded" [attr.aria-labelledby]="'heading' + q.title" data-parent="#accordionExample">
+                <div class="card-body">
+                  {{ q.content }}
+                </div>
+              </div>
+            </div>
+          </div>
+            
+    </div>
+</div>

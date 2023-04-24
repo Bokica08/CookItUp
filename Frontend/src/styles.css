@@ -7,7 +7,38 @@
     object-fit: cover; /* Use object-fit: cover to maintain aspect ratio and fill the fixed height */
 }
 .custom-card-title {
-    height: 50px!important; /* Set the desired height for the card title */
+    height: 47px!important; /* Set the desired height for the card title */
     display: inline-block;
     overflow: hidden!important; /* Use overflow: hidden to hide any overflowing text */
+}
+.card-border-radius {
+    border-radius: 5%;
+}
+.link-class {
+    text-decoration: none;
+}
+.link-class:hover {
+    text-decoration: underline;
+}
+.star {
+    display: inline-block;
+    width: 24px; 
+    height: 24px;
+    background-image: url("./assets/empty.png");
+    background-size: cover;
+}
+
+.star.filled {
+    background-image: url('./assets/full.png');
+    background-size: cover;
+}
+
+.star.half-filled {
+    background-image: url('./assets/half.png');
+    background-size: cover;
+}
+.faq-a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
 }

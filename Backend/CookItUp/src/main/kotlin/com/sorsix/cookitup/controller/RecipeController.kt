@@ -86,4 +86,12 @@ val categoryRepository: CategoryRepository) {
     fun getRecipesByCategory(@PathVariable category: String):ResponseEntity<Any>{
         return ResponseEntity.ok(recipeService.findAllByCategoryListContains(category = categoryRepository.findByNameIgnoreCase(category)))
     }
+    @GetMapping("/recipesCount")
+    fun getRecipesCount():ResponseEntity<Any>{
+        return ResponseEntity.ok(recipeService.getNumberOfRecipes())
+    }
+    @GetMapping("/categoriesCount")
+    fun getCategoriesCount():ResponseEntity<Any>{
+        return ResponseEntity.ok(categoryRepository.count())
+    }
 }

@@ -18,4 +18,5 @@ export interface Recipe {
     categoryList:    Category[];
     ingredientList:  Ingredient[];
     imageList: Image[];
+    customerName: string;
 }

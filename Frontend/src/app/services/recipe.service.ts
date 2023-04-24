@@ -35,4 +35,10 @@ export class RecipeService {
     searchByName(name:string):Observable<Recipe[]> {
         return this.http.get<Recipe[]>(`${this.recipeUrl}/search/${name}`)
     }
+    getRecipesCount():Observable<number> {
+        return this.http.get<number>(`${this.recipeUrl}/recipesCount`)
+    }
+    getCategoriesCount():Observable<number> {
+        return this.http.get<number>(`${this.recipeUrl}/categoriesCount`)
+    }
 }

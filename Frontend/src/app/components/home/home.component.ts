@@ -14,25 +14,26 @@ export class HomeComponent {
   newest: Recipe[] = [];
   topRated: Recipe[] = [];
   mostViewed: Recipe[] = [];
-  categories: Category[] = [];
   imageUrl: string | undefined
   constructor(private route: ActivatedRoute,
     private recipeService: RecipeService){}
   ngOnInit(): void {
-    this.getRecipes()
-    this.getCategories()   
+    this.getRecipes() 
   }
   getRecipes() {
     this.recipeService.getNewestRecipes().subscribe(
       r => {
         this.newest = r;
-        this.imageUrl = this.newest[0].imageList[0].byteArray
       }
     );
     this.recipeService.getMostViewedRecipes().subscribe(r => this.mostViewed = r);
     this.recipeService.getTopRatedRecipes().subscribe(r => this.topRated = r);
   }
-  getCategories() {
-    this.recipeService.getCategories().subscribe(c => this.categories = c)
+  isStarFilled(averageRating: number, starNumber: number): boolean {
+    return starNumber <= Math.floor(averageRating);
+  }
+  isStarHalfFilled(averageRating: number, starNumber: number): boolean {
+    return starNumber > Math.floor(averageRating) && starNumber === Math.ceil(averageRating)
+    && averageRating >= starNumber-0.5
   }
 }
