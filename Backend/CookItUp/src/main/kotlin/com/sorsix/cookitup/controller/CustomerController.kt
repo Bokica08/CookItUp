@@ -3,6 +3,7 @@ package com.sorsix.cookitup.controller
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
+import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.RecipeService
 import com.sorsix.cookitup.service.ReviewService
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/api/customer")
 @CrossOrigin(origins = ["http://localhost:4200"], allowCredentials = "true", maxAge = 3600)
 class CustomerController(val userService: UserService, val reviewService: ReviewService
-,val orderService:OrderService, val recipeService: RecipeService) {
+,val orderService:OrderService, val recipeService: RecipeService, val customerRepository: CustomerRepository) {
     @GetMapping
     fun user(request: HttpServletRequest): Principal? {
         val authToken = request.getHeader("Authorization")
@@ -63,6 +64,10 @@ class CustomerController(val userService: UserService, val reviewService: Review
         val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
         userService.addToFavorites(request.remoteUser,id)
         return ResponseEntity.ok(customer)
+    }
+    @GetMapping("/customerCount")
+    fun getCustomerCount() : ResponseEntity<Any>{
+        return ResponseEntity.ok(customerRepository.count())
     }
 
 

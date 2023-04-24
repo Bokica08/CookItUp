@@ -26,7 +26,19 @@ export class RecipeService {
     getCategories(): Observable<Category[]> {
         return this.http.get<Category[]>(`${this.recipeUrl}/getCategories`);
     }
-    getAllRecipesByCategory(category:String): Observable<Recipe[]> {
+    getAllRecipesByCategory(category:string): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(`${this.recipeUrl}/category/${category}`)
+    }
+    getDetailsForRecipe(id:string): Observable<Recipe> {
+        return this.http.get<Recipe>(`${this.recipeUrl}/details/${id}`)
+    }
+    searchByName(name:string):Observable<Recipe[]> {
+        return this.http.get<Recipe[]>(`${this.recipeUrl}/search/${name}`)
+    }
+    getRecipesCount():Observable<number> {
+        return this.http.get<number>(`${this.recipeUrl}/recipesCount`)
+    }
+    getCategoriesCount():Observable<number> {
+        return this.http.get<number>(`${this.recipeUrl}/categoriesCount`)
     }
 }

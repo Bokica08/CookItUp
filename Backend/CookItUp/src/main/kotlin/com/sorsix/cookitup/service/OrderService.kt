@@ -11,4 +11,5 @@ interface OrderService {
     fun findAllByOrderStatus(orderStatus: OrderStatus) : List<Order>
     fun findAllByCustomer(customer: Customer) : List<Order>
     fun save(orderDTO: OrderDTO) : Order
+    fun getNumberOfOrders() : Long
 }

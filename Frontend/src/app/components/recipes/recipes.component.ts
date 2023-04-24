@@ -11,16 +11,21 @@ import { RecipeService } from 'src/app/services/recipe.service';
 export class RecipesComponent {
   allRecipes: Recipe[] = [];
   category: string | null = null;
+  inputText: string | null = null;
   constructor(private route: ActivatedRoute,
     private recipeService: RecipeService){}
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.category = params.get('category');
-      if(this.category==null){
+      this.inputText = params.get('inputText');
+      if(this.category==null && this.inputText==null){
         this.getAllRecipes()
       }
-      else{
+      else if(this.category!=null){
         this.getAllRecipesByCategory(this.category)
+      }
+      else if(this.inputText!=null){
+        this.getAllRecipesByContaining(this.inputText)
       }
     });
 
@@ -35,6 +40,13 @@ export class RecipesComponent {
   }
   getAllRecipesByCategory(category:string){
     this.recipeService.getAllRecipesByCategory(category).subscribe(
+      r => {
+        this.allRecipes = r;
+      }
+    )
+  }
+  getAllRecipesByContaining(inputText:string){
+    this.recipeService.searchByName(inputText).subscribe(
       r => {
         this.allRecipes = r;
       }

@@ -15,6 +15,10 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { FaqComponent } from './components/faq/faq.component';
 import { RegisterComponent } from './components/register/register.component';
 
 
@@ -29,6 +33,10 @@ import { RegisterComponent } from './components/register/register.component';
     FooterComponent,
     LoginComponent,
     UserInfoComponent,
+    RecipeDetailsComponent,
+    AboutUsComponent,
+    ContactComponent,
+    FaqComponent,
     RegisterComponent
   ],
   imports: [

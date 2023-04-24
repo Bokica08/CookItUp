@@ -22,4 +22,8 @@ class OrderServiceImplementation(private val repository: OrderRepository) : Orde
         val order:Order=Order(null,orderDTO.phoneNumber,orderDTO.address,orderDTO.orderStatus,orderDTO.numPersons,orderDTO.recipe,orderDTO.customer,orderDTO.admin)
         return repository.save(order)
     }
+
+    override fun getNumberOfOrders(): Long {
+        return repository.count()
+    }
 }
