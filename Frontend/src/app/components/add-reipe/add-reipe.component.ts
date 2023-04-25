@@ -10,6 +10,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 import { RecipeDTO } from 'src/app/models/recipedto';
 import { DifficultyLevel } from 'src/app/models/difficultyLevel';
 import { IngInRecipe } from 'src/app/models/ingInRecipe'
+import { flatMap } from 'rxjs';
 @Component({
   selector: 'app-add-reipe',
   templateUrl: './add-reipe.component.html',
@@ -65,13 +66,22 @@ export class AddReipeComponent implements OnInit{
     }
     console.log(this.recipe);
     
-    let idRecipe = 0
-   this.recipeService.addRecipe(this.recipe).subscribe(res=>{idRecipe = res.recipeId;console.log("idRecipe:",idRecipe);
-   });
-   console.log("idRecipe",idRecipe);
-   this.formData.append('images',this.requiredImage!!, this.requiredImage?.name)
-    this.recipeService.addImgRecipe(this.formData, idRecipe).subscribe(res=>{console.log(res);
-    })
+    let idRecipe = 0;
+    this.formData.append('images',this.requiredImage!!,this.requiredImage?.name)
+    this.recipeService.addRecipe(this.recipe)
+      .pipe(
+        flatMap(res => {
+          idRecipe = res.recipeId;
+          console.log("idRecipe:", idRecipe);
+          return this.recipeService.addImgRecipe(this.formData, idRecipe);
+        })
+      )
+      .subscribe(res => {
+        console.log(res);
+        // Handle the response of the addImgRecipe operation
+      }, error => {
+        // Handle any errors
+      });
   }
   addBox():void{
     

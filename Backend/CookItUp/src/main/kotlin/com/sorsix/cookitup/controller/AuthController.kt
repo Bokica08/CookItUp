@@ -3,9 +3,11 @@ package com.sorsix.cookitup.controller
 import com.sorsix.cookitup.configuration.JwtUtils
 import com.sorsix.cookitup.model.User
 import com.sorsix.cookitup.model.dto.LoginDTO
+import com.sorsix.cookitup.model.dto.MessageResponse
 import com.sorsix.cookitup.model.dto.RegisterDTO
 import com.sorsix.cookitup.model.dto.UserInfoDTO
 import com.sorsix.cookitup.service.UserService
+import org.springframework.boot.web.server.Cookie
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -46,8 +48,8 @@ class AuthController(
     @PostMapping("/logout")
     fun logoutUser(): ResponseEntity<*> {
         val cookie = jwtUtils.getCleanJwtCookie()
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body<String>("You've been signed out!")
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,cookie.toString())
+            .body<MessageResponse>(MessageResponse("You have been logged out"))
     }
 
     @PostMapping("/register")

@@ -8,6 +8,7 @@ import {
   tap,
 } from 'rxjs/operators';
 import { AuthService } from 'src/app/_services/auth.service';
+import { StorageService } from 'src/app/_services/storage.service';
 import { Category } from 'src/app/models/category';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -30,7 +31,8 @@ export class NavbarComponent implements OnInit {
   constructor(private recipeService: RecipeService,
     private router:Router,
     private activateRoute:ActivatedRoute,
-    private authService:AuthService){}
+    private authService:AuthService,
+    private storageService:StorageService){}
   search(name: string): void { 
     this.searchTerms.next(name)  
   }
@@ -60,6 +62,7 @@ export class NavbarComponent implements OnInit {
   }
   logout(){
     console.log("hi");
+    this.storageService.clean()
     this.authService.logout()
     window.location.reload()
   

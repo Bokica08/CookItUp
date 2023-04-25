@@ -55,7 +55,7 @@ val categoryRepository: CategoryRepository) {
         val recipe = recipeService.getRecipeById(id)
         val review = reviewService.addReview(Review(null,reviewDTO.content,reviewDTO.stars,
             LocalDateTime.now() ,recipe,userService.getCustomerByUsername(
-            request.session.getAttribute("username") as String
+            request.remoteUser
         )))
         return ResponseEntity.ok(review)
     }

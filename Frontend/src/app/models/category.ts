@@ -1,4 +1,4 @@
-export interface Category {
-    categoryId:number;
-    name:string;
+export class Category {
+    categoryId!:number
+    name!:string
 }

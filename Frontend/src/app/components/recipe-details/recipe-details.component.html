@@ -4,7 +4,7 @@
       <div class="col-5">
         <img
           class="img-fluid"
-          [src]="'data:image/jpg;base64,' + recipe!!.imageList[0].byteArray"
+          [src]="'data:image/jpg;base64,' + recipe!.imageList[0]!.byteArray"
           alt="Recipe image"
         />
         <a class="btn btn-success" (click)="addToFavorites()"><img [src]="img">
@@ -53,24 +53,24 @@
     <div class="row mb-3">
       <h1 class="display-6">Additional images:</h1>
       <div>
-        <div *ngIf="recipe!!.imageList[1] != undefined">
+        <div *ngIf="recipe!.imageList[1] != undefined">
           <img
             class="img-recipe-details"
-            [src]="'data:image/jpg;base64,' + recipe!!.imageList[1].byteArray"
+            [src]="'data:image/jpg;base64,' + recipe!.imageList[1].byteArray"
             alt="Recipe image"
           />
         </div>
-        <div *ngIf="recipe!!.imageList[2] != undefined">
+        <div *ngIf="recipe!.imageList[2] != undefined">
           <img
             class="img-recipe-details"
-            [src]="'data:image/jpg;base64,' + recipe!!.imageList[2].byteArray"
+            [src]="'data:image/jpg;base64,' + recipe!.imageList[2].byteArray"
             alt="Recipe image"
           />
         </div>
         <div
           *ngIf="
-            recipe!!.imageList[1] == undefined &&
-            recipe!!.imageList[2] == undefined
+            recipe!.imageList[1] == undefined &&
+            recipe!.imageList[2] == undefined
           "
         >
           No more images available
