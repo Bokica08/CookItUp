@@ -25,7 +25,7 @@ const routes: Routes = [
   {path:'home',component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'category/:category', component: RecipesComponent},
   {path:'search/:inputText', component: RecipesComponent},
-  {path:'recipe/:id', component: RecipeDetailsComponent},
+  {path:'recipe/:id', component: RecipeDetailsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'contact',component: ContactComponent},
   {path:'aboutUs', component: AboutUsComponent},
   {path:'faq', component: FaqComponent},

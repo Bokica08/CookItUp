@@ -1,6 +1,7 @@
 package com.sorsix.cookitup.model.dto
 
 import lombok.Data
+import org.springframework.web.multipart.MultipartFile
 
 @Data
 data class RecipeDTO(
@@ -9,7 +10,6 @@ data class RecipeDTO(
     val numPersons:Int,
     val difficultyLevel: String,
     val prepTime:Int,
-    val customerId: Long,
     val categoryList: List<String>,
     val ingredientList: List<IngredientIsInRecipeDTO>,
-    )
+)

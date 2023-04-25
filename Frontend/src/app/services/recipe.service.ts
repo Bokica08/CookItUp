@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Recipe } from '../models/recipe';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
+import { RecipeDTO } from '../models/recipedto';
 
 @Injectable({
   providedIn: 'root',
@@ -29,10 +30,10 @@ export class RecipeService {
   getAllRecipesByCategory(category: string): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.recipeUrl}/category/${category}`);
   }
-  addImgRecipe(images: Image[]): Observable<any> {
-    return this.http.post<Image[]>(this.recipeUrl + '/img', { params: images });
+  addImgRecipe(images: FormData, id: number): Observable<any> {
+    return this.http.post<FormData>(this.recipeUrl + `/${27}/img`, images);
   }
-  addRecipe(recipe: Recipe): Observable<any> {
+  addRecipe(recipe: RecipeDTO): Observable<any> {
     return this.http.post<Recipe>(this.recipeUrl, recipe);
   }
   getRecipeDetails(id: string): Observable<Recipe> {

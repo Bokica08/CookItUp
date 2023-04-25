@@ -7,6 +7,9 @@ import { Ingredient } from 'src/app/models/ingredient';
 import { ingredientService } from 'src/app/services/ingredient.service';
 import { Measure } from 'src/app/models/measure';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { RecipeDTO } from 'src/app/models/recipedto';
+import { DifficultyLevel } from 'src/app/models/difficultyLevel';
+import { IngInRecipe } from 'src/app/models/ingInRecipe'
 @Component({
   selector: 'app-add-reipe',
   templateUrl: './add-reipe.component.html',
@@ -16,21 +19,26 @@ import { RecipeService } from 'src/app/services/recipe.service';
 
 export class AddReipeComponent implements OnInit{
   constructor( private activateRoute: ActivatedRoute,private ingredientService:ingredientService,private recipeService:RecipeService){}
-  recipe:Recipe=new Recipe()
-  
+  recipe:RecipeDTO = new RecipeDTO()
   categories:Category[]=this.activateRoute.snapshot.data['data']
   ingredients:Ingredient[]=[]
-  boxes: number[] = [];
+  boxes: number[] = [1];
+  images:any[] = []
+  requiredImage: File | undefined;
   quantities:number |undefined
   measure:string|undefined
+  formData: FormData = new FormData()
+  newIngredients:IngInRecipe[] = []
+  newIngredient: IngInRecipe = {
+    name: '',
+    measure: '',
+    quantity:0
+  };
   measures=Object.keys(Measure)
 
    ngOnInit() {
-
-
-    this.getAllIngredients()
-    console.log(this.measures);
     
+    this.getAllIngredients()    
     
   }
 
@@ -44,12 +52,42 @@ export class AddReipeComponent implements OnInit{
     }
   submit(f:NgForm): void
   {
-   this.recipeService.addRecipe(this.recipe).subscribe(res=>{console.log(res);
-    this.recipeService.addImgRecipe(this.recipe.imageList).subscribe(res=>{console.log(res);
-    })
+    console.log(this.recipe.ingredientList);
+    
+    this.recipe = {
+      name: f.form.value.name,
+      description: f.form.value.description,
+      numPersons: f.form.value.numPersons,
+      difficultyLevel: f.form.value.difficultyLevel,
+      prepTime: f.form.value.prepTime,
+      categoryList: f.form.value.categoryList,
+      ingredientList: this.newIngredients,
+    }
+    console.log(this.recipe);
+    
+    let idRecipe = 0
+   this.recipeService.addRecipe(this.recipe).subscribe(res=>{idRecipe = res.recipeId;console.log("idRecipe:",idRecipe);
    });
+   console.log("idRecipe",idRecipe);
+   this.formData.append('images',this.requiredImage!!, this.requiredImage?.name)
+    this.recipeService.addImgRecipe(this.formData, idRecipe).subscribe(res=>{console.log(res);
+    })
   }
   addBox():void{
-    this.boxes.push(this.boxes.length + 1);
+    
+    ;
+    
+    const ingredient: IngInRecipe = { ...this.newIngredient };
+    this.newIngredients.push(ingredient)
+    this.newIngredient = {
+      name: '',
+      measure: Measure.grams,
+      quantity:0
+    };
+    //this.boxes.push(this.boxes.length + 1);
+
+  }
+  onFileAdded(event:any){
+    this.requiredImage = event.target.files[0];  
   }
 }

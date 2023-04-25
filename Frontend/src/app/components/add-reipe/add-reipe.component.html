@@ -35,11 +35,11 @@
                 Easy
             </span>
             <span class="col-md-2">
-                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Medium" [(ngModel)]="recipe!.difficultyLevel">
+                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Medium" [(ngModel)]="recipe!!.difficultyLevel">
                 Medium
             </span>
             <span class="col-md-1">
-                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard" [(ngModel)]="recipe!.difficultyLevel">
+                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard" [(ngModel)]="recipe!!.difficultyLevel">
                 Hard
             </span>
         </div>
@@ -47,7 +47,7 @@
             <div class="col-md-3"></div>
             <label class="form-label col-md-1 font-weight-bold text-right" for="description">Description</label><br>
             <div class="col-md-4">
-                <input required #description="ngModel" type="textarea" id="description" class="form-control"
+                <input required type="textarea" id="description" class="form-control"
                     name="description" [(ngModel)]="recipe!.description" />
             </div>
         </div>
@@ -55,8 +55,11 @@
         <div class="mb-3 row w-80">
             <div class="col-md-3"></div>
 
-            <select required #categoryList="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="recipe.categoryList" multiple="multiple">
+            <!-- <select #categoryList="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="recipe!.categoryList" multiple="multiple">
                 <option *ngFor="let c of this.categories" [ngValue]="c.categoryId">{{c.name}}</option>
+            </select> -->
+            <select required #categoryList="ngModel" class="form-select form-select-lg mb-1"  [(ngModel)]="recipe!!.categoryList" name="categoryList" multiple="multiple">
+                <option *ngFor="let c of this.categories" [ngValue]="c.name">{{c.name}}</option>
             </select>
         </div>
         <a  class="m-3 btn btn-success" (click)="addBox()">Add Ingredient</a>
@@ -65,25 +68,29 @@
                 <div class="row justify-content-center mb-3">
                     <label class="form-label col-md-2 font-weight-bold text-right" for="">Quantity:</label>
                     <div class="col-3">
-                        <input required  type="number" id="kolicina" class="form-control"
-                            style="width: 300px;" name="kolicina" />
+                        <input required  type="number" id="quantity" class="form-control"
+                            style="width: 300px;" name="quantity" [(ngModel)]="newIngredient.quantity" />
                     </div>
                     <div class="col-3">
 
-                        <select class="form-select" style="width: 300px;">
-                            <option *ngFor="let m of measures">{{m}}</option>
+                        <select class="form-select" style="width: 300px;" required [(ngModel)]="newIngredient.measure" name="measure">
+                            <option *ngFor="let m of measures" [ngValue]="m.toString()">{{m.toString()}}</option>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select required #ingredientList="ngModel" class="form-select" style="width: 300px;" [(ngModel)]="recipe!.ingredientList" [ngModelOptions]="{standalone: true}">
+                        <select required #nameIng="ngModel" class="form-select" style="width: 300px;" [(ngModel)]="newIngredient.name" name="nameIng">
                             >
-                            <option *ngFor="let i of ingredients" [ngValue]="i.ingredientId">{{i.name}}</option>
+                            <option *ngFor="let i of ingredients" [ngValue]="i.name">{{i.name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-3 bg-primary m-3"></div>
                     <div class="col-6 bg-primary m-3"></div>
+                </div>
+                <h3>Already added:</h3>
+                <div *ngFor="let ni of newIngredients">
+                    {{ni.quantity}} {{ni.measure}} {{ni.name}}
                 </div>
             </div>
             
@@ -92,7 +99,7 @@
             <h2>Image Upload Form</h2>
                 <div class="form-group">
                     <label for="image1">Upload Required Image:</label>
-                    <input  type="file" class="form-control-file m-3" id="image1" value="imageList" name="image1" required>
+                    <input  type="file" class="form-control-file m-3" id="image1" value="imageList" name="image1" required (change)="onFileAdded($event)">
                 </div>
                 <div class="form-group">
                     <label for="image2">Upload Optional Image 1:</label>

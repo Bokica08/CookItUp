@@ -20,7 +20,8 @@ class RecipeServiceImplementation(
     private val categoryRepository: CategoryRepository,
     private val ingredientRepository: IngredientRepository,
     private val imageRepository: ImageRepository,
-    private val reviewService: ReviewService
+    private val reviewService: ReviewService,
+
 ) : RecipeService{
     override fun findAllByCustomer(customer: Customer): List<RecipePreviewDTO> {
         return recipeRepository.findAllByCustomer(customer).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
@@ -54,7 +55,7 @@ class RecipeServiceImplementation(
         return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
-    override fun save(recipeDTO: RecipeDTO): Recipe {
+    override fun save(recipeDTO: RecipeDTO, customer: Customer): Recipe {
         val categoryList: MutableList<Category> = recipeDTO.categoryList.map { cat ->
             categoryRepository.findByNameIgnoreCase(cat)
         }.toMutableList()
@@ -65,7 +66,7 @@ class RecipeServiceImplementation(
                 recipeDTO.numPersons,
                 DifficultyLevel.valueOf(recipeDTO.difficultyLevel),
                 recipeDTO.prepTime, 0.0 ,0, LocalDateTime.now(),
-                customerRepository.findById(recipeDTO.customerId).get(),
+                customer,
                 categoryList
         )
         recipeRepository.save(recipe)

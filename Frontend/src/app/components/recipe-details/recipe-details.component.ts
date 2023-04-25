@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -14,10 +15,19 @@ export class RecipeDetailsComponent {
   img = "../../../assets/emptyheart.png"
   buttonText = "Add to favorites"
   isInUsersFavorite = false
+  isLoggedIn = false
+  form:FormGroup = new FormGroup({})
   constructor(private route: ActivatedRoute,
-    private recipeService: RecipeService){}
+    private recipeService: RecipeService,
+    private fb:FormBuilder){
+      this.isLoggedIn = this.route.snapshot.data['data5'];
+    }
   ngOnInit(): void {
     // ova treba da e api povik dali e u favorite na userot
+    this.form= this.fb.group({
+      content:"",
+      stars:""
+    })
     this.isInUsersFavorite = true
     if(this.isInUsersFavorite){
         this.img = "../../../assets/blackheart.png"
@@ -52,5 +62,9 @@ export class RecipeDetailsComponent {
       this.img = "../../../assets/blackheart.png"
       this.buttonText = "Already added to favorites"
     }
+  }
+  onSubmit(){
+    console.log(this.form.value);
+    
   }
 }

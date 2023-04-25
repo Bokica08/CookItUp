@@ -79,11 +79,11 @@
     </div>
     <div class="row mb-3">
       <h1 class="display-6">Reviews:</h1>
-      <div>
-        <form>
-          <input type="text" placeholder="Content not required" />
-          <input type="number" min="1" max="5" placeholder="Rating" />
-          <a class="btn btn-info">TODO() Add review</a>
+      <div *ngIf="isLoggedIn">
+        <form [formGroup] ="form" (submit)="onSubmit()">
+          <input type="text" placeholder="Content not required" formControlName="content" />
+          <input type="number" min="1" max="5" placeholder="Rating" formControlName="stars"/>
+          <button type="submit" class="btn btn-info">TODO() Add review</button>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->
           <!-- if the logged user is the one that posted the recipe, button disabled -->

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/api/recipe")
+
 class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService,
 val categoryRepository: CategoryRepository) {
     // Get all recipes
@@ -29,20 +30,18 @@ val categoryRepository: CategoryRepository) {
     // 2 methods for adding recipe to the system, separate method for adding the images, onSubmit on frontend will call these 2 methods together
     @PostMapping
     fun addRecipe(@RequestBody recipeDTO: RecipeDTO, request: HttpServletRequest) : ResponseEntity<Any>{
-        val recipe = recipeService.save(recipeDTO)
+        val recipe = recipeService.save(recipeDTO, userService.getCustomerByUsername(request.remoteUser))
         request.session.setAttribute("recipe",recipe)
         return ResponseEntity.ok(recipe)
     }
-    @PostMapping("/img")
-    fun addRecipeImages(@RequestParam images: List<MultipartFile>, request: HttpServletRequest){
-        if(request.session.getAttribute("recipe")!=null){
-            for(image in images){
-                imageRepository.save(Image(null,image.name,image.contentType, image.bytes,
-                    request.session.getAttribute("recipe") as Recipe?
-                ))
-            }
-            request.session.removeAttribute("recipe")
-        }
+    @PostMapping("/{id}/img")
+    fun addRecipeImages(@PathVariable id:Long, @RequestParam images: MultipartFile, request: HttpServletRequest){
+            imageRepository.save(
+                Image(
+                    null, images.name, images.contentType, images.bytes,
+                    recipeService.getRecipeById(id)
+                )
+            )
     }
     // Get details for specific recipe
     @GetMapping("/details/{id}")
