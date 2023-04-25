@@ -18,21 +18,18 @@
               Sign in!
             </a>
           </p>
-           <!-- -->
-          <!-- If logged in -->
           <p class="d-flex justify-content-center align-items-center" *ngIf="isLoggedIn">
             <span class="me-3">View my profile</span>
-            <a routerLink="/info" class="btn btn-outline-light btn-rounded">
+            <a routerLink="/profile" class="btn btn-outline-light btn-rounded">
               My profile
             </a>
           </p>
           <p class="d-flex justify-content-center align-items-center" *ngIf="isLoggedIn">
             <span class="me-3">Log out of your account</span>
-            <a routerInfo="/logout" class="btn btn-outline-light btn-rounded">
+            <a (click)="logout()" class="btn btn-outline-light btn-rounded">
               Log out
             </a>
           </p>
-          <!--  -->
         </div>
         <div class="text-white col-md-6">
           <div class="d-flex justify-content-center align-items-center">

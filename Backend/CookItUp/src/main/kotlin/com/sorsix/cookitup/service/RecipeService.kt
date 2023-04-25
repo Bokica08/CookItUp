@@ -9,7 +9,6 @@ import com.sorsix.cookitup.model.dto.RecipeDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.dto.RecipePreviewDTO
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
-import com.sorsix.cookitup.model.manyToMany.IngredientIsInRecipe
 
 interface RecipeService {
     fun findAllByCustomer(customer: Customer) : List<RecipePreviewDTO>
@@ -28,5 +27,5 @@ interface RecipeService {
     fun getPreviewForRecipe(id: Long) : RecipePreviewDTO
     fun getNumberOfRecipes() : Long
     fun getIngredientInRecipe(recipeId: Long, ingredientId: Long) : IngredientIsInRecipeDTO
-
+    fun getFilteredRecipes(category: String?,inputText: String?,difficultyLevels: String?,prepTimes: String?):List<RecipePreviewDTO>
 }

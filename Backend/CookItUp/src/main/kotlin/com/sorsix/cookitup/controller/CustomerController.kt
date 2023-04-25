@@ -78,6 +78,52 @@ class CustomerController(val userService: UserService, val reviewService: Review
     fun getCustomerCount() : ResponseEntity<Any>{
         return ResponseEntity.ok(customerRepository.count())
     }
+    @GetMapping("/myReviewsPreview")
+    fun getCustomerReviewsPreview(request: HttpServletRequest):ResponseEntity<Any>
+    {
+        val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
+        val recipes = reviewService.findAllByCustomer(customer)
+        return if (recipes.size<=5){
+            ResponseEntity.ok(recipes)
+        } else{
+            ResponseEntity.ok(recipes.subList(0,5))
+        }
+
+    }
+    @GetMapping("/myOrdersPreview")
+    fun getCustomerOrdersPreview(request: HttpServletRequest):ResponseEntity<Any>
+    {
+        val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
+        val orders = orderService.findAllByCustomer(customer)
+        return if (orders.size<=5){
+            ResponseEntity.ok(orders)
+        } else{
+            ResponseEntity.ok(orders.subList(0,5))
+        }
+    }
+    @GetMapping("/myFavoritesPreview")
+    fun getCustomerFavoritesPreview(request:HttpServletRequest):ResponseEntity<Any>
+    {
+        val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
+        val recipesForCustomer:List<RecipePreviewDTO> =customer.recipeList.map { r->recipeService.getPreviewForRecipe(r.recipeId!!) }
+        return if (recipesForCustomer.size<=5){
+            ResponseEntity.ok(recipesForCustomer)
+        } else{
+            ResponseEntity.ok(recipesForCustomer.subList(0,5))
+        }
+    }
+    @GetMapping("/myRecipesPreview")
+    fun getCustomerRecipesPreview(request:HttpServletRequest):ResponseEntity<Any>
+    {
+
+        val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
+        val recipes = recipeService.findAllByCustomer(customer)
+        return if (recipes.size<=5){
+            ResponseEntity.ok(recipes)
+        } else{
+            ResponseEntity.ok(recipes.subList(0,5))
+        }
+    }
 
 
 }

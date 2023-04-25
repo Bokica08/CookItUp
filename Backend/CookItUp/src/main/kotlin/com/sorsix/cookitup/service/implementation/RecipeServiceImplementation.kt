@@ -152,4 +152,40 @@ class RecipeServiceImplementation(
         }.get()
     }
 
+    override fun getFilteredRecipes(
+        category: String?,
+        inputText: String?,
+        difficultyLevels: String?,
+        prepTimes: String?
+    ): List<RecipePreviewDTO> {
+        var firstFilter = recipeRepository.findAll().map { this.getPreviewForRecipe(it.recipeId!!) }
+        if(category!=null) {
+            val categoryObject = categoryRepository.findByNameIgnoreCase(category)
+            firstFilter = recipeRepository.findAll().filter { it.categoryList.contains(categoryObject) }
+                .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
+        }
+        var secondFilter = firstFilter
+        if(inputText!=null) {
+            secondFilter = firstFilter.filter { it.name!!.contains(inputText, ignoreCase = true) }
+        }
+        var thirdFilter = secondFilter
+        if(difficultyLevels!=null) {
+            thirdFilter = secondFilter.filter { it.difficultyLevel!!.toString() == difficultyLevels }
+        }
+        return when (prepTimes) {
+            "Under 30 minutes" -> {
+                thirdFilter.filter { it.prepTime!!<30}
+            }
+            "30 to 60 minutes" -> {
+                thirdFilter.filter { it.prepTime!!>=30 && it.prepTime<=60 }
+            }
+            "Over 60 minutes" -> {
+                thirdFilter.filter { it.prepTime!!>60}
+            }
+            else -> {
+                thirdFilter
+            }
+        }
+    }
+
 }

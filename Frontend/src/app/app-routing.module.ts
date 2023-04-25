@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'recipes', component: RecipesComponent},
   {path:'login',component:LoginComponent},
-  {path:'info',component:UserInfoComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
+  {path:'profile',component:UserInfoComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'register',component:RegisterComponent},
   {path:'addRecipe',component:AddReipeComponent,resolve:{data:dataResolverGetCategories}},
   {path:'home',component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},

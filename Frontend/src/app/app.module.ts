@@ -12,7 +12,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
@@ -51,6 +51,7 @@ import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
     ],
   providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]

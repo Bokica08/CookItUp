@@ -96,4 +96,13 @@ val categoryRepository: CategoryRepository) {
     fun getCategoriesCount():ResponseEntity<Any>{
         return ResponseEntity.ok(categoryRepository.count())
     }
+    @GetMapping("/filtered")
+    fun getFilteredRecipes(
+        @RequestParam(required = false) category: String?,
+        @RequestParam(required = false) inputText: String?,
+        @RequestParam(required = false) difficultyLevels: String?,
+        @RequestParam(required = false) prepTimes: String?
+    ):ResponseEntity<Any>{
+        return ResponseEntity.ok(recipeService.getFilteredRecipes(category, inputText, difficultyLevels, prepTimes))
+    }
 }

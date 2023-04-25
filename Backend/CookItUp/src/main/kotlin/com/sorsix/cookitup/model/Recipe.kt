@@ -9,32 +9,35 @@ import javax.persistence.*
 @Data
 @Entity
 class Recipe(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val recipeId: Long? = null,
-        val name:String?=null,
-        val description:String?=null,
-        val numPersons:Int?=null,
-        @Enumerated(value = EnumType.STRING)
-        val difficultyLevel: DifficultyLevel?=null,
-        val prepTime:Int?=null,
-        val avRating:Double?=null,
-        val viewCount:Int?=null,
-        val createdOn:LocalDateTime?=null,
-        @ManyToOne
-        @JoinColumn(name = "userId")
-        val customer: Customer?=null,
-        @ManyToMany
-        @JsonManagedReference
-        @JoinTable(name = "of_category",
-                joinColumns = [JoinColumn(name = "recipeId")],
-                inverseJoinColumns = [JoinColumn(name = "categoryId")],
-        )
-        val categoryList: MutableList<Category> = arrayListOf(),
-@ManyToMany
-@JsonManagedReference
-@JoinTable(name = "favorites",
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val recipeId: Long? = null,
+    val name: String? = null,
+    val description: String? = null,
+    val numPersons: Int? = null,
+    @Enumerated(value = EnumType.STRING)
+    val difficultyLevel: DifficultyLevel? = null,
+    val prepTime: Int? = null,
+    val avRating: Double? = null,
+    val viewCount: Int? = null,
+    val createdOn: LocalDateTime? = null,
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    val customer: Customer? = null,
+    @ManyToMany
+    @JsonManagedReference
+    @JoinTable(
+        name = "of_category",
+        joinColumns = [JoinColumn(name = "recipeId")],
+        inverseJoinColumns = [JoinColumn(name = "categoryId")],
+    )
+    val categoryList: MutableList<Category> = arrayListOf(),
+    @ManyToMany
+    @JsonManagedReference
+    @JoinTable(
+        name = "favorites",
         joinColumns = [JoinColumn(name = "recipeId")],
         inverseJoinColumns = [JoinColumn(name = "userId")],
+    )
+    val favoriteList: MutableList<Customer> = arrayListOf()
 )
-val favoriteList: MutableList<Customer> = arrayListOf())

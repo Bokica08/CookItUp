@@ -24,6 +24,8 @@ export class NavbarComponent implements OnInit {
   searchResultsVisible = false;
   inputText = ''
   @Input() isLoggedIn = false
+  @Input() isUser = false
+  @Input() isAdmin = false
   user = null
   constructor(private recipeService: RecipeService,
     private router:Router,

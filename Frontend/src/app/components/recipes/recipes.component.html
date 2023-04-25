@@ -1,7 +1,25 @@
 <div class="bg-light pt-5 pb-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">Hello filters</div>
+            <div class="col-md-3">
+                <form [formGroup]="form">
+                    <h3 class="mb-4">Difficulty Level:</h3>
+                    <div *ngFor="let level of difficultyLevels">
+                      <label>
+                        <input type="radio" name="diffLvl" formControlName="diffLvl" value={{level}} (change)="onChange()">
+                        {{ level }}
+                      </label>
+                    </div>
+                    <h3 class="mb-4 mt-4">Preparation time:</h3>
+                    <div *ngFor="let pt of prepTimes">
+                        <label>
+                          <input type="radio" name="prepTime" formControlName="prepTime" value={{pt}} (change)="onChange()">
+                          {{ pt }}
+                        </label>
+                      </div>
+                      <button type="button" class="btn btn-primary" (click)="clearSelection()">Clear</button>
+                  </form>
+            </div>
             <div class="col-md-9">
                 <div class="row card-group flex-wrap mb-5">
                     <div *ngFor="let recipe of allRecipes" class="card col-lg-3 col-md-4">

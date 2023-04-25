@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="row card-group flex-wrap mb-5">
+                <div class="row card-group flex-wrap mb-5" *ngIf="myRecipes?.length!=0">
                     <div *ngFor="let recipe of myRecipes" class="card col-lg-3 col-md-4">
                         <a routerLink="/recipe/{{recipe.id}}"><img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray"
                             alt="Recipe image"></a>
@@ -14,6 +14,16 @@
                                 <a class="btn btn-warning">Edit</a>
                                 <a class="btn btn-danger">Delete</a>
                             </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-5 text-center" *ngIf="myRecipes?.length==0">
+                    
+                    <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">
+                        <div class="container pt-5 pb-5">
+                            <h1 class="display-6 mb-3">You currently don't have any recipes</h1>
+                            <h1 class="display-6 mb-3">Try adding a recipe.</h1>
+                            <a routerLink="/addRecipe" class="btn btn-success p-2">Add Recipe</a>
                         </div>
                     </div>
                 </div>

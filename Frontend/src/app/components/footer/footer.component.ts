@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
+import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,5 +11,11 @@ import { Component, Input } from '@angular/core';
 export class FooterComponent {
 
   @Input() isLoggedIn = false
-  
+  @Input() isUser = false
+  @Input() isAdmin = false
+  constructor(private authService:AuthService, private router: Router){}
+    logout(){
+      this.authService.logout()
+      window.location.reload()    
+    }
 }
