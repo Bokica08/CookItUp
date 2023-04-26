@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CategoryRepository : JpaRepository<Category, Long>{
     fun findByNameIgnoreCase(name: String): Category
+
 }

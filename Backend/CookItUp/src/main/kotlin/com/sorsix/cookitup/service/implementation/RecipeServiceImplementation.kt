@@ -147,6 +147,10 @@ class RecipeServiceImplementation(
         return recipeRepository.count()
     }
 
+    override fun deleteRecipe(recipe: Recipe): Any {
+        return recipeRepository.delete(recipe)
+    }
+
     override fun getIngredientInRecipe(recipeId: Long, ingredientId: Long): IngredientIsInRecipeDTO {
         return ingredientIsInRecipeRepository.findById(IngredientIsInRecipeId(ingredientId,recipeId)).map {
             IngredientIsInRecipeDTO(it.ingredient.name!!, it.quantity, it.measure.toString())

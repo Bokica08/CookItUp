@@ -8,9 +8,7 @@ import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.dto.ReviewDTO
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.ImageRepository
-import com.sorsix.cookitup.service.RecipeService
-import com.sorsix.cookitup.service.ReviewService
-import com.sorsix.cookitup.service.UserService
+import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/api/recipe")
 
 class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService,
-val categoryRepository: CategoryRepository) {
+val categoryRepository: CategoryRepository,val imageService: ImageService,val ingredientService: IngredientService) {
     // Get all recipes
     @GetMapping
     fun getAllRecipes() : ResponseEntity<Any> {
@@ -33,6 +31,17 @@ val categoryRepository: CategoryRepository) {
         val recipe = recipeService.save(recipeDTO, userService.getCustomerByUsername(request.remoteUser))
         request.session.setAttribute("recipe",recipe)
         return ResponseEntity.ok(recipe)
+    }
+    @DeleteMapping("/delete/{id}")
+    fun deleteRecipe(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
+    {
+        val recipe=recipeService.getRecipeById(id)
+        imageService.deleteByRecipe(recipe)
+        reviewService.deleteByRecipe(recipe)
+        ingredientService.deleteAllByRecipe(recipe)
+
+        return ResponseEntity.ok(recipeService.deleteRecipe(recipe))
+
     }
     @PostMapping("/{id}/img")
     fun addRecipeImages(@PathVariable id:Long, @RequestParam images: MultipartFile, request: HttpServletRequest){

@@ -51,6 +51,10 @@ export class RecipeService {
   getCategoriesCount(): Observable<number> {
     return this.http.get<number>(`${this.recipeUrl}/categoriesCount`);
   }
+  deleteRecipe(id:string):Observable<Recipe>
+  {
+    return this.http.delete<Recipe>(this.recipeUrl+"/delete/"+id)
+  }
   getFilteredRecipes(
     category: string | null,
     inputText: string | null,

@@ -22,6 +22,11 @@ class ReviewServiceImplementation(private val repository: ReviewRepository) : Re
         return repository.save(review)
     }
 
+    override fun deleteByRecipe(recipe: Recipe): Any {
+        val reviews:List<Review> = repository.findAllByRecipe(recipe)
+        return repository.deleteAll(reviews)
+    }
+
     override fun getReviewInfo(id: Long) : ReviewForRecipeDTO {
         return repository.findById(id).map { ReviewForRecipeDTO(it.content, it.stars!!,it.customer!!.username,it.reviewedOn!!.toLocalDate()) }.get()
     }

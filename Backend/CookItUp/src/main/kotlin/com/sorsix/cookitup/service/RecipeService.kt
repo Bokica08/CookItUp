@@ -26,6 +26,7 @@ interface RecipeService {
     fun getMostViewedRecipes() : List<RecipePreviewDTO>
     fun getPreviewForRecipe(id: Long) : RecipePreviewDTO
     fun getNumberOfRecipes() : Long
+    fun deleteRecipe(recipe: Recipe):Any
     fun getIngredientInRecipe(recipeId: Long, ingredientId: Long) : IngredientIsInRecipeDTO
     fun getFilteredRecipes(category: String?,inputText: String?,difficultyLevels: String?,prepTimes: String?):List<RecipePreviewDTO>
 }

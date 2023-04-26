@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { flatMap, of } from 'rxjs';
 import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Recipe } from 'src/app/models/recipe';
+import { RecipeService } from 'src/app/services/recipe.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,7 +28,8 @@ export class MyRecipesComponent {
     private activateRoute: ActivatedRoute,
     private strorageService: StorageService,
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private recipeService:RecipeService,
   ) {
     this.isLoggedIn = this.activateRoute.snapshot.data['data5'];
     this.user = this.activateRoute.snapshot.data['data6'];
@@ -50,7 +53,15 @@ export class MyRecipesComponent {
   }
   deleteRecipe(id:string)
   {
-    //TODO
+    this.recipeService.deleteRecipe(id)
+    .pipe(
+      flatMap(res => {      
+      this.getRecipe();
+      return of(res)
+    }
+      ))
+    .subscribe(res=>{
+    })
   }
   
 }
