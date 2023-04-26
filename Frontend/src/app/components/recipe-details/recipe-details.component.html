@@ -2,11 +2,13 @@
   <div class="container">
     <div class="row pt-4" style="height: 70%">
       <div class="col-5">
+        <div *ngIf="recipe?.imageList">
         <img
           class="img-fluid"
           [src]="'data:image/jpg;base64,' + recipe!.imageList[0]!.byteArray"
           alt="Recipe image"
         />
+        </div>
         <a class="btn btn-success" (click)="addToFavorites()"><img [src]="img">
         {{buttonText}}</a>
       </div>
@@ -53,27 +55,28 @@
     <div class="row mb-3">
       <h1 class="display-6">Additional images:</h1>
       <div>
-        <div *ngIf="recipe!.imageList[1] != undefined">
+        <div *ngIf="recipe?.imageList">
+          <div *ngIf="recipe!!.imageList[1]">
           <img
             class="img-recipe-details"
             [src]="'data:image/jpg;base64,' + recipe!.imageList[1].byteArray"
             alt="Recipe image"
           />
+          </div>
         </div>
-        <div *ngIf="recipe!.imageList[2] != undefined">
+        <div *ngIf="recipe?.imageList">
+          <div *ngIf="recipe!!.imageList[2]">
           <img
             class="img-recipe-details"
             [src]="'data:image/jpg;base64,' + recipe!.imageList[2].byteArray"
             alt="Recipe image"
           />
         </div>
-        <div
-          *ngIf="
-            recipe!.imageList[1] == undefined &&
-            recipe!.imageList[2] == undefined
-          "
-        >
+        </div>
+        <div *ngIf="recipe?.imageList">
+          <div *ngIf="recipe!!.imageList[1] && recipe!!.imageList[2]">
           No more images available
+          </div> 
         </div>
       </div>
     </div>
