@@ -10,7 +10,7 @@
                             <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
                             <p class="card-text">{{recipe.avRating}}</p>
                             <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
-                            <a class="btn btn-danger">Remove from favorites</a>
+                            <a class="btn btn-danger" (click)="removeFromFavorites(recipe.id.toString())">Remove from favorites</a>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
                             <p class="card-text">{{recipe.avRating}}</p>
                             <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
                             <p>
-                                <a class="btn btn-warning">Edit</a>
+                                <a class="btn btn-warning" (click)="deleteRecipe(recipe.id.toString())">Edit</a>
                                 <a class="btn btn-danger">Delete</a>
                             </p>
                         </div>

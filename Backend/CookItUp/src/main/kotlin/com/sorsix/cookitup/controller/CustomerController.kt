@@ -74,6 +74,14 @@ class CustomerController(val userService: UserService, val reviewService: Review
         userService.addToFavorites(request.remoteUser,id)
         return ResponseEntity.ok(customer)
     }
+    @DeleteMapping("/deleteFavorite/{id}")
+    fun deleteFromFavorite(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
+    {
+        val customer=userService.getCustomerByUsername(request.remoteUser)
+        userService.deleteFromFavorites(request.remoteUser,id)
+        return ResponseEntity.ok(customer)
+
+    }
     @GetMapping("/customersCount")
     fun getCustomerCount() : ResponseEntity<Any>{
         return ResponseEntity.ok(customerRepository.count())

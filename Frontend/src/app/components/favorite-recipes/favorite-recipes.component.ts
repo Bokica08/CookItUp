@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { flatMap, of } from 'rxjs';
 import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Recipe } from 'src/app/models/recipe';
@@ -42,10 +43,22 @@ export class FavoriteRecipesComponent {
     this.getRecipe();
   }
   getRecipe() {
-    this.httpClient
-      .get<any>('http://localhost:8080/api/customer/myFavorites')
-      .subscribe((res) => {
-        this.favoriteRecipes = res;
-      });
+    this.userService.getFavorites().subscribe(res=>
+      {
+        this.favoriteRecipes=res
+      })
+  }
+  removeFromFavorites(id:string)
+  {
+    this.userService.deleteFromFavotires(id)
+    .pipe(
+      flatMap(res => {      
+      this.getRecipe();
+      return of(res)
+    }
+      ))
+    .subscribe(res=>{
+    })
+
   }
 }

@@ -15,6 +15,7 @@ interface UserService : UserDetailsService {
     fun getCustomerByUsername(username: String): Customer
     fun findByUsername(username: String) : CustomerInfoDTO
     fun addToFavorites(username:String,id:Long):Any
+    fun deleteFromFavorites(username:String,id:Long):Any
     fun findAllByRole(role:Role):List<User>
     fun findAllPendingAdmins(): List<User?>?
     fun authorizePendingAdmin(username: String?): Optional<User>

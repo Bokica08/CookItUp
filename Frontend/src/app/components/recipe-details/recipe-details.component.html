@@ -82,19 +82,25 @@
     </div>
     <div class="row mb-3">
       <h1 class="display-6">Reviews:</h1>
-      <div *ngIf="isLoggedIn">
+      <div *ngIf="hasAlreadyReviewed">
+        <h3>You have already put review on this recipe</h3>
+      </div>
+      <div *ngIf="isLoggedIn && !hasAlreadyReviewed">
+
         <form [formGroup] ="form" (submit)="onSubmit()">
           <input type="text" placeholder="Content not required" formControlName="content" />
           <input type="number" min="1" max="5" placeholder="Rating" formControlName="stars"/>
-          <button type="submit" class="btn btn-info">TODO() Add review</button>
+          <button type="submit" class="btn btn-info">Add review</button>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->
           <!-- if the logged user is the one that posted the recipe, button disabled -->
         </form>
       </div>
-      <div *ngFor="let r of recipe?.reviews">
+
+         <div *ngFor="let r of recipe?.reviews">
         {{ r.content }} - {{ r.stars }} - {{ r.username }} - {{ r.reviewedOn }}
       </div>
+
     </div>
     <div class="row mb-3">
         <h1 class="display-6">Simillar Recipes: </h1>

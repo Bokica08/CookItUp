@@ -48,4 +48,9 @@ export class MyRecipesComponent {
         this.myRecipes = res;
       });
   }
+  deleteRecipe(id:string)
+  {
+    //TODO
+  }
+  
 }

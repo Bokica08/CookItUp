@@ -69,6 +69,16 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
 
     }
 
+    override fun deleteFromFavorites(username: String, id: Long): Any {
+        val customer = customerRepository.getByUsername(username)
+        val recipe: Recipe = recipeRepository.findById(id).get()
+        customer.recipeList.remove(recipe)
+        recipe.favoriteList.remove(customer)
+        customerRepository.save(customer)
+        recipeRepository.save(recipe)
+        return 1
+    }
+
     override fun findAllByRole(role: Role): List<User> {
         return userRepository.findAllByRole(role)
     }

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from '../models/customer';
+import { Recipe } from '../models/recipe';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,17 @@ export class UserService {
   getUserInfo(): Observable<Customer> {
     return this.http.get<Customer>(this.userUrl);
   }
-  addToFavorite(id:number):Observable<number>
+  addToFavorite(id:string):Observable<Recipe>
   {
-    return this.http.get<number>(this.userUrl+"/addFavorite/"+id)
+    return this.http.get<Recipe>(this.userUrl+"addFavorite/"+id)
+  }
+  getFavorites():Observable<Recipe[]>
+  {
+    return this.http.get<Recipe[]>(this.userUrl+"myFavorites")
+  }
+  deleteFromFavotires(id:string):Observable<Recipe>
+  {
+    return this.http.delete<Recipe>(this.userUrl+"deleteFavorite/"+id)
   }
 
 }
