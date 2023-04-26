@@ -24,6 +24,7 @@ import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
 import { MyRecipesComponent } from './components/my-recipes/my-recipes.component';
 import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite-recipes.component';
 import { ApproveAdminComponent } from './components/approve-admin/approve-admin.component';
+import { MyReviewsComponent } from './components/my-reviews/my-reviews.component';
 
 
 
@@ -45,7 +46,8 @@ import { ApproveAdminComponent } from './components/approve-admin/approve-admin.
     RegisterComponent,
     MyRecipesComponent,
     FavoriteRecipesComponent,
-    ApproveAdminComponent
+    ApproveAdminComponent,
+    MyReviewsComponent
   ],
   imports: [
     BrowserModule,

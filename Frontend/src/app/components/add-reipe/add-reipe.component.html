@@ -15,7 +15,7 @@
             <div class="col-md-3"></div>
             <label class="form-label col-md-1 font-weight-bold text-right" for="numPersons">numPersons</label><br>
             <div class="col-md-4">
-                <input required #numPersons="ngModel" type="number" id="numPersons" class="form-control"
+                <input required #numPersons="ngModel" type="number" id="numPersons" class="form-control" min="1"
                     name="numPersons" [(ngModel)]="recipe!.numPersons" />
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="col-md-3"></div>
             <label class="form-label col-md-1 font-weight-bold text-right" for="prepTime">prepTime</label><br>
             <div class="col-md-4">
-                <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control" name="prepTime"
+                <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control" name="prepTime" min="1"
                     [(ngModel)]="recipe!.prepTime" />
             </div>
         </div>
@@ -47,34 +47,34 @@
             <div class="col-md-3"></div>
             <label class="form-label col-md-1 font-weight-bold text-right" for="description">Description</label><br>
             <div class="col-md-4">
-                <input required type="textarea" id="description" class="form-control"
-                    name="description" [(ngModel)]="recipe!.description" />
+                <textarea required id="description" rows="8" class="form-control"
+                    name="description" [(ngModel)]="recipe!.description"></textarea>
             </div>
         </div>
-        Categories:
-        <div class="mb-3 row w-80">
-            <div class="col-md-3"></div>
 
+        <div class=" container">
+            Categories:
             <!-- <select #categoryList="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="recipe!.categoryList" multiple="multiple">
                 <option *ngFor="let c of this.categories" [ngValue]="c.categoryId">{{c.name}}</option>
             </select> -->
-            <select required #categoryList="ngModel" class="form-select form-select-lg mb-1"  [(ngModel)]="recipe!!.categoryList" name="categoryList" multiple="multiple">
+            <select required #categoryList="ngModel" class="d-flex justify-content-center form-select form-select-lg mb-1"  [(ngModel)]="recipe!!.categoryList" name="categoryList" multiple="multiple">
                 <option *ngFor="let c of this.categories" [ngValue]="c.name">{{c.name}}</option>
             </select>
         </div>
-        <a  class="m-3 btn btn-success" (click)="addBox()">Add Ingredient</a>
+
         <div *ngFor="let box of boxes" class="box">
             <div class="container">
+                <a  class="m-3 btn btn-success" (click)="addBox()">Add Ingredient</a>
                 <div class="row justify-content-center mb-3">
                     <label class="form-label col-md-2 font-weight-bold text-right" for="">Quantity:</label>
                     <div class="col-3">
-                        <input required  type="number" id="quantity" class="form-control"
+                        <input required  type="number" id="quantity" class="form-control" min="0"
                             style="width: 300px;" name="quantity" [(ngModel)]="newIngredient.quantity" />
                     </div>
                     <div class="col-3">
 
                         <select class="form-select" style="width: 300px;" required [(ngModel)]="newIngredient.measure" name="measure">
-                            <option *ngFor="let m of measures" [ngValue]="m.toString()">{{m.toString()}}</option>
+                            <option selected *ngFor="let m of measures" [ngValue]="m.toString()">{{m.toString()}}</option>
                         </select>
                     </div>
                     <div class="col-3">

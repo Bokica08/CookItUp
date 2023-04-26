@@ -46,10 +46,11 @@ export class UserInfoComponent implements OnInit {
     if (this.isLoggedIn) {
       this.roles = this.user.role;
       this.username = this.user.username;
+      this.loadReviews()
       this.loadFavorites()
       this.loadOrders()
       this.loadRecipes()
-      this.loadReviews()
+
       console.log(this.reviews.length==0);
       
     } else {

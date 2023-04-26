@@ -15,6 +15,7 @@ import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
 import { MyRecipesComponent } from './components/my-recipes/my-recipes.component';
 import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite-recipes.component';
 import { ApproveAdminComponent } from './components/approve-admin/approve-admin.component';
+import { MyReviewsComponent } from './components/my-reviews/my-reviews.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path:'aboutUs', component: AboutUsComponent},
   {path:'faq', component: FaqComponent},
   {path:'approveAdmin',component:ApproveAdminComponent},
+  {path:'myReviews',component:MyReviewsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'myRecipes', component: MyRecipesComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'myFavoriteRecipes', component: FavoriteRecipesComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'**', component: UrlnotfoundComponent}
