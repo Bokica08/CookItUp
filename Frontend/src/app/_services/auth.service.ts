@@ -8,7 +8,6 @@ const USER_KEY = 'auth-user';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
-
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +25,6 @@ export class AuthService {
     );
   }
   logout(): Observable<any> {
-    window.sessionStorage.removeItem(USER_KEY);
     return this.http.post(AUTH_API + 'logout', { }, httpOptions);
   }
   register(register:Register):Observable<any>

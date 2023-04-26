@@ -1,16 +1,19 @@
 package com.sorsix.cookitup.configuration
 
 import com.sorsix.cookitup.model.User
-import io.jsonwebtoken.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.ResponseCookie
-import org.springframework.stereotype.Component
-import org.springframework.web.util.WebUtils
-import java.util.*
-import javax.servlet.http.Cookie
-import javax.servlet.http.HttpServletRequest
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
+import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
+
+import io.jsonwebtoken.*;
 
 
 @Component
@@ -22,7 +25,7 @@ class JwtUtils {
     private val jwtExpirationMs = 0
 
     @Value("\${bezkoder.app.jwtCookieName}")
-    private val jwtCookie: String? = null
+    private var jwtCookie: String?=null
     fun getJwtFromCookies(request: HttpServletRequest): String? {
         val cookie:Cookie?=WebUtils.getCookie(request,jwtCookie!!)
         if(cookie!=null)
@@ -38,8 +41,8 @@ class JwtUtils {
             .secure(true).httpOnly(true).build()
     }
 
-    fun getCleanJwtCookie(): ResponseCookie? {
-        return ResponseCookie.from(jwtCookie!!, null.toString()).path("/").sameSite("None").secure(true).httpOnly(true).build()
+    fun getCleanJwtCookie(): ResponseCookie {
+        return ResponseCookie.from(jwtCookie!!, "").path("/").sameSite("None").secure(true).httpOnly(true).build()
     }
     fun getUserNameFromJwtToken(token: String): String {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body.subject
@@ -57,8 +60,6 @@ class JwtUtils {
             logger.error("JWT token is expired: {}", e.message)
         } catch (e: UnsupportedJwtException) {
             logger.error("JWT token is unsupported: {}", e.message)
-        } catch (e: IllegalArgumentException) {
-            logger.error("JWT claims string is empty: {}", e.message)
         }
         return false
     }

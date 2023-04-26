@@ -5,7 +5,7 @@
         <div *ngIf="recipe?.imageList">
         <img
           class="img-fluid"
-          [src]="'data:image/jpg;base64,' + recipe!!.imageList[0].byteArray"
+          [src]="'data:image/jpg;base64,' + recipe!.imageList[0]!.byteArray"
           alt="Recipe image"
         />
         </div>
@@ -59,7 +59,7 @@
           <div *ngIf="recipe!!.imageList[1]">
           <img
             class="img-recipe-details"
-            [src]="'data:image/jpg;base64,' + recipe!!.imageList[1].byteArray"
+            [src]="'data:image/jpg;base64,' + recipe!.imageList[1].byteArray"
             alt="Recipe image"
           />
           </div>
@@ -68,7 +68,7 @@
           <div *ngIf="recipe!!.imageList[2]">
           <img
             class="img-recipe-details"
-            [src]="'data:image/jpg;base64,' + recipe!!.imageList[2].byteArray"
+            [src]="'data:image/jpg;base64,' + recipe!.imageList[2].byteArray"
             alt="Recipe image"
           />
         </div>

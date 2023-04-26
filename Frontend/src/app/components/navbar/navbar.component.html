@@ -51,6 +51,10 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/myFavoriteRecipes">Favorites</a>
           </li>
+        
+          <li *ngIf="isLoggedIn && isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/approveAdmin">App Admin</a>
+          </li>
         </ul>
         <form class="d-flex formControl">
           <div style="margin-right: 10px!important;">

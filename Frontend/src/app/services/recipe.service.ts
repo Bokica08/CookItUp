@@ -31,7 +31,7 @@ export class RecipeService {
     return this.http.get<Recipe[]>(`${this.recipeUrl}/category/${category}`);
   }
   addImgRecipe(images: FormData, id: number): Observable<any> {
-    return this.http.post<FormData>(this.recipeUrl + `/${27}/img`, images);
+    return this.http.post<FormData>(this.recipeUrl + `/${id}/img`, images);
   }
   addRecipe(recipe: RecipeDTO): Observable<any> {
     return this.http.post<Recipe>(this.recipeUrl, recipe);

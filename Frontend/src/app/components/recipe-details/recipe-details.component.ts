@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/models/recipe';
+import { ReviewInfo } from 'src/app/models/reviewInfo';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { ReviewService } from 'src/app/services/review.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -19,7 +21,8 @@ export class RecipeDetailsComponent {
   form:FormGroup = new FormGroup({})
   constructor(private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private fb:FormBuilder){
+    private fb:FormBuilder,
+    private reviewService:ReviewService){
       this.isLoggedIn = this.route.snapshot.data['data5'];
     }
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class RecipeDetailsComponent {
       content:"",
       stars:""
     })
-    this.isInUsersFavorite = true
+    this.isInUsersFavorite = false
     if(this.isInUsersFavorite){
         this.img = "../../../assets/blackheart.png"
         this.buttonText = "Already added to favorites"
@@ -54,6 +57,7 @@ export class RecipeDetailsComponent {
   addToFavorites(){
     // falat api povici
     this.isInUsersFavorite = !this.isInUsersFavorite
+    
     if(!this.isInUsersFavorite){
       this.img = "../../../assets/emptyheart.png"
       this.buttonText = "Add to favorites"
@@ -64,7 +68,17 @@ export class RecipeDetailsComponent {
     }
   }
   onSubmit(){
-    console.log(this.form.value);
+
+    this.form= this.fb.group({
+      content:this.form.value.content,
+      stars:this.form.value.stars
+    })
+    console.log(this.form.value.stars);
+    this.reviewService.addReview(this.form.value,this.id!).subscribe(res=>{
+      console.log(res);
+      
+    })
+    this.getDetailsForRecipe(this.id!)
     
   }
 }

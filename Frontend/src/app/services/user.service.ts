@@ -7,9 +7,14 @@ import { Customer } from '../models/customer';
   providedIn: 'root',
 })
 export class UserService {
-  userUrl = 'http://localhost:8080/api/customer/info';
+  userUrl = 'http://localhost:8080/api/customer/';
   constructor(private http: HttpClient) {}
   getUserInfo(): Observable<Customer> {
     return this.http.get<Customer>(this.userUrl);
   }
+  addToFavorite(id:number):Observable<number>
+  {
+    return this.http.get<number>(this.userUrl+"/addFavorite/"+id)
+  }
+
 }
