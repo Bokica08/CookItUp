@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { flatMap, mergeMap, of } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
 import { ReviewInfo } from 'src/app/models/reviewInfo';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -48,9 +49,7 @@ export class RecipeDetailsComponent {
   getDetailsForRecipe(id:string) {
     this.recipeService.getDetailsForRecipe(id).subscribe(
       r => {
-        this.recipe = r;
-        console.log(r.reviews);
-        
+        this.recipe = r;        
       }
     );
   }
@@ -73,12 +72,14 @@ export class RecipeDetailsComponent {
       content:this.form.value.content,
       stars:this.form.value.stars
     })
-    console.log(this.form.value.stars);
-    this.reviewService.addReview(this.form.value,this.id!).subscribe(res=>{
-      console.log(res);
-      
+    this.reviewService.addReview(this.form.value,this.id!)
+    .pipe(
+      flatMap(res => {      
+      this.getDetailsForRecipe(this.id!);
+      return of(res)
+    }
+      ))
+    .subscribe(res=>{
     })
-    this.getDetailsForRecipe(this.id!)
-    
   }
 }
