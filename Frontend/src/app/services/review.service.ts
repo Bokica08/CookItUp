@@ -10,9 +10,7 @@ import { ReviewDTO } from "../models/reviewDTO";
 export class ReviewService {
     reviewUrl = "http://localhost:8080/api/recipe/addReview"
     constructor(private http: HttpClient) { }
-    addReview(review:ReviewDTO,id:string): Observable<ReviewDTO> {
-      console.log("SERVICE"+review.content);
-      
+    addReview(review:ReviewDTO,id:string): Observable<ReviewDTO> {      
         return this.http.post<ReviewDTO>(`${this.reviewUrl}/${id}`,review);
     }
 }
