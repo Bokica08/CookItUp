@@ -16,6 +16,7 @@ import { MyRecipesComponent } from './components/my-recipes/my-recipes.component
 import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite-recipes.component';
 import { ApproveAdminComponent } from './components/approve-admin/approve-admin.component';
 import { MyReviewsComponent } from './components/my-reviews/my-reviews.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path:'contact',component: ContactComponent},
   {path:'aboutUs', component: AboutUsComponent},
   {path:'faq', component: FaqComponent},
+  {path:'addCategory',component:AddCategoryComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'approveAdmin',component:ApproveAdminComponent},
   {path:'myReviews',component:MyReviewsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'myRecipes', component: MyRecipesComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
