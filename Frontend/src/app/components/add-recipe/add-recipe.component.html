@@ -31,7 +31,7 @@
             <div class="col-md-3"></div>
             <label class="form-label col-md-1 font-weight-bold text-right" for="city">Difficulty level</label><br>
             <span class="col-md-2">
-                <input checked #difficultyLevel="ngModel" type="radio" name="difficultyLevel" value="Easy" [(ngModel)]="recipe!.difficultyLevel">
+                <input #difficultyLevel="ngModel" type="radio" name="difficultyLevel" value="Easy" [(ngModel)]="recipe!.difficultyLevel">
                 Easy
             </span>
             <span class="col-md-2">

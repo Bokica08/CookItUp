@@ -9,7 +9,7 @@
           alt="Recipe image"
         />
         </div>
-        <a class="btn btn-success" (click)="addToFavorites()"><img [src]="img">
+        <a class="btn btn-success mt-3" (click)="addToFavorites()"><img [src]="img">
         {{buttonText}}</a>
       </div>
       <div class="col-7">
@@ -42,7 +42,14 @@
       </ul>
     </div>
     <div class="col-4">
-      <a class="btn btn-info" routerLink="/addOrder/{{recipe?.id}}/{{numPersonsForOrder}}">TODO() Order ingredients for recipe</a>
+    <form [formGroup] ="formOrder" (submit)="submitOrder()">
+      <label>Enter number of persons for the order:</label>
+      <input type="number" min="1" max="10" placeholder="Number of Persons" formControlName="numPersons" class="form-control mt-3 mb-3 w-50"/>
+      <button type="submit" class="btn btn-info">Order ingredients for recipe</button>
+      <!-- after adding button is disabled -->
+      <!-- if user not logged in this form won't show -->
+      <!-- if the logged user is the one that posted the recipe, button disabled -->
+    </form>
       <!-- if already in favorites = button disabled -->
       <!-- if user not logged in button is hidden -->
       <!-- if the logged user is the one that posted the recipe, button disabled -->
@@ -88,8 +95,8 @@
       <div *ngIf="isLoggedIn && !hasAlreadyReviewed">
 
         <form [formGroup] ="form" (submit)="onSubmit()">
-          <input type="text" placeholder="Content not required" formControlName="content" />
-          <input type="number" min="1" max="5" placeholder="Rating" formControlName="stars"/>
+          <input type="text" placeholder="Content not required" formControlName="content" class="form-control w-50 mb-2" />
+          <input type="number" min="1" max="5" placeholder="Rating" formControlName="stars" class="form-control w-25 mb-2"/>
           <button type="submit" class="btn btn-info">Add review</button>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->

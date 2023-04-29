@@ -28,6 +28,8 @@ import { MyReviewsComponent } from './components/my-reviews/my-reviews.component
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { AddOrderComponent } from './components/add-order/add-order.component';
 import { AddIngredientComponent } from './components/add-ingredient/add-ingredient.component';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+import { AdminRecipesComponent } from './components/admin-recipes/admin-recipes.component';
 
 
 
@@ -54,6 +56,8 @@ import { AddIngredientComponent } from './components/add-ingredient/add-ingredie
     AddCategoryComponent,
     AddOrderComponent,
     AddIngredientComponent,
+    MyOrdersComponent,
+    AdminRecipesComponent,
   ],
   imports: [
     BrowserModule,

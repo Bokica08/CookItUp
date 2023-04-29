@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Customer } from '../models/customer';
 import { Recipe } from '../models/recipe';
 import { Review } from '../models/review';
+import { Order } from '../models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,10 @@ export class UserService {
   getMyReveiws():Observable<Review[]>
   {
    return this.http.get<Review[]>(this.userUrl+"myReviews")
+  }
+  getMyOrders():Observable<Order[]>
+  {
+   return this.http.get<Order[]>(this.userUrl+"myOrders")
   }
 
 }

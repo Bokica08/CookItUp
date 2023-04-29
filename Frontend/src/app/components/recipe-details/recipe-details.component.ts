@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { flatMap, mergeMap, of } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Recipe } from 'src/app/models/recipe';
@@ -22,15 +22,17 @@ export class RecipeDetailsComponent {
   isInUsersFavorite = false
   isLoggedIn = false
   hasAlreadyReviewed=false
-  numPersonsForOrder:number=4
+  numPersonsForOrder:number=1
   user:Customer | undefined
   userFavorites:Recipe[] | undefined
   form:FormGroup = new FormGroup({})
+  formOrder:FormGroup = new FormGroup({})
   constructor(private route: ActivatedRoute,
     private recipeService: RecipeService,
     private fb:FormBuilder,
     private userService:UserService,
-    private reviewService:ReviewService){
+    private reviewService:ReviewService,
+    private router:Router){
       this.isLoggedIn = this.route.snapshot.data['data5'];
       this.user=this.route.snapshot.data['data6']
     }
@@ -39,6 +41,9 @@ export class RecipeDetailsComponent {
     this.form= this.fb.group({
       content:"",
       stars:""
+    })
+    this.formOrder = this.fb.group({
+      numPersons:0
     })
 
     this.route.paramMap.subscribe(params => {
@@ -135,5 +140,11 @@ export class RecipeDetailsComponent {
       ))
     .subscribe(res=>{
     })
+  }
+  submitOrder(){
+    this.formOrder= this.fb.group({
+      numPersonsForOrder:this.formOrder.value.numPersons      
+    })    
+    this.router.navigate([`/addOrder/${this.recipe?.id}/${parseInt(this.formOrder.value.numPersonsForOrder)}`])
   }
 }
