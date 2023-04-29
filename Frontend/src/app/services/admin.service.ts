@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 import { Customer } from "../models/customer"
 import { Category } from "../models/category"
+import { Ingredient } from "../models/ingredient"
 
 @Injectable({
     providedIn: 'root'
@@ -21,5 +22,10 @@ export class AdminService {
     {
         return this.http.post<Category>(this.adminUrl+"/category",category)
     }
+    addIngredient(ingredient:Ingredient):Observable<Ingredient>
+    {
+        return this.http.post<Ingredient>(this.adminUrl+"/ingredient",ingredient)
+    }
+
 
 }

@@ -18,6 +18,7 @@ import { ApproveAdminComponent } from './components/approve-admin/approve-admin.
 import { MyReviewsComponent } from './components/my-reviews/my-reviews.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { AddOrderComponent } from './components/add-order/add-order.component';
+import { AddIngredientComponent } from './components/add-ingredient/add-ingredient.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path:'contact',component: ContactComponent},
   {path:'aboutUs', component: AboutUsComponent},
   {path:'faq', component: FaqComponent},
+  {path:'addIngredient',component:AddIngredientComponent, resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'addCategory',component:AddCategoryComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'approveAdmin',component:ApproveAdminComponent},
   {path:'myReviews',component:MyReviewsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
