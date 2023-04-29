@@ -1,5 +1,6 @@
 package com.sorsix.cookitup.service
 
+import com.sorsix.cookitup.model.Admin
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.User
 import com.sorsix.cookitup.model.dto.CustomerInfoDTO
@@ -19,5 +20,6 @@ interface UserService : UserDetailsService {
     fun findAllByRole(role:Role):List<User>
     fun findAllPendingAdmins(): List<User?>?
     fun authorizePendingAdmin(username: String?): Optional<User>
+    fun getRandomAdmin():Admin
 
 }

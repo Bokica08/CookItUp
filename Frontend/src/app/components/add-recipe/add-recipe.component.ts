@@ -12,11 +12,11 @@ import { DifficultyLevel } from 'src/app/models/difficultyLevel';
 import { IngInRecipe } from 'src/app/models/ingInRecipe';
 import { flatMap } from 'rxjs';
 @Component({
-  selector: 'app-add-reipe',
-  templateUrl: './add-reipe.component.html',
-  styleUrls: ['./add-reipe.component.css'],
+  selector: 'app-add-recipe',
+  templateUrl: './add-recipe.component.html',
+  styleUrls: ['./add-recipe.component.css'],
 })
-export class AddReipeComponent implements OnInit {
+export class AddRecipeComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private ingredientService: ingredientService,

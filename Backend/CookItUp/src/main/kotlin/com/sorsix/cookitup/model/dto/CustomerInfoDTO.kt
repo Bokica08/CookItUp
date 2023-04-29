@@ -9,7 +9,7 @@ data class CustomerInfoDTO (
      val lastname: String? = null,
      var username: String = "",
      val email: String? = null,
-      var phoneNumber: String,
+     var phoneNumber: String,
      var address: String,
      val role: Role,
 

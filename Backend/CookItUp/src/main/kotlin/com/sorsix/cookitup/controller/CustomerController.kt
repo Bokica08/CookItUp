@@ -132,6 +132,9 @@ class CustomerController(val userService: UserService, val reviewService: Review
             ResponseEntity.ok(recipes.subList(0,5))
         }
     }
-
+    @GetMapping("/getCustomerPhoneNumberAndAddress")
+    fun getCustomerPhoneNumberAndAddress(request: HttpServletRequest):ResponseEntity<Any>{
+        return ResponseEntity.ok(userService.findByUsername(request.remoteUser));
+    }
 
 }

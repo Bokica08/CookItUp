@@ -98,4 +98,8 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
         adminRepository.save(admin)
         return Optional.of(admin)
     }
+
+    override fun getRandomAdmin(): Admin {
+        return adminRepository.findAll().random()
+    }
 }

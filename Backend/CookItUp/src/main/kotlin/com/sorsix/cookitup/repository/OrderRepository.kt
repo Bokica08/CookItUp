@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository
 interface OrderRepository : JpaRepository<Order, Long> {
     fun findAllByOrderStatus(orderStatus: OrderStatus) : List<Order>
     fun findAllByCustomer(customer: Customer) : List<Order>
+    fun save(order:Order):Order
 }

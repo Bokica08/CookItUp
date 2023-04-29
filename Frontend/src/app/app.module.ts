@@ -20,12 +20,13 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
+import { AddRecipeComponent } from './components/add-recipe/add-recipe.component';
 import { MyRecipesComponent } from './components/my-recipes/my-recipes.component';
 import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite-recipes.component';
 import { ApproveAdminComponent } from './components/approve-admin/approve-admin.component';
 import { MyReviewsComponent } from './components/my-reviews/my-reviews.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { AddOrderComponent } from './components/add-order/add-order.component';
 
 
 
@@ -39,7 +40,7 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
     FooterComponent,
     LoginComponent,
     UserInfoComponent,
-    AddReipeComponent,
+    AddRecipeComponent,
     RecipeDetailsComponent,
     AboutUsComponent,
     ContactComponent,
@@ -49,7 +50,8 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
     FavoriteRecipesComponent,
     ApproveAdminComponent,
     MyReviewsComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    AddOrderComponent
   ],
   imports: [
     BrowserModule,

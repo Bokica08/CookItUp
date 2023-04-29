@@ -22,6 +22,7 @@ export class RecipeDetailsComponent {
   isInUsersFavorite = false
   isLoggedIn = false
   hasAlreadyReviewed=false
+  numPersonsForOrder:number=4
   user:Customer | undefined
   userFavorites:Recipe[] | undefined
   form:FormGroup = new FormGroup({})

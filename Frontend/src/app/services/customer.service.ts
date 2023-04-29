@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Review } from "../models/review";
 import { Order } from "../models/order";
 import { Recipe } from "../models/recipe";
+import { CustomerDto } from "../models/customerDto";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,8 @@ export class CustomerService {
     }
     getCustomerRecipesPreview(): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(`${this.customerUrl}/myRecipesPreview`);
+    }
+    getCustomerPhoneNumberAndAddress(): Observable<CustomerDto>{
+        return this.http.get<CustomerDto>(`${this.customerUrl}/getCustomerPhoneNumberAndAddress`);
     }
 }

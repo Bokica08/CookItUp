@@ -10,9 +10,6 @@ import lombok.Data
 data class OrderDTO(
     val phoneNumber:String?=null,
     val address:String?=null,
-    val orderStatus: OrderStatus?=null,
     val numPersons:Int?=null,
-    val recipe: Recipe?=null,
-    val customer: Customer?=null,
-    val admin: Admin?=null
+    val recipeId: Long?=null,
 )

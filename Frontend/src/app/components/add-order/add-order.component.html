@@ -1,0 +1,50 @@
+<div class="bg-light pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <h1 class="display-6">
+        Ordering for recipe: {{ recipe?.name }} for {{ numPersons }} people
+      </h1>
+      <div class="col-md-12">
+        <div>
+          <ul>
+            <li *ngFor="let ingredient of recipe?.ingredientList">
+              {{ ingredient.name }} -
+              {{
+                (ingredient.quantity / recipe?.numPersons!!) * numPersons!!
+              }},{{ ingredient.measure }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="mt-4">
+                <div class="row mb-3 w-80">
+                    <div class="col-md-3"></div>
+                    <label class="form-label col-md-1 font-weight-bold text-right" for="address">Address</label><br>
+                    <div class="col-md-4">
+                        <input required #address="ngModel" type="text" id="address" class="form-control" name="address"
+                            [(ngModel)]="order!.address" placeholder="{{this.customer?.address}}" [disabled]="disabled"/>
+                    </div>
+                </div>
+                <div class="row mb-3 w-80">
+                    <div class="col-md-3"></div>
+                    <label class="form-label col-md-1 font-weight-bold text-right" for="phoneNumber">Phone Number</label><br>
+                    <div class="col-md-4">
+                        <input required #phoneNumber="ngModel" type="text" id="phoneNumber" class="form-control"
+                            name="phoneNumber" [(ngModel)]="order!.phoneNumber" placeholder="{{this.customer?.phoneNumber}}" [disabled]="disabled"/>
+                    </div>
+                    
+            </div>
+            <div class="row mb-3 w-80">
+                <div class="col-md-5"></div>
+                <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Create order</button>
+            </div>
+            </div>
+            </div>
+            </form>
+    </div>
+  </div>
+</div>

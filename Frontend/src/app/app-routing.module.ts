@@ -11,12 +11,13 @@ import { ContactComponent } from './components/contact/contact.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AddReipeComponent } from './components/add-reipe/add-reipe.component';
+import { AddRecipeComponent } from './components/add-recipe/add-recipe.component';
 import { MyRecipesComponent } from './components/my-recipes/my-recipes.component';
 import { FavoriteRecipesComponent } from './components/favorite-recipes/favorite-recipes.component';
 import { ApproveAdminComponent } from './components/approve-admin/approve-admin.component';
 import { MyReviewsComponent } from './components/my-reviews/my-reviews.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { AddOrderComponent } from './components/add-order/add-order.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'profile',component:UserInfoComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'register',component:RegisterComponent},
-  {path:'addRecipe',component:AddReipeComponent,resolve:{data:dataResolverGetCategories}},
+  {path:'addRecipe',component:AddRecipeComponent,resolve:{data:dataResolverGetCategories}},
+  {path:'addOrder/:id/:numPersons',component:AddOrderComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'home',component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'category/:category', component: RecipesComponent},
   {path:'search/:inputText', component: RecipesComponent},
