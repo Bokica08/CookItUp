@@ -44,7 +44,9 @@ export class MyReviewsComponent implements OnInit{
   }
   getReviews() {
     this.userService.getMyReveiws().subscribe(res=>{
-      this.myReviews=res
+      this.myReviews=res;
+      console.log(res);
+      
     })
   }
 
