@@ -29,10 +29,11 @@ export class HomeComponent {
     this.recipeService.getTopRatedRecipes().subscribe(r => this.topRated = r);
   }
   isStarFilled(averageRating: number, starNumber: number): boolean {
-    return starNumber <= Math.floor(averageRating);
+    return starNumber <= Math.floor(averageRating) ||
+    (starNumber > Math.floor(averageRating) && averageRating > starNumber - 0.25 && averageRating <= starNumber + 0.25);
   }
   isStarHalfFilled(averageRating: number, starNumber: number): boolean {
-    return starNumber > Math.floor(averageRating) && starNumber === Math.ceil(averageRating)
-    && averageRating >= starNumber-0.5
+    return starNumber > Math.floor(averageRating) && starNumber <= Math.ceil(averageRating)
+    && averageRating > starNumber-0.75 && averageRating <= starNumber-0.25;
   }
 }

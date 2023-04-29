@@ -103,11 +103,11 @@
                 </div>
                 <div class="form-group">
                     <label for="image2">Upload Optional Image 1:</label>
-                    <input type="file" class="form-control-file m-3" id="image2" name="image2">
+                    <input type="file" class="form-control-file m-3" id="image2" name="image2" (change)="onOptionalFileAdded($event,1)">
                 </div>
                 <div class="form-group">
                     <label for="image3">Upload Optional Image 2:</label>
-                    <input type="file" class="form-control-file m-3" id="image3" name="image3">
+                    <input type="file" class="form-control-file m-3" id="image3" name="image3" (change)="onOptionalFileAdded($event,2)">
                 </div>
         </div>
         

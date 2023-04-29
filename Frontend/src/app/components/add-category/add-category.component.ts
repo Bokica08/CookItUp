@@ -21,13 +21,10 @@ export class AddCategoryComponent implements OnInit{
   }
 onSubmit() {
 if(this.isLoggedIn && this.user.role=="ROLE_ADMIN")
-{
-  console.log("hrer");
-  
+{  
   this.adminService.addCategory(this.category!).subscribe(res=>
     { 
-      console.log(res);
-      
+      window.location.href="/"
     })
 }
 }
