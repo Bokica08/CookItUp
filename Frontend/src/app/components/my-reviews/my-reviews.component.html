@@ -1,32 +1,66 @@
 <div class="bg-light pt-5 pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row card-group flex-wrap mb-5" *ngIf="myReviews?.length!=0">
-                    <div *ngFor="let review of myReviews" class="card col-lg-3 col-md-4">
-                        <a routerLink="/recipe/{{review.recipe.id}}"><img class="card-img-top" [src]="'data:image/jpg;base64,'+ review.recipe.imageList[0].byteArray"
-                            alt="Recipe image"></a>
-                        <div class="card-body">
-                            <a class="card-title custom-card-title" routerLink="/recipe/{{review.recipe.id}}">{{review.recipe.name}}</a>
-                            <p class="card-text">{{review.recipe.avRating}}</p>
-                            <p class="card-text"><small class="text-muted">{{review.recipe.difficultyLevel}}</small></p>
-                            <p class="card-text">Given Stars : {{review.stars}}</p>
-                            <p class="card-text">Given comment : {{review.content}}</p>
-                            <p>
-                            </p>
-                        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="row card-group flex-wrap mb-5"
+          *ngIf="myReviews?.length != 0"
+        >
+        <div class="col-lg-3 col-md-4 mb-4" *ngFor="let review of myReviews">
+            <div class="card">
+              <a routerLink="/recipe/{{ review.recipe.id }}">
+                <img
+                  class="card-img-top"
+                  [src]="
+                    'data:image/jpg;base64,' +
+                    review.recipe.imageList[0].byteArray
+                  "
+                  alt="Recipe image"
+                />
+              </a>
+              <div class="card-body">
+                <a
+                  class="card-title custom-card-title"
+                  routerLink="/recipe/{{ review.recipe.id }}"
+                  >{{ review.recipe.name }}</a
+                >
+                <div class="card-text">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-muted">
+                      {{ review.recipe.difficultyLevel }}
                     </div>
+                    <div>
+                      <span class="rating">{{ review.recipe.avRating }}</span>
+                      <i class="bi bi-star-fill text-warning"></i>
+                    </div>  
+                  </div>
+                  <hr />
+                  <div>Given Stars: {{ review.stars }}</div>
+                  <div class="mb-1">Given Comment: {{ review.content }}</div>
                 </div>
-                <div class="row mb-5 text-center" *ngIf="myReviews?.length==0">
-                    
-                    <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">
-                        <div class="container pt-5 pb-5">
-                            <h1 class="display-6 mb-3">You currently don't have any recipes reviewed</h1>
-                            <a routerLink="/recipes" class="btn btn-success p-2">Review Recipe</a>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
+
+        <div class="row mb-5 text-center" *ngIf="myReviews?.length == 0">
+          <div
+            class="text-center bg-light d-flex align-items-center justify-content-center"
+            style="height: 460px"
+          >
+            <div class="container pt-5 pb-5">
+              <h1 class="display-6 mb-3">
+                You currently don't have any recipes reviewed
+              </h1>
+              <a routerLink="/recipes" class="btn btn-success p-2"
+                >Review Recipe</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

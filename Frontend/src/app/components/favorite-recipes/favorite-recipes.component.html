@@ -2,18 +2,45 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="row card-group flex-wrap mb-5" *ngIf="favoriteRecipes?.length!=0">
-                    <div *ngFor="let recipe of favoriteRecipes" class="card col-lg-3 col-md-4">
-                        <a routerLink="/recipe/{{recipe.id}}"><img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray"
-                            alt="Recipe image"></a>
-                        <div class="card-body">
-                            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
-                            <p class="card-text">{{recipe.avRating}}</p>
-                            <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
-                            <a class="btn btn-danger" (click)="removeFromFavorites(recipe.id.toString())">Remove from favorites</a>
+                <div class="row card-group flex-wrap" *ngIf="favoriteRecipes?.length!=0">
+                    <div class="col-lg-3 col-md-4 mb-4" *ngFor="let recipe of favoriteRecipes">
+                        <div class="card">
+                          <a routerLink="/recipe/{{ recipe.id }}">
+                            <img
+                              class="card-img-top"
+                              [src]="
+                                'data:image/jpg;base64,' +
+                                recipe.imageList[0].byteArray
+                              "
+                              alt="Recipe image"
+                            />
+                          </a>
+                          <div class="card-body">
+                            <a
+                              class="card-title custom-card-title"
+                              routerLink="/recipe/{{ recipe.id }}"
+                              >{{ recipe.name }}</a
+                            >
+                            <div class="card-text">
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <div class="text-muted">
+                                  {{ recipe.difficultyLevel }}
+                                </div>
+                                <div>
+                                  <span class="rating">{{ recipe.avRating }}</span>
+                                  <i class="bi bi-star-fill text-warning"></i>
+                                </div>  
+                              </div>
+                              <hr />
+                              <div><a class="btn btn-danger mb-1" (click)="removeFromFavorites(recipe.id.toString())">Remove from favorites</a></div>
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
                 </div>
+                
                 <div class="row mb-5 text-center" *ngIf="favoriteRecipes?.length==0">
                     
                     <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">

@@ -2,20 +2,49 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="row card-group flex-wrap mb-5" *ngIf="myOrders?.length!=0">
-                    <div *ngFor="let order of myOrders" class="card col-lg-3 col-md-4">
-                        <a routerLink="/recipe/{{order.recipe.id}}"><img class="card-img-top" [src]="'data:image/jpg;base64,'+ order.recipe.imageList[0].byteArray"
-                            alt="Recipe image"></a>
-                        <div class="card-body">
-                            <a class="card-title custom-card-title" routerLink="/recipe/{{order.recipe.id}}">{{order.recipe.name}}</a>
-                            <p class="card-text">{{order.recipe.avRating}}</p>
-                            <p class="card-text"><small class="text-muted">{{order.recipe.difficultyLevel}}</small></p>
-                            <p class="card-text">For : {{order.numPersons}} persons</p>
-                            <p>
-                            </p>
-                        </div>
+                <div
+          class="row card-group flex-wrap mb-5"
+          *ngIf="myOrders?.length != 0"
+        >
+          <div class="col-lg-3 col-md-4 mb-4" *ngFor="let order of myOrders">
+            <div class="card">
+              <a routerLink="/recipe/{{ order.recipe.id }}">
+                <img
+                  class="card-img-top"
+                  [src]="
+                    'data:image/jpg;base64,' +
+                    order.recipe.imageList[0].byteArray
+                  "
+                  alt="Recipe image"
+                />
+              </a>
+              <div class="card-body">
+                <a
+                  class="card-title custom-card-title"
+                  routerLink="/recipe/{{ order.recipe.id }}"
+                  >{{ order.recipe.name }}</a
+                >
+                <div class="card-text">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-muted">
+                      {{ order.recipe.difficultyLevel }}
                     </div>
+                    <div>
+                      <span class="rating">{{ order.recipe.avRating }}</span>
+                      <i class="bi bi-star-fill text-warning"></i>
+                    </div>  
+                  </div>
+                  <hr />
+                  <div>For {{ order.numPersons }} people</div>
+                  <div class="mb-2">Current status: {{order.orderStatus}}</div>
+                  <div><a class="btn btn-danger mb-1">TODO()Cancel the order</a></div>
                 </div>
+              </div>
+            </div>
+          </div>
+                
                 <div class="row mb-5 text-center" *ngIf="myOrders?.length==0">
                     
                     <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">

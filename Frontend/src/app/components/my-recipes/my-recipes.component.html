@@ -1,33 +1,77 @@
 <div class="bg-light pt-5 pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row card-group flex-wrap mb-5" *ngIf="myRecipes?.length!=0">
-                    <div *ngFor="let recipe of myRecipes" class="card col-lg-3 col-md-4">
-                        <a routerLink="/recipe/{{recipe.id}}"><img class="card-img-top" [src]="'data:image/jpg;base64,'+ recipe.imageList[0].byteArray"
-                            alt="Recipe image"></a>
-                        <div class="card-body">
-                            <a class="card-title custom-card-title" routerLink="/recipe/{{recipe.id}}">{{recipe.name}}</a>
-                            <p class="card-text">{{recipe.avRating}}</p>
-                            <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
-                            <p>
-                                <a class="btn btn-warning">Edit</a>
-                                <a class="btn btn-danger" (click)="deleteRecipe(recipe.id.toString())">Delete</a>
-                            </p>
-                        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="row card-group flex-wrap mb-5"
+          *ngIf="myRecipes?.length != 0"
+        >
+          <div class="col-lg-3 col-md-4 mb-4" *ngFor="let recipe of myRecipes">
+            <div class="card">
+              <a routerLink="/recipe/{{ recipe.id }}">
+                <img
+                  class="card-img-top"
+                  [src]="
+                    'data:image/jpg;base64,' + recipe.imageList[0].byteArray
+                  "
+                  alt="Recipe image"
+                />
+              </a>
+              <div class="card-body">
+                <a
+                  class="card-title custom-card-title"
+                  routerLink="/recipe/{{ recipe.id }}"
+                  >{{ recipe.name }}</a
+                >
+                <div class="card-text">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-muted">
+                      {{ recipe.difficultyLevel }}
                     </div>
-                </div>
-                <div class="row mb-5 text-center" *ngIf="myRecipes?.length==0">
-                    
-                    <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">
-                        <div class="container pt-5 pb-5">
-                            <h1 class="display-6 mb-3">You currently don't have any recipes</h1>
-                            <h1 class="display-6 mb-3">Try adding a recipe.</h1>
-                            <a routerLink="/addRecipe" class="btn btn-success p-2">Add Recipe</a>
-                        </div>
+                    <div>
+                      <span class="rating">{{ recipe.avRating }}</span>
+                      <i class="bi bi-star-fill text-warning"></i>
                     </div>
+                  </div>
+                  <hr />
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <a class="btn btn-warning mb-1">Edit</a>
+                    </div>
+                    <div>
+                      <a
+                        class="btn btn-danger mb-1"
+                        (click)="deleteRecipe(recipe.id.toString())"
+                        >Delete</a
+                      >
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="row mb-5 text-center" *ngIf="myRecipes?.length == 0">
+          <div
+            class="text-center bg-light d-flex align-items-center justify-content-center"
+            style="height: 460px"
+          >
+            <div class="container pt-5 pb-5">
+              <h1 class="display-6 mb-3">
+                You currently don't have any recipes
+              </h1>
+              <h1 class="display-6 mb-3">Try adding a recipe.</h1>
+              <a routerLink="/addRecipe" class="btn btn-success p-2"
+                >Add Recipe</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -9,4 +9,5 @@ data class OrderPreviewDTO(
     val address:String?=null,
     val numPersons:Int?=null,
     val recipe: RecipePreviewDTO?=null,
+    val orderStatus: String?=null
 )

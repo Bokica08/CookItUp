@@ -65,7 +65,8 @@ private val customerRepository: CustomerRepository) : OrderService {
             order.phoneNumber,
             order.address,
             order.numPersons,
-            recipePreview
+            recipePreview,
+            order.orderStatus.toString()
         )
     }
     override fun getOrdersByAdmin(username: String): List<Order> {
