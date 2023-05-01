@@ -64,7 +64,7 @@ export class NavbarComponent implements OnInit {
     console.log("hi");
     this.storageService.clean()
     this.authService.logout()
-    window.location.reload()
+    window.location.href="/"
   
   }
 }
