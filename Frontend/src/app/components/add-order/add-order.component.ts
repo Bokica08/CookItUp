@@ -55,6 +55,7 @@ export class AddOrderComponent implements OnInit {
     this.order.numPersons = this.numPersons!!;
     this.order.recipeId = parseInt(this.recipeId!!);
     this.orderService.addOrder(this.order).subscribe((res) => {
+      window.location.href='/myOrders'
       console.log(res);
     });
   }

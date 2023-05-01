@@ -20,6 +20,7 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { AddOrderComponent } from './components/add-order/add-order.component';
 import { AddIngredientComponent } from './components/add-ingredient/add-ingredient.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path:'addIngredient',component:AddIngredientComponent, resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'addCategory',component:AddCategoryComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'approveAdmin',component:ApproveAdminComponent},
+  {path:'adminOrders',component:AdminOrdersComponent},
   {path:'myReviews',component:MyReviewsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'myRecipes', component: MyRecipesComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'myOrders', component: MyOrdersComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},

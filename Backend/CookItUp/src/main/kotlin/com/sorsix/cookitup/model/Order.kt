@@ -14,7 +14,7 @@ class Order(
         val phoneNumber:String?=null,
         val address:String?=null,
         @Enumerated(value = EnumType.STRING)
-        val orderStatus: OrderStatus?=null,
+        var orderStatus: OrderStatus?=null,
         val numPersons:Int?=null,
         @ManyToOne
         @JoinColumn(name = "recipeId")

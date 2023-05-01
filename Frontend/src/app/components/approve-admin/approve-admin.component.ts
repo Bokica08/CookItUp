@@ -35,7 +35,6 @@ export class ApproveAdminComponent implements OnInit{
       {
         console.log(res);
        
-        
       })
       this.ngOnInit()
   }

@@ -1,0 +1,29 @@
+<div *ngIf="isLoggedIn && isAdmin" class="container">
+    <h1 class="d-flex justify-content-center m-3">Orders for Admin</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Number of persons</th>
+          <th>Order status</th>
+          <th>Recipe</th>
+          <th></th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr *ngFor="let o of orders">
+          <td>{{o.phoneNumber}}</td>
+          <td>{{o.address}}</td>
+          <td>{{o.numPersons}}</td>
+          <td>{{o.orderStatus}}</td>
+        <td>{{o.recipe.name}}</td>
+        <td> <a *ngIf="o.orderStatus=='Created'" class="btn btn-primary" data-placement="top" data-original-title="Edit" (click)="changeStatus(o)">Approve</a></td>
+
+    </tr>
+      </tbody>
+      </table>
+      </div>
+      <div class="container m-3" *ngIf="!isLoggedIn || !isAdmin">
+        <h1 class="d-flex justify-content-center">You are not admin</h1>
+      </div>

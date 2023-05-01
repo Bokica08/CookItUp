@@ -2,14 +2,17 @@ package com.sorsix.cookitup.controller
 
 import com.sorsix.cookitup.model.Category
 import com.sorsix.cookitup.model.Ingredient
+import com.sorsix.cookitup.model.Order
 import com.sorsix.cookitup.model.User
 import com.sorsix.cookitup.model.dto.CategoryDTO
 import com.sorsix.cookitup.model.dto.IngredientDTO
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.IngredientRepository
+import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletRequest
 
 
 @RestController
@@ -17,7 +20,8 @@ import org.springframework.web.bind.annotation.*
 class AdminController(
     val categoryRepository: CategoryRepository,
     val ingredientRepository: IngredientRepository,
-    val userService: UserService
+    val userService: UserService,
+    val orderService: OrderService,
 ) {
     // Add category to the system
     @PostMapping("/category")
@@ -41,4 +45,17 @@ class AdminController(
             .map { user -> ResponseEntity.ok().body(user) }
             .orElseGet { ResponseEntity.badRequest().build() }
     }
+    @GetMapping("/orders")
+    fun getAllOrders(request:HttpServletRequest):ResponseEntity<List<Order>>
+    {
+        return ResponseEntity.ok(orderService.getOrdersByAdmin(request.remoteUser))
+    }
+    @GetMapping("/changeStatus/{id}")
+    fun changeStatus(@PathVariable id:Long):ResponseEntity<Order>
+    {
+        val order=orderService.getOrder(id)
+        orderService.changeStatus(order)
+        return ResponseEntity.ok(order)
+    }
+
 }

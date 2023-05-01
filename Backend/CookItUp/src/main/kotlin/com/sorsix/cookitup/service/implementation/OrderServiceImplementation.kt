@@ -3,10 +3,7 @@ package com.sorsix.cookitup.service.implementation
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.Image
 import com.sorsix.cookitup.model.Order
-import com.sorsix.cookitup.model.dto.OrderDTO
-import com.sorsix.cookitup.model.dto.OrderPreviewDTO
-import com.sorsix.cookitup.model.dto.RecipePreviewDTO
-import com.sorsix.cookitup.model.dto.ReviewPreviewDTO
+import com.sorsix.cookitup.model.dto.*
 import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.repository.ImageRepository
@@ -15,6 +12,7 @@ import com.sorsix.cookitup.repository.RecipeRepository
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.UserService
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class OrderServiceImplementation(private val orderRepository: OrderRepository,
@@ -69,5 +67,19 @@ private val customerRepository: CustomerRepository) : OrderService {
             order.numPersons,
             recipePreview
         )
+    }
+    override fun getOrdersByAdmin(username: String): List<Order> {
+        return orderRepository.findAllByAdminUsername(username)
+    }
+
+    override fun getOrder(id: Long): Order {
+        return orderRepository.getReferenceById(id)
+
+    }
+
+    override fun changeStatus(order: Order): Order {
+        order.orderStatus=OrderStatus.Processing
+        orderRepository.save(order)
+        return order
     }
 }
