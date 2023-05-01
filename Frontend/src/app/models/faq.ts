@@ -1,6 +1,5 @@
 export interface FAQ {
-    title:string,
-    content:string,
-    isExpanded:boolean,
-    
+  title: string;
+  content: string;
+  isExpanded: boolean;
 }

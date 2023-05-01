@@ -1,4 +1,4 @@
-export enum Measure{
-    kilos="kilos",
-    grams="grams"
+export enum Measure {
+  kilos = 'kilos',
+  grams = 'grams',
 }

@@ -1,5 +1,5 @@
-export interface IngInRecipe{
-    name:string,
-    measure:string,
-    quantity:number
+export interface IngInRecipe {
+  name: string;
+  measure: string;
+  quantity: number;
 }

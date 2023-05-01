@@ -51,9 +51,8 @@ export class RecipeService {
   getCategoriesCount(): Observable<number> {
     return this.http.get<number>(`${this.recipeUrl}/categoriesCount`);
   }
-  deleteRecipe(id:string):Observable<Recipe>
-  {
-    return this.http.delete<Recipe>(this.recipeUrl+"/delete/"+id)
+  deleteRecipe(id: string): Observable<Recipe> {
+    return this.http.delete<Recipe>(this.recipeUrl + '/delete/' + id);
   }
   getFilteredRecipes(
     category: string | null,
@@ -62,21 +61,21 @@ export class RecipeService {
     prepTimes: string | null
   ) {
     let params = '';
-  if (category) {
-    params += `category=${category}&`;
-  }
-  if (inputText) {
-    params += `inputText=${inputText}&`;
-  }
-  if (difficultyLevels) {
-    params += `difficultyLevels=${difficultyLevels}&`;
-  }
-  if (prepTimes) {
-    params += `prepTimes=${prepTimes}&`;
-  }
-  if (params) {
-    params = params.slice(0, -1);
-  }
-  return this.http.get<Recipe[]>(`${this.recipeUrl}/filtered/?${params}`);
+    if (category) {
+      params += `category=${category}&`;
+    }
+    if (inputText) {
+      params += `inputText=${inputText}&`;
+    }
+    if (difficultyLevels) {
+      params += `difficultyLevels=${difficultyLevels}&`;
+    }
+    if (prepTimes) {
+      params += `prepTimes=${prepTimes}&`;
+    }
+    if (params) {
+      params = params.slice(0, -1);
+    }
+    return this.http.get<Recipe[]>(`${this.recipeUrl}/filtered/?${params}`);
   }
 }

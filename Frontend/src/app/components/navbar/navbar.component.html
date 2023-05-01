@@ -42,21 +42,29 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isUser">
             <a class="nav-link" routerLink="/myRecipes">My recipes</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isUser">
             <a class="nav-link" routerLink="/myOrders">My orders</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isUser">
             <a class="nav-link" routerLink="/myReviews">My reviews</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isUser">
             <a class="nav-link" routerLink="/myFavoriteRecipes">My favorites</a>
           </li>
-        
-          <li *ngIf="isLoggedIn && isAdmin" class="nav-item">
-            <a class="nav-link" routerLink="/approveAdmin">App Admin</a>
+          <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/approveAdmin">Approve an Admin</a>
+          </li>
+          <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/addCategory">Add a category</a>
+          </li>
+          <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/addIngredient">Add a ingredient</a>
+          </li>
+          <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/adminOrders">Orders</a>
           </li>
         </ul>
         <form class="d-flex formControl">
