@@ -1,0 +1,121 @@
+<h2 class="text-center mt-3">Edit Recipe</h2>
+<hr />
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+    <div class="mt-4">
+        <div class="row mb-3 w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="name">Name</label><br>
+            <div class="col-md-4">
+                <input required #name="ngModel" type="text" id="name" class="form-control" name="name"
+                    [(ngModel)]="recipe!.name" />
+            </div>
+        </div>
+        <div class="row mb-3 w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="numPersons">numPersons</label><br>
+            <div class="col-md-4">
+                <input required #numPersons="ngModel" type="number" id="numPersons" class="form-control" min="1"
+                    name="numPersons" [(ngModel)]="recipe!.numPersons" />
+            </div>
+        </div>
+        <div class="mb-3 row w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="prepTime">prepTime</label><br>
+            <div class="col-md-4">
+                <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control" name="prepTime" min="1"
+                    [(ngModel)]="recipe!.prepTime" />
+            </div>
+        </div>
+        <div class="mb-3 row w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="city">Difficulty level</label><br>
+            <span class="col-md-2">
+                <input #difficultyLevel="ngModel" type="radio" name="difficultyLevel" value="Easy" [(ngModel)]="recipe!.difficultyLevel">
+                Easy
+            </span>
+            <span class="col-md-2">
+                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Medium" [(ngModel)]="recipe!!.difficultyLevel">
+                Medium
+            </span>
+            <span class="col-md-1">
+                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard" [(ngModel)]="recipe!!.difficultyLevel">
+                Hard
+            </span>
+        </div>
+        <div class="row mb-3 w-80">
+            <div class="col-md-3"></div>
+            <label class="form-label col-md-1 font-weight-bold text-right" for="description">Description</label><br>
+            <div class="col-md-4">
+                <textarea required id="description" rows="8" class="form-control"
+                    name="description" [(ngModel)]="recipe!.description"></textarea>
+            </div>
+        </div>
+
+        <div class=" container" *ngIf="this.recipe.categoryList != undefined">
+            Categories:
+            <!-- <select #categoryList="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="recipe!.categoryList" multiple="multiple">
+                <option *ngFor="let c of this.categories" [ngValue]="c.categoryId">{{c.name}}</option>
+            </select> -->
+            <!--NE SAKA DA GI SELEKTIRA TIE SHO GI IMA PROBLEEEEM-->
+            <select required #categoryList="ngModel" class="d-flex justify-content-center form-select form-select-lg mb-1"  [(ngModel)]="recipe.categoryList" name="categoryList" multiple="multiple">
+                <option *ngFor="let c of this.categories" [attr.selected]="recipe.categoryList.includes(c)" [ngValue]="c.name">{{c.name}}</option>
+            </select>
+        </div>
+
+        <div *ngFor="let box of boxes" class="box">
+            <div class="container">
+                <a  class="m-3 btn btn-success" (click)="addBox()">Add Ingredient</a>
+                <div class="row justify-content-center mb-3">
+                    <label class="form-label col-md-2 font-weight-bold text-right" for="">Quantity:</label>
+                    <div class="col-3">
+                        <input required  type="number" id="quantity" class="form-control" min="0"
+                            style="width: 300px;" name="quantity" [(ngModel)]="newIngredient.quantity" />
+                    </div>
+                    <div class="col-3">
+
+                        <select class="form-select" style="width: 300px;" required [(ngModel)]="newIngredient.measure" name="measure">
+                            <option selected *ngFor="let m of measures" [ngValue]="m.toString()">{{m.toString()}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select required #nameIng="ngModel" class="form-select" style="width: 300px;" [(ngModel)]="newIngredient.name" name="nameIng">
+                            >
+                            <option *ngFor="let i of ingredients" [ngValue]="i.name">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-3 bg-primary m-3"></div>
+                    <div class="col-6 bg-primary m-3"></div>
+                </div>
+                <h3>Already added:</h3>
+                <div *ngFor="let ri of this.recipe.ingredientList">
+                    {{ri.quantity}} {{ri.measure}} {{ri.name}}
+                </div>
+            </div>
+            
+        </div>
+        <div class="container" *ngIf="this.images!=null">
+            <div>{{this.images[1]}}</div>
+            <h2>Image Upload Form</h2>
+                <div class="form-group">
+                    <label for="image1">Upload Required Image:</label>
+                    <input type="file" class="form-control-file m-3" id="image1" value="imageList" name="image1" required (change)="onFileAdded($event)">
+                </div>
+                <div class="form-group">
+                    <label for="image2">Upload Optional Image 1:</label>
+                    <input type="file" class="form-control-file m-3" id="image2" name="image2" (change)="onOptionalFileAdded($event,1)">
+                </div>
+                <div class="form-group">
+                    <label for="image3">Upload Optional Image 2:</label>
+                    <input type="file" class="form-control-file m-3" id="image3" name="image3" (change)="onOptionalFileAdded($event,2)">
+                </div>
+        </div>
+        
+    </div>
+    <button class="btn btn-info m-3" type="submit">Create</button><br>
+</form>
+<div class="row" style="margin-bottom: 4em;">
+    <div class="col-md-12"></div>
+</div>

@@ -64,6 +64,13 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
             )
         )
     }
+    @GetMapping("/images/{id}")
+    fun getImagesForRecipe(@PathVariable id:Long):ResponseEntity<Any>
+    {
+        val recipe=recipeService.getRecipeById(id)
+        return ResponseEntity.ok(imageRepository.getAllByRecipe(recipe))
+    }
+
     // Get details for specific recipe
     @GetMapping("/details/{id}")
     fun getDetailsForRecipe(@PathVariable id:String):ResponseEntity<Any>{
