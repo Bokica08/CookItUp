@@ -27,8 +27,18 @@
   background-image: url("./assets/empty.png");
   background-size: cover;
 }
-
+.star-smaller{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url("./assets/empty.png");
+  background-size: cover;
+}
 .star.filled {
+  background-image: url("./assets/full.png");
+  background-size: cover;
+}
+.star-smaller.filled {
   background-image: url("./assets/full.png");
   background-size: cover;
 }
@@ -56,3 +66,6 @@
 .card {
   border: 0 !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

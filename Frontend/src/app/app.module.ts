@@ -31,6 +31,8 @@ import { AddIngredientComponent } from './components/add-ingredient/add-ingredie
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -67,7 +69,9 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatProgressBarModule
     ],
   providers: [ httpInterceptorProviders],
   bootstrap: [AppComponent]

@@ -104,7 +104,6 @@ export class RecipeDetailsComponent {
     return flag
   }
   addToFavorites(){
-    // falat api povici
     this.isInUsersFavorite = !this.isInUsersFavorite
     
     if(!this.isInUsersFavorite){
@@ -120,13 +119,21 @@ export class RecipeDetailsComponent {
       this.buttonText = "Already added to favorites"
       this.userService.addToFavorite(this.id!).subscribe(res=>{
         console.log(res);
-        
       })
+    }
+  }
+  isStarFilled(rating: number, starNumber: number): boolean {
+    return starNumber <= rating;
+  }
+  getNStarReviewPercentage(n:number): number {
+    if (this.recipe?.reviews) {
+      return this.recipe.reviews.filter(r => r.stars == n).length / this.recipe.reviews.length * 100;
+    } else {
+      return 0;
     }
   }
   
   onSubmit(){
-
     this.form= this.fb.group({
       content:this.form.value.content,
       stars:this.form.value.stars

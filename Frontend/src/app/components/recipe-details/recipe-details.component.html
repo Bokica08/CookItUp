@@ -89,11 +89,33 @@
     </div>
     <div class="row mb-3">
       <h1 class="display-6">Reviews:</h1>
+      <div *ngIf="recipe?.reviews?.length!=0" class="w-25">
+        <span>{{recipe?.reviews?.length}} reviews</span>
+        <ul class="list-unstyled">
+          <li><span>5</span><span class="star-smaller filled"></span>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(5)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+          </li>
+          <li><span>4</span><span class="star-smaller filled"></span>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(4)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+          </li>
+          <li><span>3</span><span class="star-smaller filled"></span>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(3)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+          </li>
+          <li><span>2</span><span class="star-smaller filled"></span>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(2)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+          </li>
+          <li><span>1</span><span class="star-smaller filled"></span>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(1)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+          </li>
+          
+        </ul>
+
+      </div>
       <div *ngIf="hasAlreadyReviewed">
-        <h3>You have already put review on this recipe</h3>
+        <h3 class="text-danger">You have already put review on this recipe</h3>
       </div>
       <div *ngIf="isLoggedIn && !hasAlreadyReviewed">
-
+        <h5>What do you think of this recipe? Share your experience to help others.</h5>
         <form [formGroup] ="form" (submit)="onSubmit()">
           <input type="text" placeholder="Content not required" formControlName="content" class="form-control w-50 mb-2" />
           <input type="number" min="1" max="5" placeholder="Rating" formControlName="stars" class="form-control w-25 mb-2"/>
@@ -103,9 +125,44 @@
           <!-- if the logged user is the one that posted the recipe, button disabled -->
         </form>
       </div>
+      <div *ngIf="recipe?.reviews?.length==0">
+        <h3 class="mb-3 mt-3">No reviews yet</h3>
+      </div>
 
          <div *ngFor="let r of recipe?.reviews">
-        {{ r.content }} - {{ r.stars }} - {{ r.username }} - {{ r.reviewedOn }}
+          <div class="row mt-3 mb-3">
+            <div class="col-1">
+              <img class="img-fluid" src="../../../assets/user.png" />
+            </div>
+            <div class="col-11 align-self-center"><span>{{r.username}}</span></div>
+            
+          </div>
+          <div class="d-flex mb-3">
+            <div class="d-inline-block">
+              <span
+                class="star"
+                [class.filled]="isStarFilled(r.stars, 1)"
+              ></span>
+              <span
+                class="star"
+                [class.filled]="isStarFilled(r.stars, 2)"
+              ></span>
+              <span
+                class="star"
+                [class.filled]="isStarFilled(r.stars, 3)"
+              ></span>
+              <span
+                class="star"
+                [class.filled]="isStarFilled(r.stars, 4)"
+              ></span>
+              <span
+                class="star"
+                [class.filled]="isStarFilled(r.stars, 5)"
+              ></span>
+            </div>
+            <span class="text-muted ms-4">{{r.reviewedOn}}</span></div>
+          <div class="mb-3">{{r.content}}</div>
+          <hr>
       </div>
 
     </div>

@@ -1,11 +1,14 @@
 <div class="container">
-    <form (ngSubmit)="onSubmit()">
-        <div class="form-group m-2">
-          <label for="category">Add ingredient:</label>
-          <input required="" #name="ngModel" type="text" class="form-control m-2" id="ingredient" name="ingredient" [(ngModel)]="ingredient!.name">
-          <textarea required id="description" rows="8" class="form-control m-2"
-          name="description" [(ngModel)]="ingredient!.description"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary m-2">Submit</button>
-      </form>
+  <h1 class="display-6 mt-3 mb-3">Add an ingredient</h1>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="ingredient">Ingredient name: </label>
+      <input required="" #name="ngModel" type="text" class="form-control m-2" id="ingredient" name="ingredient"
+        [(ngModel)]="ingredient!.name">
+      <label for="description">Ingredient description:</label>
+      <textarea required id="description" rows="8" class="form-control m-2" name="description"
+        [(ngModel)]="ingredient!.description"></textarea>
     </div>
+    <button type="submit" class="btn btn-success mt-3 mb-3">Submit</button>
+  </form>
+</div>

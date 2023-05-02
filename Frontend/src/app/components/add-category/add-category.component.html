@@ -1,9 +1,11 @@
 <div class="container">
+  <h1 class="display-6 mt-3 mb-3">Add a category</h1>
+
 <form (ngSubmit)="onSubmit()">
-    <div class="form-group m-2">
-      <label for="category">Add Category:</label>
+    <div class="form-group">
+      <label for="category">Category name:</label>
       <input required #name="ngModel" type="text" class="form-control m-2" id="category" name="category" [(ngModel)]="category!.name">
     </div>
-    <button type="submit" class="btn btn-primary m-2">Submit</button>
+    <button type="submit" class="btn btn-success mt-3 mb-3">Submit</button>
   </form>
 </div>
