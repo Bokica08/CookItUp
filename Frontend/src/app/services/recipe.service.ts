@@ -48,6 +48,10 @@ export class RecipeService {
   getRecipesCount(): Observable<number> {
     return this.http.get<number>(`${this.recipeUrl}/recipesCount`);
   }
+  getImagesForRecipe(id:string):Observable<any>
+  {
+    return this.http.get<any>(this.recipeUrl+'/images/'+id)
+  }
   getCategoriesCount(): Observable<number> {
     return this.http.get<number>(`${this.recipeUrl}/categoriesCount`);
   }

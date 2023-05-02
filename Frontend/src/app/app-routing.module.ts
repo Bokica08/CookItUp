@@ -21,6 +21,7 @@ import { AddOrderComponent } from './components/add-order/add-order.component';
 import { AddIngredientComponent } from './components/add-ingredient/add-ingredient.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
+import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path:'category/:category', component: RecipesComponent},
   {path:'search/:inputText', component: RecipesComponent},
   {path:'recipe/:id', component: RecipeDetailsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
+  {path:'edit/:id',component:EditRecipeComponent,resolve:{data:dataResolverGetCategories}},
   {path:'contact',component: ContactComponent},
   {path:'aboutUs', component: AboutUsComponent},
   {path:'faq', component: FaqComponent},
