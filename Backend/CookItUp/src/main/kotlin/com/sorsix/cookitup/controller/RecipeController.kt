@@ -45,25 +45,29 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
 
     }
     @PostMapping("/{id}/img")
-    fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile,@RequestParam optionalFile1: MultipartFile,@RequestParam optionalFile2: MultipartFile, request: HttpServletRequest){
+    fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile,@RequestParam(required=false) optionalFile1: MultipartFile?,@RequestParam(required = false) optionalFile2: MultipartFile?, request: HttpServletRequest){
             imageRepository.save(
                 Image(
                     null, requiredFile.name, requiredFile.contentType, requiredFile.bytes,
                     recipeService.getRecipeById(id)
                 )
             )
-        imageRepository.save(
-            Image(
-                null, optionalFile1.name, optionalFile1.contentType, optionalFile1.bytes,
-                recipeService.getRecipeById(id)
+        if(optionalFile1!=null) {
+            imageRepository.save(
+                Image(
+                    null, optionalFile1.name, optionalFile1.contentType, optionalFile1.bytes,
+                    recipeService.getRecipeById(id)
+                )
             )
-        )
-        imageRepository.save(
-            Image(
-                null, optionalFile2.name, optionalFile2.contentType, optionalFile2.bytes,
-                recipeService.getRecipeById(id)
+        }
+        if(optionalFile2!=null) {
+            imageRepository.save(
+                Image(
+                    null, optionalFile2.name, optionalFile2.contentType, optionalFile2.bytes,
+                    recipeService.getRecipeById(id)
+                )
             )
-        )
+        }
     }
     @GetMapping("/images/{id}")
     fun getImagesForRecipe(@PathVariable id:Long):ResponseEntity<Any>
