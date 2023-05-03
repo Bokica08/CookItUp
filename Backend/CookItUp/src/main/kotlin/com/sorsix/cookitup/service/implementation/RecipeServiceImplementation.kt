@@ -12,6 +12,7 @@ import com.sorsix.cookitup.service.ReviewService
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
+
 @Service
 class RecipeServiceImplementation(
     private val recipeRepository: RecipeRepository,
@@ -191,6 +192,30 @@ class RecipeServiceImplementation(
                 thirdFilter
             }
         }
+    }
+
+    override fun getSimilarRecipes(id: Long): List<RecipePreviewDTO> {
+        val recipe = recipeRepository.getReferenceById(id)
+        val allRecipes = recipeRepository.findAll().filter { it.recipeId != id }
+        val map = mutableMapOf<Recipe, Double>()
+        for (r in allRecipes) {
+            val mutualCategories: ArrayList<Category> = ArrayList(recipe.categoryList)
+            mutualCategories.retainAll(r.categoryList.toSet())
+            val mutualIngredients: ArrayList<Ingredient> = ArrayList(this.getIngredientsInRecipe(id))
+            mutualIngredients.retainAll(this.getIngredientsInRecipe(r.recipeId!!).toSet())
+            val categoryCoef = (mutualCategories.size.toDouble() / recipe.categoryList.size.toDouble()) * 0.5
+            val ingredientCoef = (mutualIngredients.size.toDouble() / this.getIngredientsInRecipe(id).size.toDouble()) * 0.5
+            val similarityCoef = categoryCoef + ingredientCoef
+            map[r] = similarityCoef
+        }
+        val sortedMap = map.entries.sortedByDescending { it.value }.associate { it.toPair() }
+        return sortedMap.entries.take(5).map { it.key }.map { getPreviewForRecipe(it.recipeId!!) };
+    }
+
+    override fun getIngredientsInRecipe(id: Long): List<Ingredient> {
+        return ingredientIsInRecipeRepository.findAllByRecipe(
+            recipeRepository.getReferenceById(id)
+        ).map { it.ingredient };
     }
 
 }

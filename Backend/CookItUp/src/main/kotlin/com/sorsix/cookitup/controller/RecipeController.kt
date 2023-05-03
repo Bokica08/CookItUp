@@ -5,6 +5,7 @@ import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.Review
 import com.sorsix.cookitup.model.dto.RecipeDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
+import com.sorsix.cookitup.model.dto.RecipePreviewDTO
 import com.sorsix.cookitup.model.dto.ReviewDTO
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.ImageRepository
@@ -131,5 +132,10 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
         @RequestParam(required = false) prepTimes: String?
     ):ResponseEntity<Any>{
         return ResponseEntity.ok(recipeService.getFilteredRecipes(category, inputText, difficultyLevels, prepTimes))
+    }
+    @GetMapping("/similarRecipes/{id}")
+    fun getSimilarRecipes(@PathVariable id:String):ResponseEntity<Any>{
+        val similarRecipes: List<RecipePreviewDTO> = recipeService.getSimilarRecipes(id.toLong())
+        return ResponseEntity.ok(similarRecipes)
     }
 }

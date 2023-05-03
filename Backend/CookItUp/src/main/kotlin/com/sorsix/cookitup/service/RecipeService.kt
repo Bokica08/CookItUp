@@ -29,4 +29,6 @@ interface RecipeService {
     fun deleteRecipe(recipe: Recipe):Any
     fun getIngredientInRecipe(recipeId: Long, ingredientId: Long) : IngredientIsInRecipeDTO
     fun getFilteredRecipes(category: String?,inputText: String?,difficultyLevels: String?,prepTimes: String?):List<RecipePreviewDTO>
+    fun getSimilarRecipes(id: Long) : List<RecipePreviewDTO>
+    fun getIngredientsInRecipe(id: Long) : List<Ingredient>
 }

@@ -169,8 +169,26 @@
 
     </div>
     <div class="row mb-3">
-        <h1 class="display-6">Simillar Recipes: </h1>
-        <p>Low priority, could be implemented, find simillar based on ingredients or category</p>
-    </div>
+        <h1 class="display-6">Browse similar recipes: </h1>
+        <div class="row">
+          <div class="col-2" *ngFor="let r of similarRecipes">
+            <a routerLink="/recipe/{{r.id}}"><img
+              class="rounded-image"
+              [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
+              alt="Recipe image"
+            />
+            </a>
+          </div>
+          <div class="col-2">
+            <a routerLink="/recipes" class="link-class"
+              ><div
+                class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class"
+              >
+                <h5>View all recipes</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
