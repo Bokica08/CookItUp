@@ -6,6 +6,7 @@ import com.sorsix.cookitup.model.Order
 import com.sorsix.cookitup.model.User
 import com.sorsix.cookitup.model.dto.CategoryDTO
 import com.sorsix.cookitup.model.dto.IngredientDTO
+import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.IngredientRepository
 import com.sorsix.cookitup.service.OrderService
@@ -54,7 +55,7 @@ class AdminController(
     fun changeStatus(@PathVariable id:Long):ResponseEntity<Order>
     {
         val order=orderService.getOrder(id)
-        orderService.changeStatus(order)
+        orderService.changeStatus(order,OrderStatus.Processing)
         return ResponseEntity.ok(order)
     }
 

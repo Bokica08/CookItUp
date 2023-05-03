@@ -62,6 +62,7 @@ private val customerRepository: CustomerRepository) : OrderService {
             imageList
         )
         return OrderPreviewDTO(
+            order.orderId!!,
             order.phoneNumber,
             order.address,
             order.numPersons,
@@ -78,8 +79,8 @@ private val customerRepository: CustomerRepository) : OrderService {
 
     }
 
-    override fun changeStatus(order: Order): Order {
-        order.orderStatus=OrderStatus.Processing
+    override fun changeStatus(order: Order,status: OrderStatus): Order {
+        order.orderStatus=status
         orderRepository.save(order)
         return order
     }

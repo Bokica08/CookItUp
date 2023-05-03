@@ -5,6 +5,7 @@ import { Review } from '../models/review';
 import { Order } from '../models/order';
 import { Recipe } from '../models/recipe';
 import { CustomerDto } from '../models/customerDto';
+import { orderAdmin } from '../models/orderAdmin';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,16 @@ export class CustomerService {
   getCustomerPhoneNumberAndAddress(): Observable<CustomerDto> {
     return this.http.get<CustomerDto>(
       `${this.customerUrl}/getCustomerPhoneNumberAndAddress`
+    );
+  }
+  changeStatusToCanceled(orderId: string): Observable<Order> {
+    return this.http.get<Order>(
+      this.customerUrl + '/changeStatusToCanceled/' +orderId
+    );
+  }
+  changeStatusToFinished(orderId: string): Observable<Order> {
+    return this.http.get<Order>(
+      this.customerUrl + '/changeStatusToFinished/' +orderId
     );
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { flatMap, mergeMap, of } from 'rxjs';
+import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Recipe } from 'src/app/models/recipe';
 import { ReviewInfo } from 'src/app/models/reviewInfo';
@@ -27,12 +28,15 @@ export class RecipeDetailsComponent {
   userFavorites:Recipe[] | undefined
   form:FormGroup = new FormGroup({})
   formOrder:FormGroup = new FormGroup({})
+  private roles: string[] = [];
+  isAdmin=false;
   constructor(private route: ActivatedRoute,
     private recipeService: RecipeService,
     private fb:FormBuilder,
     private userService:UserService,
     private reviewService:ReviewService,
-    private router:Router){
+    private router:Router,
+    private storageService:StorageService) {
       this.isLoggedIn = this.route.snapshot.data['data5'];
       this.user=this.route.snapshot.data['data6']
     }
@@ -45,6 +49,13 @@ export class RecipeDetailsComponent {
     this.formOrder = this.fb.group({
       numPersons:0
     })
+    const user = this.storageService.getUser();
+    if(user!=null){
+    this.roles = user.role;
+    if (this.roles[0] == 'ROLE_ADMIN') {
+      this.isAdmin = true;
+    }
+  }
 
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');

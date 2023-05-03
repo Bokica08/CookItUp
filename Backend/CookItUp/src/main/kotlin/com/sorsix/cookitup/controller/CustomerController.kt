@@ -1,9 +1,11 @@
 package com.sorsix.cookitup.controller
 
 import com.sorsix.cookitup.model.Customer
+import com.sorsix.cookitup.model.Order
 import com.sorsix.cookitup.model.dto.CustomerInfoDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.dto.RecipePreviewDTO
+import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.RecipeService
@@ -135,6 +137,20 @@ class CustomerController(val userService: UserService, val reviewService: Review
     @GetMapping("/getCustomerPhoneNumberAndAddress")
     fun getCustomerPhoneNumberAndAddress(request: HttpServletRequest):ResponseEntity<Any>{
         return ResponseEntity.ok(userService.findByUsername(request.remoteUser));
+    }
+    @GetMapping("/changeStatusToCanceled/{id}")
+    fun changeStatusToCanceled(@PathVariable id:Long):ResponseEntity<Order>
+    {
+        val order=orderService.getOrder(id)
+        orderService.changeStatus(order, OrderStatus.Canceled)
+        return ResponseEntity.ok(order)
+    }
+    @GetMapping("/changeStatusToFinished/{id}")
+    fun changeStatusToFinished(@PathVariable id:Long):ResponseEntity<Order>
+    {
+        val order=orderService.getOrder(id)
+        orderService.changeStatus(order, OrderStatus.Finished)
+        return ResponseEntity.ok(order)
     }
 
 }

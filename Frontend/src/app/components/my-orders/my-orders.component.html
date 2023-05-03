@@ -39,7 +39,9 @@
                   <hr />
                   <div>For {{ order.numPersons }} people</div>
                   <div class="mb-2">Current status: {{order.orderStatus}}</div>
-                  <div><a class="btn btn-danger mb-1">TODO()Cancel the order</a></div>
+                  <div *ngIf="order.orderStatus=='Created'"><button (click)="cancelOrder(order.orderId.toString())" class="btn btn-danger mb-1">Cancel the order</button></div>
+                  <div *ngIf="order.orderStatus=='Processing'"><button (click)="finishedOrder(order.orderId.toString())" class="btn btn-success mb-1">Received</button></div>
+
                 </div>
               </div>
             </div>

@@ -9,8 +9,10 @@
           alt="Recipe image"
         />
         </div>
+        <div *ngIf="!isAdmin && isLoggedIn">
         <a class="btn btn-success mt-3" (click)="addToFavorites()"><img [src]="img">
         {{buttonText}}</a>
+      </div>
       </div>
       <div class="col-7">
         <h1 class="display-6">{{ recipe?.name }}</h1>
@@ -42,7 +44,7 @@
       </ul>
     </div>
     <div class="col-4">
-    <form [formGroup] ="formOrder" (submit)="submitOrder()">
+    <form *ngIf="!isAdmin && isLoggedIn" [formGroup] ="formOrder" (submit)="submitOrder()">
       <label>Enter number of persons for the order:</label>
       <input type="number" min="1" max="10" placeholder="Number of Persons" formControlName="numPersons" class="form-control mt-3 mb-3 w-50"/>
       <button type="submit" class="btn btn-info">Order ingredients for recipe</button>
@@ -114,7 +116,7 @@
       <div *ngIf="hasAlreadyReviewed">
         <h3 class="text-danger">You have already put review on this recipe</h3>
       </div>
-      <div *ngIf="isLoggedIn && !hasAlreadyReviewed">
+      <div *ngIf="isLoggedIn && !hasAlreadyReviewed && !isAdmin">
         <h5>What do you think of this recipe? Share your experience to help others.</h5>
         <form [formGroup] ="form" (submit)="onSubmit()">
           <input type="text" placeholder="Content not required" formControlName="content" class="form-control w-50 mb-2" />

@@ -15,5 +15,6 @@ interface OrderService {
     fun getOrderPreview(id:Long): OrderPreviewDTO
     fun getOrdersByAdmin(username:String):List<Order>
     fun getOrder(id:Long): Order
-    fun changeStatus(order: Order):Order
+    fun changeStatus(order: Order,status: OrderStatus):Order
+
 }

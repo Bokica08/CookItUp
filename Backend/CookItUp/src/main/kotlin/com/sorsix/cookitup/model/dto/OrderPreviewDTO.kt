@@ -5,6 +5,7 @@ import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 import java.time.LocalDate
 
 data class OrderPreviewDTO(
+    val orderId:Long,
     val phoneNumber:String?=null,
     val address:String?=null,
     val numPersons:Int?=null,
