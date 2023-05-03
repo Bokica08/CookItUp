@@ -82,12 +82,17 @@
             />
             <div id="searchResult">
               <div *ngIf="searchResultsVisible" (click)="hideSearchResults()">
-              <div class="container m-1" *ngFor="let r of recipes">
+              <div class="container m-1" *ngFor="let r of recipes; let i = index" [ngClass]="{ 'gray': i % 2 === 0 }">
                 <a routerLink="/recipe/{{r.id}}" class="recipeText">
                 <img class="card-img-top" [src]="'data:image/jpg;base64,'+ r.imageList[0].byteArray"
                         alt="Recipe image">
-                {{r.name}} <br>test
+                        <span class="recipeName">
+                {{r.name}}
+              </span>
+                <span class="rating">{{ r.avRating }}</span>
+                <i class="bi bi-star-fill text-warning"></i>
                 </a>
+                <hr>
               </div>
             </div>
             </div>

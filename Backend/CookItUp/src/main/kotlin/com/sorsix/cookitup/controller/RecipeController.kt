@@ -8,10 +8,14 @@ import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.dto.ReviewDTO
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.ImageRepository
+import com.sorsix.cookitup.repository.RecipeRepository
 import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletRequest
 
@@ -19,7 +23,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/api/recipe")
 
 class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService,
-val categoryRepository: CategoryRepository,val imageService: ImageService,val ingredientService: IngredientService) {
+val categoryRepository: CategoryRepository,val imageService: ImageService,val ingredientService: IngredientService,val recipeRepository:RecipeRepository) {
     // Get all recipes
     @GetMapping
     fun getAllRecipes() : ResponseEntity<Any> {
@@ -85,6 +89,11 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
             LocalDateTime.now() ,recipe,userService.getCustomerByUsername(
             request.remoteUser
         )))
+        val reviewsByRecipe=reviewService.findAllByRecipe(recipe)
+        val avg=reviewsByRecipe.stream().mapToInt{it.stars!!}.summaryStatistics().average
+        val bd = BigDecimal(avg)
+        recipe.avRating =bd.setScale(2, RoundingMode.FLOOR).toDouble()
+        recipeRepository.save(recipe)
         return ResponseEntity.ok(review)
     }
     // Get the top-rated recipes

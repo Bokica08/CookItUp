@@ -18,7 +18,7 @@ class Recipe(
     @Enumerated(value = EnumType.STRING)
     val difficultyLevel: DifficultyLevel? = null,
     val prepTime: Int? = null,
-    val avRating: Double? = null,
+    var avRating: Double? = null,
     val viewCount: Int? = null,
     val createdOn: LocalDateTime? = null,
     @ManyToOne
