@@ -84,4 +84,7 @@ export class RecipeService {
     }
     return this.http.get<Recipe[]>(`${this.recipeUrl}/filtered/?${params}`);
   }
+  getSimilarRecipes(id: string): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${this.recipeUrl}/similarRecipes/${id}`);
+  }
 }

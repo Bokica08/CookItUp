@@ -5,6 +5,7 @@ import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.Review
 import com.sorsix.cookitup.model.dto.RecipeDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
+import com.sorsix.cookitup.model.dto.RecipePreviewDTO
 import com.sorsix.cookitup.model.dto.ReviewDTO
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.ImageRepository
@@ -48,25 +49,29 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
 
     }
     @PostMapping("/{id}/img")
-    fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile,@RequestParam optionalFile1: MultipartFile,@RequestParam optionalFile2: MultipartFile, request: HttpServletRequest){
+    fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile,@RequestParam(required=false) optionalFile1: MultipartFile?,@RequestParam(required = false) optionalFile2: MultipartFile?, request: HttpServletRequest){
             imageRepository.save(
                 Image(
                     null, requiredFile.name, requiredFile.contentType, requiredFile.bytes,
                     recipeService.getRecipeById(id)
                 )
             )
-        imageRepository.save(
-            Image(
-                null, optionalFile1.name, optionalFile1.contentType, optionalFile1.bytes,
-                recipeService.getRecipeById(id)
+        if(optionalFile1!=null) {
+            imageRepository.save(
+                Image(
+                    null, optionalFile1.name, optionalFile1.contentType, optionalFile1.bytes,
+                    recipeService.getRecipeById(id)
+                )
             )
-        )
-        imageRepository.save(
-            Image(
-                null, optionalFile2.name, optionalFile2.contentType, optionalFile2.bytes,
-                recipeService.getRecipeById(id)
+        }
+        if(optionalFile2!=null) {
+            imageRepository.save(
+                Image(
+                    null, optionalFile2.name, optionalFile2.contentType, optionalFile2.bytes,
+                    recipeService.getRecipeById(id)
+                )
             )
-        )
+        }
     }
     @GetMapping("/images/{id}")
     fun getImagesForRecipe(@PathVariable id:Long):ResponseEntity<Any>
@@ -140,5 +145,10 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
         @RequestParam(required = false) prepTimes: String?
     ):ResponseEntity<Any>{
         return ResponseEntity.ok(recipeService.getFilteredRecipes(category, inputText, difficultyLevels, prepTimes))
+    }
+    @GetMapping("/similarRecipes/{id}")
+    fun getSimilarRecipes(@PathVariable id:String):ResponseEntity<Any>{
+        val similarRecipes: List<RecipePreviewDTO> = recipeService.getSimilarRecipes(id.toLong())
+        return ResponseEntity.ok(similarRecipes)
     }
 }

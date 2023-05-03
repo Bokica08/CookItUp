@@ -26,6 +26,7 @@ export class RecipeDetailsComponent {
   numPersonsForOrder:number=1
   user:Customer | undefined
   userFavorites:Recipe[] | undefined
+  similarRecipes:Recipe[] | undefined
   form:FormGroup = new FormGroup({})
   formOrder:FormGroup = new FormGroup({})
   private roles: string[] = [];
@@ -61,9 +62,9 @@ export class RecipeDetailsComponent {
       this.id = params.get('id');
       if(this.id!=null){
         this.getDetailsForRecipe(this.id)
+        this.getSimilarRecipes(this.id)
       }
     });
-
     this.userService.getFavorites().subscribe(res=>{
       this.userFavorites=res
       this.isInUsersFavorite = this.hasFavoriteRecipe()
@@ -84,7 +85,14 @@ export class RecipeDetailsComponent {
       }
     );
   }
-
+  getSimilarRecipes(id:string) {
+    this.recipeService.getSimilarRecipes(id).subscribe(
+      r => {
+        this.similarRecipes = r;   
+          
+      }
+    );
+  }
   hasFavoriteRecipe()
   {
     let flag=false

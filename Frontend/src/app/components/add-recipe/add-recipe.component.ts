@@ -62,23 +62,33 @@ export class AddRecipeComponent implements OnInit {
       categoryList: f.form.value.categoryList,
       ingredientList: this.newIngredients,
     };
-    console.log(this.recipe);
+    console.log("recipe",this.recipe);
     let idRecipe = 0;
+    console.log("required",this.requiredImage);
+    console.log("o1",this.optionalImage1);
+    console.log("o2",this.optionalImage2);
+    
+    
+    
     this.formData.append(
       'requiredFile',
       this.requiredImage!!,
       this.requiredImage?.name
     );
+    if(this.optionalImage1!=null){
     this.formData.append(
       'optionalFile1',
       this.optionalImage1!!,
       this.optionalImage1?.name
     );
+    }
+    if(this.optionalImage2!=null){
     this.formData.append(
       'optionalFile2',
       this.optionalImage2!!,
       this.optionalImage2?.name
     );
+    }
     this.recipeService
       .addRecipe(this.recipe)
       .pipe(

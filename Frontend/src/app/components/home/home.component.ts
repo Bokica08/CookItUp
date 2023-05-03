@@ -22,7 +22,7 @@ export class HomeComponent {
   getRecipes() {
     this.recipeService.getNewestRecipes().subscribe(
       r => {
-        this.newest = r;
+        this.newest = r;        
       }
     );
     this.recipeService.getMostViewedRecipes().subscribe(r => this.mostViewed = r);
