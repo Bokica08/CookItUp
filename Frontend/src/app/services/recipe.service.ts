@@ -43,7 +43,9 @@ export class RecipeService {
     return this.http.get<Recipe>(`${this.recipeUrl}/details/${id}`);
   }
   searchByName(name: string): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.recipeUrl}/search/${name}`);
+    console.log(name);
+    
+    return this.http.get<Recipe[]>(`${this.recipeUrl}/search?name=${name}`);
   }
   getRecipesCount(): Observable<number> {
     return this.http.get<number>(`${this.recipeUrl}/recipesCount`);

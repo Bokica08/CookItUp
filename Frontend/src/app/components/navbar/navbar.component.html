@@ -82,12 +82,12 @@
             />
             <div id="searchResult">
               <div *ngIf="searchResultsVisible" (click)="hideSearchResults()">
-              <div *ngFor="let r of recipes">
-                <a routerLink="/recipe/{{r.id}}">
+              <div class="container m-1" *ngFor="let r of recipes">
+                <a routerLink="/recipe/{{r.id}}" class="recipeText">
                 <img class="card-img-top" [src]="'data:image/jpg;base64,'+ r.imageList[0].byteArray"
                         alt="Recipe image">
-                {{r.name}}
-              </a>
+                {{r.name}} <br>test
+                </a>
               </div>
             </div>
             </div>

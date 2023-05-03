@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     private activateRoute:ActivatedRoute,
     private authService:AuthService,
     private storageService:StorageService){}
-  search(name: string): void { 
+  search(name: string): void {     
     this.searchTerms.next(name)  
   }
   ngOnInit(): void { 

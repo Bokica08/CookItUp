@@ -106,8 +106,8 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
     fun getCategories() : ResponseEntity<Any> {
         return ResponseEntity.ok(categoryRepository.findAll())
     }
-    @GetMapping("/search/{name}")
-    fun getRecipesByName(@PathVariable name:String):ResponseEntity<Any>
+    @GetMapping("/search")
+    fun getRecipesByName(@RequestParam (required = false) name:String):ResponseEntity<Any>
     {
         return ResponseEntity.ok(recipeService.findAllByNameContainingIgnoreCase(name))
     }

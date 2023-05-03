@@ -14,3 +14,9 @@
     width: 80px;
     object-fit: cover;
 }
+.recipeText
+{
+    text-decoration:none;
+    margin-left: 5px;
+    color: black;
+}
