@@ -32,14 +32,15 @@ export class AddRecipeComponent implements OnInit {
   optionalImage2: File | undefined;
   quantities: number | undefined;
   measure: string | undefined;
+  measures = Object.keys(Measure);
+
   formData: FormData = new FormData();
   newIngredients: IngInRecipe[] = [];
   newIngredient: IngInRecipe = {
-    name: '',
-    measure: '',
-    quantity: 0,
+    name: "",
+    measure: this.measures[0].toString(),
+    quantity: 1,
   };
-  measures = Object.keys(Measure);
 
   ngOnInit() {
     this.getAllIngredients();
@@ -48,6 +49,12 @@ export class AddRecipeComponent implements OnInit {
   public getAllIngredients() {
     return this.ingredientService.getAllIngredients().subscribe((res) => {
       this.ingredients = res;
+      this.newIngredient={
+        name:this.ingredients[0].name,
+        measure: this.measures[0].toString(),
+        quantity: 1,
+
+      }
     });
   }
   submit(f: NgForm): void {
@@ -114,9 +121,9 @@ export class AddRecipeComponent implements OnInit {
     const ingredient: IngInRecipe = { ...this.newIngredient };
     this.newIngredients.push(ingredient);
     this.newIngredient = {
-      name: '',
-      measure: Measure.grams,
-      quantity: 0,
+      name:this.ingredients[0].name,
+      measure: this.measures[0].toString(),
+      quantity: 1,
     };
   }
   onFileAdded(event: any) {

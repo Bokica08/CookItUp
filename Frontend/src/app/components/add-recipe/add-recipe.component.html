@@ -95,7 +95,7 @@
                             <option *ngFor="let i of ingredients" [ngValue]="i.name">{{i.name}}</option>
                         </select>
                     </div>
-                    <div *ngIf="recipe.ingredientList==null || newIngredients==null || (f.submitted && recipe.ingredientList[0].name=='')" class="text-danger">Put at least one ingredient</div>
+                    <div *ngIf="newIngredients[0]==null || (f.submitted && recipe.ingredientList[0].name=='')" class="text-danger">Put at least one ingredient</div>
 
                 </div>
                 <div class="row justify-content-center">

@@ -45,10 +45,10 @@ export class RecipeDetailsComponent {
     // ova treba da e api povik dali e u favorite na userot
     this.form= this.fb.group({
       content:"",
-      stars:""
+      stars:"1"
     })
     this.formOrder = this.fb.group({
-      numPersons:0
+      numPersons:1
     })
     const user = this.storageService.getUser();
     if(user!=null){
@@ -153,6 +153,8 @@ export class RecipeDetailsComponent {
   }
   
   onSubmit(){
+    if(this.form.value.stars>=1 && this.form.value.stars<=5)
+    {
     this.form= this.fb.group({
       content:this.form.value.content,
       stars:this.form.value.stars
@@ -167,10 +169,13 @@ export class RecipeDetailsComponent {
     .subscribe(res=>{
     })
   }
+}
   submitOrder(){
+    if(this.formOrder.value.numPersons>=1 && this.formOrder.value.numPersons <=10){
     this.formOrder= this.fb.group({
       numPersonsForOrder:this.formOrder.value.numPersons      
     })    
     this.router.navigate([`/addOrder/${this.recipe?.id}/${parseInt(this.formOrder.value.numPersonsForOrder)}`])
   }
+}
 }

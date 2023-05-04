@@ -47,7 +47,7 @@
           
                           </div>
                           <div class="form-outline form-white mb-4">
-                            <select required #role="ngModel" class="form-select form-select-lg mb-1"  [(ngModel)]="register.role" name="role">
+                            <select required #role="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="register.role" name="role">
                                 <option *ngFor="let r of this.roles" [ngValue]="r.value">{{r.name}}</option>
                             </select>
                             <label class="form-label" for="role">Role</label><br>

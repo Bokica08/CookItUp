@@ -46,7 +46,8 @@
     <div class="col-4">
     <form *ngIf="!isAdmin && isLoggedIn" [formGroup] ="formOrder" (submit)="submitOrder()">
       <label>Enter number of persons for the order:</label>
-      <input type="number" min="1" max="10" placeholder="Number of Persons" formControlName="numPersons" class="form-control mt-3 mb-3 w-50"/>
+      <input [defaultValue]="1" type="number" required min="1" max="10" placeholder="Number of Persons" formControlName="numPersons" class="form-control mt-3 mb-3 w-50"/>
+      <div *ngIf="this.formOrder.value.numPersons<1 || this.formOrder.value.numPersons >=11" class="text-danger m-3">Invalid number of persons</div>
       <button type="submit" class="btn btn-info">Order ingredients for recipe</button>
       <!-- after adding button is disabled -->
       <!-- if user not logged in this form won't show -->
@@ -121,7 +122,9 @@
         <h5>What do you think of this recipe? Share your experience to help others.</h5>
         <form [formGroup] ="form" (submit)="onSubmit()">
           <input type="text" placeholder="Content not required" formControlName="content" class="form-control w-50 mb-2" />
-          <input type="number" min="1" max="5" placeholder="Rating" formControlName="stars" class="form-control w-25 mb-2"/>
+          <input [defaultValue]="1" type="number" min="1" max="5" placeholder="Rating" formControlName="stars" class="form-control w-25 mb-2"/>
+          <div *ngIf="this.form.value.stars<1 || this.form.value.stars>=6" class="text-danger m-3">Invalid stars given</div>
+
           <button type="submit" class="btn btn-info">Add review</button>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->

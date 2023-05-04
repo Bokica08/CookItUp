@@ -12,12 +12,12 @@ export class RegisterComponent{
   roles=[{id:1, value:'ROLE_USER', name:"User"},{id:2, value:'ROLE_PENDING_ADMIN', name:"Admin"}]
   register=new Register()
   
-    constructor(private authService:AuthService){}
+    constructor(private authService:AuthService){
+      this.register.role==this.roles[0]
+    }
 
   submit(f:NgForm)
-  {
-    console.log(this.roles[1].name);
-    
+  {    
   this.authService.register(this.register).
   subscribe(res=>{
     if(res!=null && res!=undefined){
