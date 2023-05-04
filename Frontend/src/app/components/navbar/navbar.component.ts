@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -32,7 +33,8 @@ export class NavbarComponent implements OnInit {
     private router:Router,
     private activateRoute:ActivatedRoute,
     private authService:AuthService,
-    private storageService:StorageService){}
+    private storageService:StorageService,
+    private cookieService:CookieService){}
   search(name: string): void {     
     this.searchTerms.next(name)  
   }
@@ -61,9 +63,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(["/search/",this.inputText])
   }
   logout(){
-    console.log("hi");
+    this.authService.logout().subscribe()
     this.storageService.clean()
-    this.authService.logout()
     window.location.href="/"
   
   }

@@ -44,7 +44,7 @@
       </ul>
     </div>
     <div class="col-4">
-    <form *ngIf="!isAdmin && isLoggedIn" [formGroup] ="formOrder" (submit)="submitOrder()">
+    <form *ngIf="!isAdmin" [formGroup] ="formOrder" (submit)="submitOrder()">
       <label>Enter number of persons for the order:</label>
       <input [defaultValue]="1" type="number" required min="1" max="10" placeholder="Number of Persons" formControlName="numPersons" class="form-control mt-3 mb-3 w-50"/>
       <div *ngIf="this.formOrder.value.numPersons<1 || this.formOrder.value.numPersons >=11" class="text-danger m-3">Invalid number of persons</div>
