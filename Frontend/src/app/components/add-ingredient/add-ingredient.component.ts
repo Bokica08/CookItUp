@@ -20,12 +20,12 @@ export class AddIngredientComponent implements OnInit{
     
   }
 onSubmit() {
-if(this.isLoggedIn && this.user.role=="ROLE_ADMIN")
+if(this.isLoggedIn && this.user.role=="ROLE_ADMIN" && this.ingredient.description!='' && this.ingredient.name!=''
+&& this.ingredient.description!=null && this.ingredient.name!=null)
 {  
   this.adminService.addIngredient(this.ingredient!).subscribe(res=>
     { 
       window.location.href="/"
-      console.log(res);
       
     })
 }

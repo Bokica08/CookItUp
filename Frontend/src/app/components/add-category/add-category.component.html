@@ -5,6 +5,7 @@
     <div class="form-group">
       <label for="category">Category name:</label>
       <input required #name="ngModel" type="text" class="form-control m-2" id="category" name="category" [(ngModel)]="category!.name">
+      <div class="text-danger" *ngIf="this.category.name==null || this.category.name==''">This filed is required</div>
     </div>
     <button type="submit" class="btn btn-success mt-3 mb-3">Submit</button>
   </form>

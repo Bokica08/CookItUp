@@ -20,7 +20,7 @@ export class AddCategoryComponent implements OnInit{
     
   }
 onSubmit() {
-if(this.isLoggedIn && this.user.role=="ROLE_ADMIN")
+if(this.isLoggedIn && this.user.role=="ROLE_ADMIN" && this.category.name!=null && this.category.name!='')
 {  
   this.adminService.addCategory(this.category!).subscribe(res=>
     { 

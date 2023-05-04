@@ -5,10 +5,14 @@
       <label for="ingredient">Ingredient name: </label>
       <input required="" #name="ngModel" type="text" class="form-control m-2" id="ingredient" name="ingredient"
         [(ngModel)]="ingredient!.name">
+        <div class="text-danger" *ngIf="ingredient.name==null || ingredient.name==''">This filed is required</div>
+<hr>
       <label for="description">Ingredient description:</label>
       <textarea required id="description" rows="8" class="form-control m-2" name="description"
         [(ngModel)]="ingredient!.description"></textarea>
     </div>
+    <div class="text-danger" *ngIf="ingredient.description==null || ingredient.description==''">This filed is required</div>
+
     <button type="submit" class="btn btn-success mt-3 mb-3">Submit</button>
   </form>
 </div>
