@@ -67,16 +67,17 @@
         <div *ngIf="recipe?.imageList">
           <div *ngIf="recipe!!.imageList[1]">
           <img
-            class="img-recipe-details"
+            class="img-recipe-details img-fluid"
             [src]="'data:image/jpg;base64,' + recipe!.imageList[1].byteArray"
             alt="Recipe image"
           />
           </div>
+          <br>
         </div>
         <div *ngIf="recipe?.imageList">
           <div *ngIf="recipe!!.imageList[2]">
           <img
-            class="img-recipe-details"
+            class="img-recipe-details img-fluid"
             [src]="'data:image/jpg;base64,' + recipe!.imageList[2].byteArray"
             alt="Recipe image"
           />

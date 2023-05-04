@@ -69,3 +69,13 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.recipeName{
+  text-decoration: none;
+  color: black;
+  transition: 0.2s;
+}
+.recipeName:hover
+{
+  font-weight: bold;
+  color: black;
+}

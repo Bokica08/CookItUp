@@ -102,12 +102,13 @@ export class AddRecipeComponent implements OnInit {
         (res) => {
           console.log(res);
           // Handle the response of the addImgRecipe operation
+          window.location.href="/"
         },
         (error) => {
           // Handle any errors
         }
       );
-      window.location.href="/"
+      
   }
   addBox(): void {
     const ingredient: IngInRecipe = { ...this.newIngredient };

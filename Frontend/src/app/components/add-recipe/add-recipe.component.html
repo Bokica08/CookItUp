@@ -9,6 +9,8 @@
             <div class="col-md-4">
                 <input required #name="ngModel" type="text" id="name" class="form-control" name="name"
                     [(ngModel)]="recipe!.name" />
+                    <div *ngIf="recipe.name==null && name.touched || (f.submitted && name.invalid)" class="text-danger">This filed is required</div>
+
             </div>
         </div>
         <div class="row mb-3 w-80">
@@ -17,6 +19,7 @@
             <div class="col-md-4">
                 <input required #numPersons="ngModel" type="number" id="numPersons" class="form-control" min="1"
                     name="numPersons" [(ngModel)]="recipe!.numPersons" />
+                    <div *ngIf="recipe.numPersons==null && numPersons.touched || (f.submitted && numPersons.invalid)" class="text-danger">This filed is required or has invalid value</div>
             </div>
         </div>
         <div class="mb-3 row w-80">
@@ -25,6 +28,8 @@
             <div class="col-md-4">
                 <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control" name="prepTime" min="1"
                     [(ngModel)]="recipe!.prepTime" />
+                    <div *ngIf="recipe.prepTime==null && prepTime.touched || (f.submitted && prepTime.invalid)" class="text-danger">This filed is required or has invalid value</div>
+
             </div>
         </div>
         <div class="mb-3 row w-80">
@@ -41,14 +46,19 @@
             <span class="col-md-1">
                 <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard" [(ngModel)]="recipe!!.difficultyLevel">
                 Hard
+                <br>
             </span>
+            <br>
+            <div *ngIf="recipe.difficultyLevel==null && difficultyLevel.touched || (f.submitted && recipe.difficultyLevel==null)" class="col-md-2 text-danger">This filed is required</div>
         </div>
         <div class="row mb-3 w-80">
             <div class="col-md-3"></div>
             <label class="form-label col-md-1 font-weight-bold text-right" for="description">Description</label><br>
             <div class="col-md-4">
-                <textarea required id="description" rows="8" class="form-control"
+                <textarea required #description="ngModel" id="description" rows="8" class="form-control"
                     name="description" [(ngModel)]="recipe!.description"></textarea>
+                    <div *ngIf="recipe.description==null && description.touched || (f.submitted && description.invalid)" class="text-danger">This filed is required</div>
+
             </div>
         </div>
 
@@ -60,6 +70,8 @@
             <select required #categoryList="ngModel" class="d-flex justify-content-center form-select form-select-lg mb-1"  [(ngModel)]="recipe!!.categoryList" name="categoryList" multiple="multiple">
                 <option *ngFor="let c of this.categories" [ngValue]="c.name">{{c.name}}</option>
             </select>
+            <div *ngIf="recipe.categoryList==null && categoryList.touched ||  (f.submitted && categoryList.invalid)" class="text-danger">Select at least one category</div>
+
         </div>
 
         <div *ngFor="let box of boxes" class="box">
@@ -83,6 +95,8 @@
                             <option *ngFor="let i of ingredients" [ngValue]="i.name">{{i.name}}</option>
                         </select>
                     </div>
+                    <div *ngIf="recipe.ingredientList==null || newIngredients==null || (f.submitted && recipe.ingredientList[0].name=='')" class="text-danger">Put at least one ingredient</div>
+
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-3 bg-primary m-3"></div>
@@ -100,6 +114,8 @@
                 <div class="form-group">
                     <label for="image1">Upload Required Image:</label>
                     <input  type="file" class="form-control-file m-3" id="image1" value="imageList" name="image1" required (change)="onFileAdded($event)">
+                    <div *ngIf="f.submitted || requiredImage==null" class="text-danger">This image is required</div>
+
                 </div>
                 <div class="form-group">
                     <label for="image2">Upload Optional Image 1:</label>
