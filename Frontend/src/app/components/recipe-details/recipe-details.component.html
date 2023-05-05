@@ -113,8 +113,6 @@
       </div>
       <div
         *ngIf="isLoggedIn && !hasAlreadyReviewed && !isAdmin &&(this.recipe?.customer?.username!=this.user?.username)">
-        jrjr {{this.recipe?.customer?.username}}<br>
-        zzz {{this.user?.username}}
         <h5>What do you think of this recipe? Share your experience to help others.</h5>
         <form [formGroup]="form" (submit)="onSubmit()">
           <input type="text" placeholder="Content not required" formControlName="content"

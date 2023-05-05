@@ -84,3 +84,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   object-fit: cover;
   margin: 5px;
 }
+.roundedOneRem{
+  border-radius: 2rem!important;
+}

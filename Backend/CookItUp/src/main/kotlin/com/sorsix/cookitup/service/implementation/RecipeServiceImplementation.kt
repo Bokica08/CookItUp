@@ -118,15 +118,15 @@ class RecipeServiceImplementation(
     }
 
     override fun getNewestRecipes(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }.sortedByDescending { it.createdOn }.subList(0,5)
+        return recipeRepository.findAll().sortedByDescending { it.createdOn }.subList(0,5).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun getTopRatedRecipes(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }.sortedByDescending { it.avRating }.subList(0,5)
+        return recipeRepository.findAll().sortedByDescending { it.avRating }.subList(0,5).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun getMostViewedRecipes(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }.sortedByDescending { it.viewCount }.subList(0,5)
+        return recipeRepository.findAll().sortedByDescending { it.viewCount }.subList(0,5).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun getPreviewForRecipe(id: Long): RecipePreviewDTO {
