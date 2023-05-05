@@ -1,8 +1,6 @@
 package com.sorsix.cookitup.service.implementation
 
-import com.sorsix.cookitup.model.Customer
-import com.sorsix.cookitup.model.Image
-import com.sorsix.cookitup.model.Order
+import com.sorsix.cookitup.model.*
 import com.sorsix.cookitup.model.dto.*
 import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CustomerRepository
@@ -83,5 +81,15 @@ private val customerRepository: CustomerRepository) : OrderService {
         order.orderStatus=status
         orderRepository.save(order)
         return order
+    }
+
+    override fun deleteByRecipe(recipe: Recipe): Any {
+        val orders:List<Order> = orderRepository.findAllByRecipe(recipe)
+        return orderRepository.deleteAll(orders)
+    }
+
+    override fun getOrdersByStatusAndUser(status: OrderStatus, customer: Customer):List<OrderPreviewDTO> {
+        return orderRepository.findAllByOrderStatusAndCustomer(status, customer)
+                .map { getOrderPreview(it.orderId!!) }
     }
 }

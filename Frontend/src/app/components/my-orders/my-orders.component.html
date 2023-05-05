@@ -1,7 +1,19 @@
 <div class="bg-light pt-5 pb-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+          <div class="col-md-3">
+            <form [formGroup]="form">
+              <h3 class="mb-4">Order status:</h3>
+              <div *ngFor="let status of orderStatus">
+                <label>
+                  <input type="radio" name="status" formControlName="status" value={{status}} (change)="onChange()">
+                  {{ status }}
+                </label>
+              </div>
+              <button type="button" class="btn btn-primary" (click)="clearSelection()">Clear</button>
+            </form>
+          </div>
+            <div class="col-md-9">
                 <div
           class="row card-group flex-wrap mb-5"
           *ngIf="myOrders?.length != 0"

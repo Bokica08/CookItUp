@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderDto } from '../models/orderDto';
+import { Order } from '../models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +15,9 @@ export class OrderService {
   }
   addOrder(order: OrderDto): Observable<OrderDto> {
     return this.http.post<OrderDto>(`${this.orderUrl}`, order);
+  }
+  getOrdersByStatus(status: string): Observable<Order[]> {
+    return this.http.get<Order[]>(this.orderUrl + '/searchByStatus?status=' + status);
+
   }
 }

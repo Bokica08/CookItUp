@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { flatMap, of } from 'rxjs';
 import { StorageService } from 'src/app/_services/storage.service';
@@ -8,6 +9,7 @@ import { Order } from 'src/app/models/order';
 import { Recipe } from 'src/app/models/recipe';
 import { Review } from 'src/app/models/review';
 import { CustomerService } from 'src/app/services/customer.service';
+import { OrderService } from 'src/app/services/order.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,18 +26,25 @@ export class MyOrdersComponent implements OnInit {
   showAdminBoard: any;
   showModeratorBoard: any;
   username: any;
+  orderStatus: string[]= ["Created","Processing","Finished", "Canceled"]
   userAccount: any;
+  form:FormGroup = new FormGroup({})
   myOrders: Order[] | null = null;
   constructor(
     private userService: UserService,
     private activateRoute: ActivatedRoute,
     private router: Router,
+    private fb: FormBuilder,
     private customerService: CustomerService,
+    private orderService: OrderService
   ) {
     this.isLoggedIn = this.activateRoute.snapshot.data['data5'];
     this.user = this.activateRoute.snapshot.data['data6'];
   }
   ngOnInit(): void {
+    this.form = this.fb.group({
+      status: null,
+    });
     if (this.isLoggedIn) {
       this.getOrders();
     } else {
@@ -75,6 +84,16 @@ export class MyOrdersComponent implements OnInit {
         console.log(res);
 
       })
+  }
+  onChange(){
+    const statusSelected = this.form.value.status;
+    this.orderService.getOrdersByStatus(statusSelected).subscribe(it=>this.myOrders=it)
+    
+  }
+  clearSelection() {
+    this.form.get('status')?.reset();
+    this.getOrders();
+    //this.onChange()
   }
 
 }

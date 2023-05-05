@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/api/recipe")
 
 class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService,
-val categoryRepository: CategoryRepository,val imageService: ImageService,val ingredientService: IngredientService,val recipeRepository:RecipeRepository) {
+val categoryRepository: CategoryRepository,val imageService: ImageService,val ingredientService: IngredientService,val recipeRepository:RecipeRepository, val orderService: OrderService) {
     // Get all recipes
     @GetMapping
     fun getAllRecipes() : ResponseEntity<Any> {
@@ -41,6 +41,7 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
     fun deleteRecipe(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
     {
         val recipe=recipeService.getRecipeById(id)
+        orderService.deleteByRecipe(recipe)
         imageService.deleteByRecipe(recipe)
         reviewService.deleteByRecipe(recipe)
         ingredientService.deleteAllByRecipe(recipe)

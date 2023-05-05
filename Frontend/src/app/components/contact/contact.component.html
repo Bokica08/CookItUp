@@ -11,21 +11,17 @@
                   We're open for any suggestion or just to have a chat
                 </p>
                 <div class="dbox w-100 d-flex align-items-start">
-                  <div
-                    class="icon d-flex align-items-center justify-content-center"
-                  >
+                  <div class="icon d-flex align-items-center justify-content-center">
                     <span class="fa fa-map-marker"></span>
                   </div>
                   <div class="text pl-3">
                     <p>
-                      <span>Address: St.Partizanska, 1000 Skopje</span> 
+                      <span>Address: St.Partizanska, 1000 Skopje</span>
                     </p>
                   </div>
                 </div>
                 <div class="dbox w-100 d-flex align-items-center">
-                  <div
-                    class="icon d-flex align-items-center justify-content-center"
-                  >
+                  <div class="icon d-flex align-items-center justify-content-center">
                     <span class="fa fa-phone"></span>
                   </div>
                   <div class="text pl-3">
@@ -36,9 +32,7 @@
                   </div>
                 </div>
                 <div class="dbox w-100 d-flex align-items-center">
-                  <div
-                    class="icon d-flex align-items-center justify-content-center"
-                  >
+                  <div class="icon d-flex align-items-center justify-content-center">
                     <span class="fa fa-paper-plane"></span>
                   </div>
                   <div class="text pl-3">
@@ -49,102 +43,56 @@
                   </div>
                 </div>
                 <div class="dbox w-100 d-flex align-items-center">
-                  <div
-                    class="icon d-flex align-items-center justify-content-center"
-                  >
+                  <div class="icon d-flex align-items-center justify-content-center">
                     <span class="fa fa-globe"></span>
                   </div>
                   <div class="text pl-3">
                     <p>
                       <span>Website: </span>
-                      <a
-                        href="https://www.example.com"
-                        class="link-class text-white"
-                        >www.cookitup.com</a
-                      >
+                      <a href="https://www.example.com" class="link-class text-white">www.cookitup.com</a>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-6 d-flex align-items-stretch">
-                <div class="contact-wrap w-100 p-md-5 p-4 py-5">
-                  <h3 class="mb-4">Write us</h3>
-                  <form
-                    method="POST"
-                    id="contactForm"
-                    name="contactForm"
-                    class="contactForm"
-                    novalidate="novalidate"
-                  >
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control mb-3"
-                            name="name"
-                            id="name"
-                            placeholder="Name"
-                          />
-                          <div
-                            data-lastpass-icon-root="true"
-                            style="
-                              position: relative !important;
-                              height: 0px !important;
-                              width: 0px !important;
-                              float: left !important;
-                            "
-                          ></div>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <input
-                            type="email"
-                            class="form-control mb-3"
-                            name="email"
-                            id="email"
-                            placeholder="Email"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control mb-3"
-                            name="subject"
-                            id="subject"
-                            placeholder="Subject"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <textarea
-                            name="message"
-                            class="form-control mb-3"
-                            id="message"
-                            cols="30"
-                            rows="6"
-                            placeholder="Message"
-                          ></textarea>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <input
-                            type="submit"
-                            value="Send Message"
-                            class="btn btn-primary"
-                          />
-                        </div>
+              <div class="contact-wrap w-100 p-md-5 p-4 py-5">
+                <h3 class="mb-4">Write us</h3>
+                <form (submit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" [(ngModel)]="formData.name" required class="form-control mb-3">
                       </div>
                     </div>
-                  </form>
-                </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" [(ngModel)]="formData.email" required class="form-control mb-3">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject" name="subject" [(ngModel)]="formData.subject" required class="form-control mb-3">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="message">Message:</label>
+                         <textarea id="message" name="message" [(ngModel)]="formData.message" required class="form-control mb-3"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
+            </div>
           </div>
         </div>
       </div>

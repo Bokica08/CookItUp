@@ -2,6 +2,7 @@ package com.sorsix.cookitup.service
 
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.Order
+import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.dto.OrderDTO
 import com.sorsix.cookitup.model.dto.OrderPreviewDTO
 import com.sorsix.cookitup.model.enumeration.OrderStatus
@@ -16,5 +17,7 @@ interface OrderService {
     fun getOrdersByAdmin(username:String):List<Order>
     fun getOrder(id:Long): Order
     fun changeStatus(order: Order,status: OrderStatus):Order
+    fun deleteByRecipe(recipe: Recipe): Any
+    fun getOrdersByStatusAndUser(status: OrderStatus, customer: Customer):List<OrderPreviewDTO>
 
 }

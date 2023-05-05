@@ -2,6 +2,7 @@ package com.sorsix.cookitup.controller
 
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.dto.OrderDTO
+import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.UserService
@@ -24,5 +25,9 @@ class OrderController(val orderService: OrderService, val userService: UserServi
     @GetMapping("/ordersCount")
     fun getOrdersCount():ResponseEntity<Any>{
         return ResponseEntity.ok(orderService.getNumberOfOrders())
+    }
+    @GetMapping("/searchByStatus")
+    fun searchByStatus(@RequestParam(required = false) status: OrderStatus, request: HttpServletRequest):ResponseEntity<Any>{
+        return ResponseEntity.ok(orderService.getOrdersByStatusAndUser(status, userService.getCustomerByUsername(request.remoteUser)))
     }
 }

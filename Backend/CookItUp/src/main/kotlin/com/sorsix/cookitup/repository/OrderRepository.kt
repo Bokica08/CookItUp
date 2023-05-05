@@ -2,6 +2,7 @@ package com.sorsix.cookitup.repository
 
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.Order
+import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.dto.OrderAdminDTO
 import com.sorsix.cookitup.model.dto.OrderPreviewDTO
 import com.sorsix.cookitup.model.enumeration.OrderStatus
@@ -14,5 +15,7 @@ interface OrderRepository : JpaRepository<Order, Long> {
     fun findAllByCustomer(customer: Customer) : List<Order>
     fun save(order:Order):Order
     fun findAllByAdminUsername(username:String):List<Order>
+    fun findAllByRecipe(recipe: Recipe):List<Order>
+    fun findAllByOrderStatusAndCustomer(orderStatus: OrderStatus, customer: Customer):List<Order>
 
 }
