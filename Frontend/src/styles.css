@@ -55,7 +55,7 @@
 .img-recipe-details {
   max-height: 100%;
   width: auto;
-  /* object-fit: cover; */
+  object-fit: cover;
 }
 .rounded-image {
   border-radius: 50%;
@@ -78,4 +78,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 {
   font-weight: bold;
   color: black;
+}
+.additionalImg {
+  height: 250px; /* set the fixed height here */
+  object-fit: cover;
+  margin: 5px;
 }

@@ -19,7 +19,7 @@ class Recipe(
     val difficultyLevel: DifficultyLevel? = null,
     val prepTime: Int? = null,
     var avRating: Double? = null,
-    val viewCount: Int? = null,
+    var viewCount: Int? = null,
     val createdOn: LocalDateTime? = null,
     @ManyToOne
     @JoinColumn(name = "userId")

@@ -85,6 +85,8 @@ class RecipeServiceImplementation(
 
     override fun getDetailsForRecipe(id: Long): RecipeInfoDTO {
         val recipe = recipeRepository.getReferenceById(id)
+        recipe.viewCount = recipe.viewCount?.plus(1)
+        recipeRepository.save(recipe)
         val ingredientList: List<Ingredient> = this.findAllByRecipe(recipe)
         val ingredientIsInRecipeList: List<IngredientIsInRecipeDTO> = ingredientList.map {
             ing -> this.getIngredientInRecipe(id, ing.ingredientId!!)

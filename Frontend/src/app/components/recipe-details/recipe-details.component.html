@@ -3,16 +3,13 @@
     <div class="row pt-4" style="height: 70%">
       <div class="col-5">
         <div *ngIf="recipe?.imageList">
-        <img
-          class="img-fluid"
-          [src]="'data:image/jpg;base64,' + recipe!.imageList[0]!.byteArray"
-          alt="Recipe image"
-        />
+          <img class="img-fluid" [src]="'data:image/jpg;base64,' + recipe!.imageList[0]!.byteArray"
+            alt="Recipe image" />
         </div>
         <div *ngIf="!isAdmin && isLoggedIn">
-        <a class="btn btn-success mt-3" (click)="addToFavorites()"><img [src]="img">
-        {{buttonText}}</a>
-      </div>
+          <a class="btn btn-success mt-3" (click)="addToFavorites()"><img [src]="img">
+            {{buttonText}}</a>
+        </div>
       </div>
       <div class="col-7">
         <h1 class="display-6">{{ recipe?.name }}</h1>
@@ -33,30 +30,28 @@
     </div>
     <div class="row m-3">
       <div class="col-8">
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item" *ngFor="let c of recipe?.categoryList">
-          <a
-            class="link-class text-dark"
-            routerLink="/category/{{ c.name.toLocaleLowerCase() }}"
-            >{{ c.name }}</a
-          >
-        </li>
-      </ul>
-    </div>
-    <div class="col-4">
-    <form *ngIf="!isAdmin" [formGroup] ="formOrder" (submit)="submitOrder()">
-      <label>Enter number of persons for the order:</label>
-      <input [defaultValue]="1" type="number" required min="1" max="10" placeholder="Number of Persons" formControlName="numPersons" class="form-control mt-3 mb-3 w-50"/>
-      <div *ngIf="this.formOrder.value.numPersons<1 || this.formOrder.value.numPersons >=11" class="text-danger m-3">Invalid number of persons</div>
-      <button type="submit" class="btn btn-info">Order ingredients for recipe</button>
-      <!-- after adding button is disabled -->
-      <!-- if user not logged in this form won't show -->
-      <!-- if the logged user is the one that posted the recipe, button disabled -->
-    </form>
-      <!-- if already in favorites = button disabled -->
-      <!-- if user not logged in button is hidden -->
-      <!-- if the logged user is the one that posted the recipe, button disabled -->
-    </div>
+        <ul class="list-group list-group-horizontal">
+          <li class="list-group-item" *ngFor="let c of recipe?.categoryList">
+            <a class="link-class text-dark" routerLink="/category/{{ c.name.toLocaleLowerCase() }}">{{ c.name }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+        <form *ngIf="!isAdmin" [formGroup]="formOrder" (submit)="submitOrder()">
+          <label>Enter number of persons for the order:</label>
+          <input [defaultValue]="1" type="number" required min="1" max="10" placeholder="Number of Persons"
+            formControlName="numPersons" class="form-control mt-3 mb-3 w-50" />
+          <div *ngIf="this.formOrder.value.numPersons<1 || this.formOrder.value.numPersons >=11"
+            class="text-danger m-3">Invalid number of persons</div>
+          <button type="submit" class="btn btn-info">Order ingredients for recipe</button>
+          <!-- after adding button is disabled -->
+          <!-- if user not logged in this form won't show -->
+          <!-- if the logged user is the one that posted the recipe, button disabled -->
+        </form>
+        <!-- if already in favorites = button disabled -->
+        <!-- if user not logged in button is hidden -->
+        <!-- if the logged user is the one that posted the recipe, button disabled -->
+      </div>
     </div>
     <div class="row mb-3">
       <h1 class="display-6">Instruction:</h1>
@@ -64,30 +59,23 @@
     </div>
     <div class="row mb-3">
       <h1 class="display-6">Additional images:</h1>
-      <div>
-        <div *ngIf="recipe?.imageList">
+      <div class="d-flex">
+        <div *ngIf="recipe?.imageList" class="">
           <div *ngIf="recipe!!.imageList[1]">
-          <img
-            class="img-recipe-details img-fluid"
-            [src]="'data:image/jpg;base64,' + recipe!.imageList[1].byteArray"
-            alt="Recipe image"
-          />
+            <img class="additionalImg" [src]="'data:image/jpg;base64,' + recipe!.imageList[1].byteArray"
+              alt="Recipe image" />
           </div>
-          <br>
         </div>
         <div *ngIf="recipe?.imageList">
           <div *ngIf="recipe!!.imageList[2]">
-          <img
-            class="img-recipe-details img-fluid"
-            [src]="'data:image/jpg;base64,' + recipe!.imageList[2].byteArray"
-            alt="Recipe image"
-          />
-        </div>
+            <img class="additionalImg" [src]="'data:image/jpg;base64,' + recipe!.imageList[2].byteArray"
+              alt="Recipe image" />
+          </div>
         </div>
         <div *ngIf="recipe?.imageList">
-          <div *ngIf="recipe!!.imageList[1] && recipe!!.imageList[2]">
-          No more images available
-          </div> 
+          <div *ngIf="!recipe!!.imageList[1] && !recipe!!.imageList[2]">
+            No more images available
+          </div>
         </div>
       </div>
     </div>
@@ -97,33 +85,44 @@
         <span>{{recipe?.reviews?.length}} reviews</span>
         <ul class="list-unstyled">
           <li><span>5</span><span class="star-smaller filled"></span>
-            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(5)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(5)" color="primary"
+              class="w-50 d-inline-block"></mat-progress-bar>
           </li>
           <li><span>4</span><span class="star-smaller filled"></span>
-            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(4)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(4)" color="primary"
+              class="w-50 d-inline-block"></mat-progress-bar>
           </li>
           <li><span>3</span><span class="star-smaller filled"></span>
-            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(3)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(3)" color="primary"
+              class="w-50 d-inline-block"></mat-progress-bar>
           </li>
           <li><span>2</span><span class="star-smaller filled"></span>
-            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(2)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(2)" color="primary"
+              class="w-50 d-inline-block"></mat-progress-bar>
           </li>
           <li><span>1</span><span class="star-smaller filled"></span>
-            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(1)" color="primary" class="w-50 d-inline-block"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="getNStarReviewPercentage(1)" color="primary"
+              class="w-50 d-inline-block"></mat-progress-bar>
           </li>
-          
+
         </ul>
 
       </div>
       <div *ngIf="hasAlreadyReviewed">
         <h3 class="text-danger">You have already put review on this recipe</h3>
       </div>
-      <div *ngIf="isLoggedIn && !hasAlreadyReviewed && !isAdmin">
+      <div
+        *ngIf="isLoggedIn && !hasAlreadyReviewed && !isAdmin &&(this.recipe?.customer?.username!=this.user?.username)">
+        jrjr {{this.recipe?.customer?.username}}<br>
+        zzz {{this.user?.username}}
         <h5>What do you think of this recipe? Share your experience to help others.</h5>
-        <form [formGroup] ="form" (submit)="onSubmit()">
-          <input type="text" placeholder="Content not required" formControlName="content" class="form-control w-50 mb-2" />
-          <input [defaultValue]="1" type="number" min="1" max="5" placeholder="Rating" formControlName="stars" class="form-control w-25 mb-2"/>
-          <div *ngIf="this.form.value.stars<1 || this.form.value.stars>=6" class="text-danger m-3">Invalid stars given</div>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <input type="text" placeholder="Content not required" formControlName="content"
+            class="form-control w-50 mb-2" />
+          <input [defaultValue]="1" type="number" min="1" max="5" placeholder="Rating" formControlName="stars"
+            class="form-control w-25 mb-2" />
+          <div *ngIf="this.form.value.stars<1 || this.form.value.stars>=6" class="text-danger m-3">Invalid stars given
+          </div>
 
           <button type="submit" class="btn btn-info">Add review</button>
           <!-- after adding button is disabled -->
@@ -135,64 +134,45 @@
         <h3 class="mb-3 mt-3">No reviews yet</h3>
       </div>
 
-         <div *ngFor="let r of recipe?.reviews">
-          <div class="row mt-3 mb-3">
-            <div class="col-1">
-              <img class="img-fluid" src="../../../assets/user.png" />
-            </div>
-            <div class="col-11 align-self-center"><span>{{r.username}}</span></div>
-            
+      <div *ngFor="let r of recipe?.reviews">
+        <div class="row mt-3 mb-3">
+          <div class="col-1">
+            <img class="img-fluid" src="../../../assets/user.png" />
           </div>
-          <div class="d-flex mb-3">
-            <div class="d-inline-block">
-              <span
-                class="star"
-                [class.filled]="isStarFilled(r.stars, 1)"
-              ></span>
-              <span
-                class="star"
-                [class.filled]="isStarFilled(r.stars, 2)"
-              ></span>
-              <span
-                class="star"
-                [class.filled]="isStarFilled(r.stars, 3)"
-              ></span>
-              <span
-                class="star"
-                [class.filled]="isStarFilled(r.stars, 4)"
-              ></span>
-              <span
-                class="star"
-                [class.filled]="isStarFilled(r.stars, 5)"
-              ></span>
-            </div>
-            <span class="text-muted ms-4">{{r.reviewedOn}}</span></div>
-          <div class="mb-3">{{r.content}}</div>
-          <hr>
+          <div class="col-11 align-self-center"><span>{{r.username}}</span></div>
+
+        </div>
+        <div class="d-flex mb-3">
+          <div class="d-inline-block">
+            <span class="star" [class.filled]="isStarFilled(r.stars, 1)"></span>
+            <span class="star" [class.filled]="isStarFilled(r.stars, 2)"></span>
+            <span class="star" [class.filled]="isStarFilled(r.stars, 3)"></span>
+            <span class="star" [class.filled]="isStarFilled(r.stars, 4)"></span>
+            <span class="star" [class.filled]="isStarFilled(r.stars, 5)"></span>
+          </div>
+          <span class="text-muted ms-4">{{r.reviewedOn}}</span>
+        </div>
+        <div class="mb-3">{{r.content}}</div>
+        <hr>
       </div>
 
     </div>
     <div class="row mb-3">
-        <h1 class="display-6">Browse similar recipes: </h1>
-        <div class="row">
-          <div class="col-2" *ngFor="let r of similarRecipes">
-            <a routerLink="/recipe/{{r.id}}"><img
-              class="rounded-image"
-              [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
-              alt="Recipe image"
-            />
-            </a>
-          </div>
-          <div class="col-2">
-            <a routerLink="/recipes" class="link-class"
-              ><div
-                class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class"
-              >
-                <h5>View all recipes</h5>
-              </div>
-            </a>
-          </div>
+      <h1 class="display-6">Browse similar recipes: </h1>
+      <div class="row">
+        <div class="col-2" *ngFor="let r of similarRecipes">
+          <a routerLink="/recipe/{{r.id}}"><img class="rounded-image"
+              [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray" alt="Recipe image" />
+          </a>
+        </div>
+        <div class="col-2">
+          <a routerLink="/recipes" class="link-class">
+            <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class">
+              <h5>View all recipes</h5>
+            </div>
+          </a>
         </div>
       </div>
+    </div>
   </div>
 </div>
