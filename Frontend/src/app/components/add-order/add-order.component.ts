@@ -42,7 +42,6 @@ export class AddOrderComponent implements OnInit {
         this.disabled = true
       }
     })
-    // ZEMI CUSTOMER, VIDI DALI IMA PHONENUMBER I ADDRESS, AKO IMA ZNAESH SHTO DA PRAVISH
     this.route.paramMap.subscribe(params => {
       this.recipeId = params.get('id');
       this.numPersons = parseInt(params.get('numPersons')!!);
@@ -55,7 +54,10 @@ export class AddOrderComponent implements OnInit {
     this.order.numPersons = this.numPersons!!;
     this.order.recipeId = parseInt(this.recipeId!!);
     this.orderService.addOrder(this.order).subscribe((res) => {
+      if(this.customer!=null){
       window.location.href='/myOrders'
+      }
+      else{window.location.href='/'}
       console.log(res);
     });
   }

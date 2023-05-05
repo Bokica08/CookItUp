@@ -39,6 +39,13 @@ private val customerRepository: CustomerRepository) : OrderService {
         return orderRepository.save(order)
     }
 
+    override fun save(orderDTO: OrderDTO): Order {
+        val order =Order(null,orderDTO.phoneNumber,orderDTO.address,OrderStatus.Created,orderDTO.numPersons,recipeRepository.getReferenceById(
+            orderDTO.recipeId!!
+        ),null,userService.getRandomAdmin())
+        return orderRepository.save(order)
+    }
+
     override fun getNumberOfOrders(): Long {
         return orderRepository.count()
     }

@@ -18,9 +18,12 @@ class OrderController(val orderService: OrderService, val userService: UserServi
     @PostMapping
     fun saveOrder(@RequestBody orderDto:OrderDTO,request: HttpServletRequest):ResponseEntity<Any>
     {
-        val customer: Customer = userService.getCustomerByUsername(request.remoteUser)
-        val order=orderService.save(orderDto,customer)
-        return ResponseEntity.ok(order)
+        return if(request.remoteUser!=null) {
+            val customer: Customer = userService.getCustomerByUsername(request.remoteUser)
+            ResponseEntity.ok(orderService.save(orderDto, customer))
+        } else{
+            ResponseEntity.ok(orderService.save(orderDto))
+        }
     }
     @GetMapping("/ordersCount")
     fun getOrdersCount():ResponseEntity<Any>{

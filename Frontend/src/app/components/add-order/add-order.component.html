@@ -34,8 +34,9 @@
                     <div class="col-md-4">
                         <input required #phoneNumber="ngModel" type="text" id="phoneNumber" class="form-control"
                             name="phoneNumber" [(ngModel)]="order!.phoneNumber" placeholder="{{this.customer?.phoneNumber}}" [disabled]="disabled"/>
+                            <div *ngIf="customer==null" class="text-info">NOTE: You are not logged in and you will not be able to track the order status.</div>
+
                     </div>
-                    
             </div>
             <div class="row mb-3 w-80">
                 <div class="col-md-5"></div>
