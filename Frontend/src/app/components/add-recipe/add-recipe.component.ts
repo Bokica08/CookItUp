@@ -50,7 +50,7 @@ export class AddRecipeComponent implements OnInit {
     return this.ingredientService.getAllIngredients().subscribe((res) => {
       this.ingredients = res;
       this.newIngredient={
-        name:this.ingredients[0].name,
+        name:this.ingredients[1].name,
         measure: this.measures[0].toString(),
         quantity: 1,
 

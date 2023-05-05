@@ -3,7 +3,7 @@
   display: block;
 }
 .card-img-top {
-  height: 150px; /* Set the desired height for the images */
+  height: 200px; /* Set the desired height for the images */
   object-fit: cover; /* Use object-fit: cover to maintain aspect ratio and fill the fixed height */
 }
 .custom-card-title {

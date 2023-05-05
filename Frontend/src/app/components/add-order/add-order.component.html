@@ -10,8 +10,8 @@
             <li *ngFor="let ingredient of recipe?.ingredientList">
               {{ ingredient.name }} -
               {{
-                (ingredient.quantity / recipe?.numPersons!!) * numPersons!!
-              }},{{ ingredient.measure }}
+                ((ingredient.quantity / recipe?.numPersons!!) * numPersons!!).toFixed(2)
+              }} {{ ingredient.measure }}
             </li>
           </ul>
         </div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 // import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit {
     private activateRoute:ActivatedRoute,
     private authService:AuthService,
     private storageService:StorageService,
+    private cookieService:CookieService
     ){}
   search(name: string): void {     
     this.searchTerms.next(name)  
@@ -64,6 +66,7 @@ export class NavbarComponent implements OnInit {
   }
   logout(){
     this.authService.logout().subscribe()
+    this.cookieService.delete('bezkoder')
     this.storageService.clean()
     window.location.href="/"
   
