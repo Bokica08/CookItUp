@@ -33,4 +33,7 @@ export class AuthService {
   {
     return this.http.post(AUTH_API+'register',register)
   }
+  existsByUsernameOrEmail(username: string, email: string): Observable<any> {
+    return this.http.get<any>(AUTH_API+'existsByUsernameOrEmail?username='+username+'&email='+email);
+ }
 }

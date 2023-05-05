@@ -30,4 +30,5 @@ export class UserService {
   getMyOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.userUrl + 'myOrders');
   }
+
 }

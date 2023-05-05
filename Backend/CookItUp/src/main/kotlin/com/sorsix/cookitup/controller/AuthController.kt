@@ -56,4 +56,10 @@ class AuthController(
     fun register(@RequestBody registerDTO: RegisterDTO): ResponseEntity<User> {
         return ResponseEntity.ok(userService.register(registerDTO))
     }
+    @GetMapping("existsByUsernameOrEmail")
+    fun existsByUsernameOrEmail(@RequestParam username:String,@RequestParam email:String):Boolean
+    {
+        return userService.findIfExists(username,email)
+    }
+
 }

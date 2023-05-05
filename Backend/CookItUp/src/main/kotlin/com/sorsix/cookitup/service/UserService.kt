@@ -21,5 +21,6 @@ interface UserService : UserDetailsService {
     fun findAllPendingAdmins(): List<User?>?
     fun authorizePendingAdmin(username: String?): Optional<User>
     fun getRandomAdmin():Admin
+    fun findIfExists(username:String,email: String):Boolean
 
 }

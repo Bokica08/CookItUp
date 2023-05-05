@@ -37,13 +37,13 @@
                           <input required #repeatedPassword="ngModel" type="password" id="repeatedPassword" pattern="{{register.password}}"
                            class="form-control form-control-lg" name="repeatedPassword" [(ngModel)]="register.repeatedPassword" />
                           <label class="form-label" for="repeatedPassword">Repeated Password</label><br>
-                          <span *ngIf="f.submitted && repeatedPassword.errors!['pattern'] || (repeatedPassword.invalid && repeatedPassword.touched)" class="error text-danger">Password and Repeated Password do not match</span>
+                          <span *ngIf="f.submitted && repeatedPassword.errors?.['pattern'] || (repeatedPassword.invalid && repeatedPassword.touched)" class="error text-danger">Password and Repeated Password do not match</span>
         
                         </div>
                         <div class="form-outline form-white mb-4">
                             <input required  #email="ngModel" type="text" id="email" email class="form-control form-control-lg" name="email" [(ngModel)]="register.email" />
                             <label class="form-label" for="email">Email</label><br>
-                            <span *ngIf="email.errors?.['email'] || f.submitted"  class="error text-danger">Email format is not valid</span>
+                            <span *ngIf="email.errors?.['email']" class="error text-danger">Invalid email format</span>
           
                           </div>
                           <div class="form-outline form-white mb-4">
@@ -53,10 +53,9 @@
                             <label class="form-label" for="role">Role</label><br>
                             <span *ngIf="(role.invalid && role.touched)  || (f.submitted && role.invalid)" class="error text-danger">Please select role</span>
                             <span *ngIf="role.value=='ROLE_PENDING_ADMIN'" class="text-info">NOTE: You will become admin after one of the admins approves your request</span>
-        
+                            <div *ngIf="usernameorEmailExists" class="text-danger">Username or Email Already exist</div>
                         </div>
                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button><br>
-                        <span *ngIf="f.valid && f.submitted" class="successes text-success">Successfully registered</span>
                       </div>
           
 

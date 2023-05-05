@@ -9,6 +9,7 @@ import com.sorsix.cookitup.service.UserService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.math.log
 
 
 @Service
@@ -55,6 +56,13 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
 
     override fun findByUsername(username: String): CustomerInfoDTO {
         return customerRepository.findByUsername(username)
+    }
+
+    override fun findIfExists(username: String,email: String): Boolean {
+        println("$username - $email")
+        println(userRepository.existsUserByUsername(username))
+        println(userRepository.existsByEmail(email))
+        return userRepository.existsUserByUsername(username) || userRepository.existsByEmail(email)
     }
 
     override fun addToFavorites(username: String, id: Long): Any {
