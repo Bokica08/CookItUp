@@ -38,7 +38,8 @@
                   </div>
                   <hr />
                   <div>Given Stars: {{ review.stars }}</div>
-                  <div class="mb-1">Given Comment: {{ review.content }}</div>
+                  <div class="reviewComment">Given Comment: {{ review.content }}</div>
+                  <a class="text-muted text-decoration-none recipeName" routerLink="/recipe/{{review.recipe.id}}">...read more</a>
                 </div>
               </div>
             </div>

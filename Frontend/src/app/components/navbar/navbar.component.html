@@ -2,43 +2,26 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" routerLink="/">CookItUp</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              routerLink="/"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="nav-link dropdown-toggle" routerLink="/" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
               Recipes
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li *ngFor="let c of categories">
-                <a
-                  class="dropdown-item"
-                  routerLink="/category/{{ c.name.toLocaleLowerCase() }}"
-                  >{{ c.name }}</a
-                >
+                <a class="dropdown-item" routerLink="/category/{{ c.name.toLocaleLowerCase() }}">{{ c.name }}</a>
               </li>
-              <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" routerLink="/recipes"
-                  >View all recipes</a
-                >
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/recipes">View all recipes</a>
               </li>
             </ul>
           </li>
@@ -61,7 +44,7 @@
             <a class="nav-link" routerLink="/addCategory">Add a category</a>
           </li>
           <li *ngIf="isAdmin" class="nav-item">
-            <a class="nav-link" routerLink="/addIngredient">Add a ingredient</a>
+            <a class="nav-link" routerLink="/addIngredient">Add an ingredient</a>
           </li>
           <li *ngIf="isAdmin" class="nav-item">
             <a class="nav-link" routerLink="/adminOrders">Orders</a>
@@ -69,32 +52,32 @@
         </ul>
         <form class="d-flex formControl">
           <div style="margin-right: 10px!important;">
-            <input
-              type="text"
-              class="form-control pr-3"
-              placeholder="Search for recipes"
-              aria-label="Search"
-              [(ngModel)]="inputText"
-              name="inputText"
-              #searchBox
-              id="search-box"
-              (input)="search(searchBox.value)"
-            />
-            <div id="searchResult">
-              <div *ngIf="searchResultsVisible" (click)="hideSearchResults()">
-              <div class="container m-1" *ngFor="let r of recipes; let i = index" [ngClass]="{ 'gray': i % 2 === 0 }">
-                <a routerLink="/recipe/{{r.id}}" class="recipeText">
-                <img class="card-img-top" [src]="'data:image/jpg;base64,'+ r.imageList[0].byteArray"
-                        alt="Recipe image">
-                        <span class="recipeName">
-                {{r.name}}
-              </span>
-                <span class="rating">{{ r.avRating }}</span>
-                <i class="bi bi-star-fill text-warning"></i>
-                </a>
-                <hr>
+            <input type="text" class="form-control pr-3" placeholder="Search for recipes" aria-label="Search"
+              [(ngModel)]="inputText" name="inputText" #searchBox id="search-box" (input)="search(searchBox.value)" />
+            <div id="searchResult" class="bg-light">
+              <div *ngIf="searchResultsVisible" (click)="hideSearchResults()" class="bg-light">
+                <div *ngFor="let r of recipes" class="row custom-search-title mt-2 mb-2">
+                  <div class="col-md-4">
+                  <a routerLink="/recipe/{{r.id}}" class="recipeText">
+                    <img class="card-img-top" [src]="'data:image/jpg;base64,'+ r.imageList[0].byteArray"
+                      alt="Recipe image">
+                  </a>
+                  </div>
+                  <div class="col-md-4">
+                    <a routerLink="/recipe/{{r.id}}" class="recipeText">
+                    <span class="recipeName">
+                      {{r.name}}
+                    </span>
+                  </a>
+                  </div>
+                  <div class="col-md-3 ms-1">
+                    <div>
+                    <span class="rating">{{ r.avRating }}</span>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    </div> 
+                  </div>
+                </div>
               </div>
-            </div>
             </div>
           </div>
           <button class="btn btn-light" type="submit" (click)="handleButtonClick()">Search</button>

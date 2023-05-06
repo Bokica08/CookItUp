@@ -43,7 +43,7 @@
             formControlName="numPersons" class="form-control mt-3 mb-3 w-50" />
           <div *ngIf="this.formOrder.value.numPersons<1 || this.formOrder.value.numPersons >=11"
             class="text-danger m-3">Invalid number of persons</div>
-          <button type="submit" class="btn btn-info">Order ingredients for recipe</button>
+          <button type="submit" class="btn btn-success">Order ingredients for recipe</button>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->
           <!-- if the logged user is the one that posted the recipe, button disabled -->
@@ -122,7 +122,7 @@
           <div *ngIf="this.form.value.stars<1 || this.form.value.stars>=6" class="text-danger m-3">Invalid stars given
           </div>
 
-          <button type="submit" class="btn btn-info">Add review</button>
+          <button type="submit" class="btn btn-success">Add review</button>
           <!-- after adding button is disabled -->
           <!-- if user not logged in this form won't show -->
           <!-- if the logged user is the one that posted the recipe, button disabled -->

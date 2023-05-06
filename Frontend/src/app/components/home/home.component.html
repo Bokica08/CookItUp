@@ -1,9 +1,17 @@
 <div class="bg-dark text-white">
   <div class="container pb-1">
-    <div class="d-flex align-items-center flex-column mb-5 pt-3">
+    <!-- <div class="d-flex align-items-center flex-column mb-5 pt-3">
       <img src="../../../assets/ingredients.jpg" class="mainPageImage" />
       <a routerLink="/addRecipe"
         class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x"
+      >
+        Add Recipe
+      </a>
+    </div> -->
+    <div class="position-relative pt-3 pb-5">
+      <img src="../../../assets/ingredients.jpg" class="mainPageImage" />
+      <a routerLink="/addRecipe"
+         class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x"
       >
         Add Recipe
       </a>
@@ -26,7 +34,7 @@
         />
         <div class="card-body">
           <a
-            class="card-title custom-card-title link-class text-dark"
+            class="card-title custom-card-title recipeName text-dark"
             routerLink="/recipe/{{ recipe.id }}"
             >{{ recipe.name }}</a
           >
@@ -83,7 +91,7 @@
         />
         <div class="card-body">
           <a
-            class="card-title custom-card-title link-class text-white"
+            class="card-title custom-card-title recipeName text-white"
             routerLink="/recipe/{{ recipe.id }}"
             >{{ recipe.name }}</a
           >
@@ -140,7 +148,7 @@
         />
         <div class="card-body">
           <a
-            class="card-title custom-card-title link-class text-dark"
+            class="card-title custom-card-title recipeName text-dark"
             routerLink="/recipe/{{ recipe.id }}"
             >{{ recipe.name }}</a
           >

@@ -1,74 +1,66 @@
 <div class="bg-light pt-5 pb-5">
-    <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <form [formGroup]="form">
-              <h3 class="mb-4">Order status:</h3>
-              <div *ngFor="let status of orderStatus">
-                <label>
-                  <input type="radio" name="status" formControlName="status" value={{status}} (change)="onChange()">
-                  {{ status }}
-                </label>
-              </div>
-              <button type="button" class="btn btn-primary" (click)="clearSelection()">Clear</button>
-            </form>
+  <div class="container">
+    <div class="row" *ngIf="myOrders?.length != 0">
+      <div class="col-md-3">
+        <form [formGroup]="form">
+          <h3 class="mb-4">Order status:</h3>
+          <div *ngFor="let status of orderStatus">
+            <label>
+              <input type="radio" name="status" formControlName="status" value={{status}} (change)="onChange()">
+              {{ status }}
+            </label>
           </div>
-            <div class="col-md-9">
-                <div
-          class="row card-group flex-wrap mb-5"
-          *ngIf="myOrders?.length != 0"
-        >
+          <button type="button" class="btn btn-primary" (click)="clearSelection()">Clear</button>
+        </form>
+      </div>
+      <div class="col-md-9">
+        <div class="row card-group flex-wrap mb-5">
           <div class="col-lg-3 col-md-4 mb-4" *ngFor="let order of myOrders">
             <div class="card">
               <a routerLink="/recipe/{{ order.recipe.id }}">
-                <img
-                  class="card-img-top"
-                  [src]="
+                <img class="card-img-top" [src]="
                     'data:image/jpg;base64,' +
                     order.recipe.imageList[0].byteArray
-                  "
-                  alt="Recipe image"
-                />
+                  " alt="Recipe image" />
               </a>
               <div class="card-body">
-                <a
-                  class="card-title custom-card-title recipeName"
-                  routerLink="/recipe/{{ order.recipe.id }}"
-                  >{{ order.recipe.name }}</a
-                >
+                <a class="card-title custom-card-title recipeName" routerLink="/recipe/{{ order.recipe.id }}">{{
+                  order.recipe.name }}</a>
                 <div class="card-text">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
+                  <div class="d-flex justify-content-between align-items-center">
                     <div class="text-muted">
                       {{ order.recipe.difficultyLevel }}
                     </div>
                     <div>
                       <span class="rating">{{ order.recipe.avRating }}</span>
                       <i class="bi bi-star-fill text-warning"></i>
-                    </div>  
+                    </div>
                   </div>
                   <hr />
                   <div>For {{ order.numPersons }} people</div>
                   <div class="mb-2">Current status: {{order.orderStatus}}</div>
-                  <div *ngIf="order.orderStatus=='Created'"><button (click)="cancelOrder(order.orderId.toString())" class="btn btn-danger mb-1">Cancel the order</button></div>
-                  <div *ngIf="order.orderStatus=='Processing'"><button (click)="finishedOrder(order.orderId.toString())" class="btn btn-success mb-1">Received</button></div>
+                  <div *ngIf="order.orderStatus=='Created'"><button (click)="cancelOrder(order.orderId.toString())"
+                      class="btn btn-danger mb-1">Cancel the order</button></div>
+                  <div *ngIf="order.orderStatus=='Processing'"><button (click)="finishedOrder(order.orderId.toString())"
+                      class="btn btn-success mb-1">Received</button></div>
 
                 </div>
               </div>
             </div>
           </div>
-                
-                <div class="row mb-5 text-center" *ngIf="myOrders?.length==0">
-                    
-                    <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">
-                        <div class="container pt-5 pb-5">
-                            <h1 class="display-6 mb-3">You currently don't have any orders</h1>
-                            <a routerLink="/recipes" class="btn btn-success p-2">Make an order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
         </div>
+      </div>
     </div>
+    <div class="row mb-5 text-center" *ngIf="myOrders?.length==0">
+
+      <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 460px">
+        <div class="container pt-5 pb-5">
+          <h1 class="display-6 mb-3">You currently don't have any orders</h1>
+          <a routerLink="/recipes" class="btn btn-success p-2">Make an order</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

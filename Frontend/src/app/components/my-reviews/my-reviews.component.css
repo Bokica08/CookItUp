@@ -1,0 +1,5 @@
+.reviewComment{
+    height: 190px;
+    overflow: hidden;
+    display: inline-block;
+}

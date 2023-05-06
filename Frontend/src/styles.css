@@ -87,3 +87,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .roundedOneRem{
   border-radius: 2rem!important;
 }
+.custom-search-title {
+  height: 80px !important; /* Set the desired height for the card title */
+  display: inline-block;
+  overflow: hidden !important; /* Use overflow: hidden to hide any overflowing text */
+}
