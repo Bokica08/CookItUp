@@ -33,6 +33,7 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
 
 
@@ -62,6 +63,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MyOrdersComponent,
     AdminOrdersComponent,
     EditRecipeComponent,
+    MyProfileComponent,
   ],
   imports: [
     BrowserModule,

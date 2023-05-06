@@ -64,7 +64,8 @@ export class RecipeService {
     category: string | null,
     inputText: string | null,
     difficultyLevels: string | null,
-    prepTimes: string | null
+    prepTimes: string | null,
+    username: string | null
   ) {
     let params = '';
     if (category) {
@@ -79,6 +80,9 @@ export class RecipeService {
     if (prepTimes) {
       params += `prepTimes=${prepTimes}&`;
     }
+    if (username) {
+      params += `username=${username}&`;
+    }
     if (params) {
       params = params.slice(0, -1);
     }
@@ -86,5 +90,8 @@ export class RecipeService {
   }
   getSimilarRecipes(id: string): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.recipeUrl}/similarRecipes/${id}`);
+  }
+  getAllRecipesByUser(username: string): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${this.recipeUrl}/userRecipes/${username}`);
   }
 }

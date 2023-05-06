@@ -164,7 +164,8 @@ class RecipeServiceImplementation(
         category: String?,
         inputText: String?,
         difficultyLevels: String?,
-        prepTimes: String?
+        prepTimes: String?,
+        username: String?
     ): List<RecipePreviewDTO> {
         var firstFilter = recipeRepository.findAll().map { this.getPreviewForRecipe(it.recipeId!!) }
         if(category!=null) {
@@ -180,18 +181,22 @@ class RecipeServiceImplementation(
         if(difficultyLevels!=null) {
             thirdFilter = secondFilter.filter { it.difficultyLevel!!.toString() == difficultyLevels }
         }
+        var fourthFilter = thirdFilter
+        if(username!=null){
+            fourthFilter = thirdFilter.filter { it.customerName!! == username }
+        }
         return when (prepTimes) {
             "Under 30 minutes" -> {
-                thirdFilter.filter { it.prepTime!!<30}
+                fourthFilter.filter { it.prepTime!!<30}
             }
             "30 to 60 minutes" -> {
-                thirdFilter.filter { it.prepTime!!>=30 && it.prepTime<=60 }
+                fourthFilter.filter { it.prepTime!!>=30 && it.prepTime<=60 }
             }
             "Over 60 minutes" -> {
-                thirdFilter.filter { it.prepTime!!>60}
+                fourthFilter.filter { it.prepTime!!>60}
             }
             else -> {
-                thirdFilter
+                fourthFilter
             }
         }
     }

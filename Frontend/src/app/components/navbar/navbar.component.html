@@ -15,7 +15,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li *ngFor="let c of categories">
-                <a class="dropdown-item" routerLink="/category/{{ c.name.toLocaleLowerCase() }}">{{ c.name }}</a>
+                <a class="dropdown-item" routerLink="/category/{{ c.name }}">{{ c.name }}</a>
               </li>
               <li>
                 <hr class="dropdown-divider" />

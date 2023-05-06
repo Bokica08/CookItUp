@@ -71,7 +71,7 @@
           </div>
           <div class="card-text d-flex justify-content-between text-muted">
             <p>{{ recipe.createdOn }}</p>
-            <p>{{ recipe.customerName }}</p>
+            <p><a routerLink="/userInfo/{{recipe.customerName}}" class="recipeName">{{ recipe.customerName }}</a></p>
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@
           </div>
           <div class="card-text d-flex justify-content-between text-muted">
             <p>{{ recipe.createdOn }}</p>
-            <p>{{ recipe.customerName }}</p>
+            <p><a routerLink="/userInfo/{{recipe.customerName}}" class="recipeName whiteText">{{ recipe.customerName }}</a></p>
           </div>
         </div>
       </div>
@@ -185,7 +185,7 @@
           </div>
           <div class="card-text d-flex justify-content-between text-muted">
             <p>{{ recipe.createdOn }}</p>
-            <p>{{ recipe.customerName }}</p>
+            <p><a routerLink="/userInfo/{{recipe.customerName}}" class="recipeName">{{ recipe.customerName }}</a></p>
           </div>
         </div>
       </div>

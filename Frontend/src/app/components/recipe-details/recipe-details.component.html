@@ -20,7 +20,7 @@
         </p>
         <p>Total views: {{ recipe?.viewCount }}</p>
         <p>
-          Added by: {{ recipe?.customer?.username }} on {{ recipe?.createdOn }}
+          Added by: <a routerLink="/userInfo/{{recipe?.customer?.username}}" class="recipeName">{{ recipe?.customer?.username }}</a> on {{ recipe?.createdOn }}
         </p>
         <h6 class="display-6">Ingredients</h6>
         <div *ngFor="let ing of recipe?.ingredientList">
@@ -137,7 +137,9 @@
           <div class="col-1">
             <img class="img-fluid" src="../../../assets/user.png" />
           </div>
-          <div class="col-11 align-self-center"><span>{{r.username}}</span></div>
+          <div class="col-11 align-self-center"><span>
+            <a routerLink="/userInfo/{{r.username}}" class="recipeName">{{ r.username }}</a>
+          </span></div>
 
         </div>
         <div class="d-flex mb-3">

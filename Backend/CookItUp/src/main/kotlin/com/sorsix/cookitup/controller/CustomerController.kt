@@ -152,6 +152,21 @@ class CustomerController(val userService: UserService, val reviewService: Review
         orderService.changeStatus(order, OrderStatus.Finished)
         return ResponseEntity.ok(order)
     }
+    @GetMapping("/getUserByUsername")
+    fun getUserByUsername(@RequestParam username:String):ResponseEntity<Any>{
+        return ResponseEntity.ok(userService.getUserByUsername(username))
+    }
+    @GetMapping("/userRecipesPreview")
+    fun getUserRecipesPreview(@RequestParam username:String):ResponseEntity<Any>
+    {
+        val customer: Customer =userService.getCustomerByUsername(username)
+        val recipes = recipeService.findAllByCustomer(customer)
+        return if (recipes.size<=5){
+            ResponseEntity.ok(recipes)
+        } else{
+            ResponseEntity.ok(recipes.subList(0,5))
+        }
+    }
 
 
 }

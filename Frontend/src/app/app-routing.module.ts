@@ -22,18 +22,21 @@ import { AddIngredientComponent } from './components/add-ingredient/add-ingredie
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'recipes', component: RecipesComponent},
   {path:'login',component:LoginComponent},
-  {path:'profile',component:UserInfoComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
+  {path:'profile',component:MyProfileComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
+  {path:'userInfo/:username',component:UserInfoComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'register',component:RegisterComponent},
   {path:'addRecipe',component:AddRecipeComponent,resolve:{data:dataResolverGetCategories}},
   {path:'addOrder/:id/:numPersons',component:AddOrderComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'home',component: HomeComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'category/:category', component: RecipesComponent},
   {path:'search/:inputText', component: RecipesComponent},
+  {path:'userRecipes/:username', component: RecipesComponent},
   {path:'recipe/:id', component: RecipeDetailsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'edit/:id',component:EditRecipeComponent,resolve:{data:dataResolverGetCategories}},
   {path:'contact',component: ContactComponent},

@@ -1,5 +1,16 @@
-<div class="bg-light pt-5 pb-5">
+<div class="bg-light pt-4 pb-5">
     <div class="container">
+        <div class="row mb-4">
+            <div *ngIf="category">
+                <h1 class="display-6">Showing recipes of category: {{ category }}</h1>
+            </div>
+            <div *ngIf="username">
+                <h1 class="display-6">Showing {{ username }}'s recipes</h1>
+            </div>
+            <div *ngIf="inputText">
+                <h1 class="display-6">Search results for: {{ inputText }}</h1>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <form [formGroup]="form">

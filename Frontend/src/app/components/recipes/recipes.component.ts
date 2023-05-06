@@ -15,6 +15,7 @@ export class RecipesComponent {
   allRecipes: Recipe[] = [];
   category: string | null = null;
   inputText: string | null = null;
+  username: string | null = null;
   difficultyLevels: string[]= ["Easy","Medium","Hard"]
   prepTimes: string[] = ["Under 30 minutes","30 to 60 minutes","Over 60 minutes"]
   form:FormGroup = new FormGroup({})
@@ -29,14 +30,19 @@ export class RecipesComponent {
     this.route.paramMap.subscribe(params => {
       this.category = params.get('category');
       this.inputText = params.get('inputText');
-      if(this.category==null && this.inputText==null){
+      this.username = params.get('username');
+
+      if(this.category==null && this.inputText==null && this.username==null){
         this.getAllRecipes()
       }
-      else if(this.category!=null){
+      else if(this.category!=null && this.inputText==null && this.username==null){
         this.getAllRecipesByCategory(this.category)
       }
-      else if(this.inputText!=null){
+      else if(this.inputText!=null && this.category==null && this.username==null){
         this.getAllRecipesByContaining(this.inputText)
+      }
+      else if(this.username!=null && this.category==null && this.inputText==null){
+        this.getAllRecipesByUser(this.username)
       }
     });
 
@@ -63,10 +69,17 @@ export class RecipesComponent {
       }
     )
   }
+  getAllRecipesByUser(username:string){
+    this.recipeService.getAllRecipesByUser(username).subscribe(
+      r => {
+        this.allRecipes = r;
+      }
+    )
+  }
   onChange(){
     const diffLvlSelected = this.form.value.diffLvl;
     const prepTimeSelected = this.form.value.prepTime;
-    this.recipeService.getFilteredRecipes(this.category,this.inputText,diffLvlSelected,prepTimeSelected).subscribe(it=>this.allRecipes=it)
+    this.recipeService.getFilteredRecipes(this.category,this.inputText,diffLvlSelected,prepTimeSelected, this.username).subscribe(it=>this.allRecipes=it)
     
   }
   clearSelection() {

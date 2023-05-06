@@ -126,6 +126,10 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
     {
         return ResponseEntity.ok(recipeService.findAllByNameContainingIgnoreCase(name))
     }
+    @GetMapping("/userRecipes/{username}")
+    fun getAllRecipesByUser(@PathVariable username: String):ResponseEntity<Any>{
+        return ResponseEntity.ok(recipeService.findAllByCustomer(userService.getCustomerByUsername(username)))
+    }
     @GetMapping("/category/{category}")
     fun getRecipesByCategory(@PathVariable category: String):ResponseEntity<Any>{
         return ResponseEntity.ok(recipeService.findAllByCategoryListContains(category = categoryRepository.findByNameIgnoreCase(category)))
@@ -143,9 +147,10 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
         @RequestParam(required = false) category: String?,
         @RequestParam(required = false) inputText: String?,
         @RequestParam(required = false) difficultyLevels: String?,
-        @RequestParam(required = false) prepTimes: String?
+        @RequestParam(required = false) prepTimes: String?,
+        @RequestParam(required = false) username: String?
     ):ResponseEntity<Any>{
-        return ResponseEntity.ok(recipeService.getFilteredRecipes(category, inputText, difficultyLevels, prepTimes))
+        return ResponseEntity.ok(recipeService.getFilteredRecipes(category, inputText, difficultyLevels, prepTimes, username))
     }
     @GetMapping("/similarRecipes/{id}")
     fun getSimilarRecipes(@PathVariable id:String):ResponseEntity<Any>{

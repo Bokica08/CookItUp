@@ -79,6 +79,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-weight: bold;
   color: black;
 }
+.whiteText{
+  color: white!important;
+}
 .additionalImg {
   height: 250px; /* set the fixed height here */
   object-fit: cover;

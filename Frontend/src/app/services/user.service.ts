@@ -5,6 +5,7 @@ import { Customer } from '../models/customer';
 import { Recipe } from '../models/recipe';
 import { Review } from '../models/review';
 import { Order } from '../models/order';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,9 @@ export class UserService {
   }
   getMyOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.userUrl + 'myOrders');
+  }
+  getUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(this.userUrl + 'getUserByUsername/?username=' + username);
   }
 
 }

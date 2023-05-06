@@ -43,4 +43,7 @@ export class CustomerService {
       this.customerUrl + '/changeStatusToFinished/' +orderId
     );
   }
+  userRecipesPreview(username: string): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${this.customerUrl}/userRecipesPreview?username=${username}`);
+  }
 }

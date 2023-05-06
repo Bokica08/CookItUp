@@ -5,54 +5,12 @@
         <img class="img-fluid" src="../../../assets/user.png" />
       </div>
       <div class="col-9 pt-3">
-        <h1 class="display-6">{{ user.firstname }} {{ user.lastname }}</h1>
-        <p>Username: {{ user.username }}</p>
-        <p>Role: {{ user.role[0].substring(5) }}</p>
+        <h1 class="display-6">{{ user!.firstname }} {{ user!.lastname }}</h1>
+        <p>Username: {{ user!.username }}</p>
       </div>
     </div>
-    <div class="row pt-3 pb-3" *ngIf="isPendingAdmin">
-      <h1 class="display-6">Waiting to be approved by admin</h1>
-    </div>
-    <div class="row pt-3 pb-3" *ngIf="isAdmin">
-      <h1 class="display-6">System statistic</h1>
-        <div class="col-md-3 mt-3 mb-3" *ngFor="let image of images">
-          <div class="text-center">
-            <img
-              class="rounded-circle"
-              [src]="image.src"
-              [alt]="image.alt"
-              width="200"
-              height="200"
-            />
-            <h4>{{ image.count }} {{ image.text }}</h4>
-          </div>
-        </div>
-    </div>
-    <div class="row pt-3 pb-3" *ngIf="isAdmin">
-      <h1 class="display-6">User statistic</h1>
-      <table class="table mb-3 mt-3 table-striped table-responsive">
-        <thead class="table-dark">
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Recipes created</th>
-            <th>Reviews added</th>
-            <th>Orders made</th>
-          </tr>
-        </thead>  
-        <tbody>
-          <tr *ngFor="let u of users">
-            <td>{{u.username}}</td>
-            <td>{{u.email}}</td>
-            <td>{{u.recipesCreated}}</td>
-            <td>{{u.reviewsCreated}}</td>
-            <td>{{u.ordersCreated}}</td>
-          </tr>
-        </tbody>
-        </table>
-    </div>
-    <div class="row pt-3 pb-3" *ngIf="isUser">
-      <h1 class="display-6">My recipes</h1>
+    <div class="row pt-3 pb-3">
+      <h1 class="display-6">Recipes</h1>
       <div *ngIf="userRecipes.length != 0">
         <div class="row">
           <div class="col-2" *ngFor="let r of userRecipes">
@@ -60,9 +18,9 @@
               alt="Recipe image" />
           </div>
           <div class="col-2">
-            <a routerLink="/myRecipes" class="link-class">
+            <a routerLink="/userRecipes/{{user!.username}}" class="link-class">
               <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class">
-                <h5>View all recipes</h5>
+                <h5>View all user recipes</h5>
               </div>
             </a>
           </div>
@@ -72,98 +30,11 @@
         <div class="row">
           <div class="col-2">
             <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center">
-              <h5 class="text-center">No recipes available. Please add some</h5>
+              <h5 class="text-center">No recipes available.</h5>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row pt-3 pb-3" *ngIf="isUser">
-      <h1 class="display-6">My favorites</h1>
-
-      <div *ngIf="favoriteRecipes.length != 0">
-        <div class="row">
-          <div class="col-2" *ngFor="let r of favoriteRecipes">
-            <img class="rounded-image" [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
-              alt="Recipe image" />
-          </div>
-          <div class="col-2">
-            <a routerLink="/myFavoriteRecipes" class="link-class">
-              <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class">
-                <h5>View all favorites</h5>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="favoriteRecipes.length == 0">
-        <div class="row">
-          <div class="col-2">
-            <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center">
-              <h5 class="text-center">
-                No favorites available. Please add some
-              </h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row pt-3 pb-3" *ngIf="isUser">
-      <h1 class="display-6">My reviews</h1>
-
-      <div *ngIf="reviews.length != 0">
-        <div class="row">
-          <div class="col-2" *ngFor="let r of reviews">
-            <img class="rounded-image" [src]="
-                'data:image/jpg;base64,' + r!!.recipe.imageList[0].byteArray
-              " alt="Recipe image" />
-          </div>
-          <div class="col-2">
-            <a routerLink="/myReviews" class="link-class">
-              <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class">
-                <h5>View all reviews</h5>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="reviews.length == 0">
-        <div class="row">
-          <div class="col-2">
-            <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center">
-              <h5 class="text-center">No reviews available. Please add some</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row pt-3 pb-3" *ngIf="isUser">
-      <h1 class="display-6">My orders</h1>
-      <div *ngIf="orders.length != 0">
-        <div class="row">
-          <div class="col-2" *ngFor="let o of orders">
-            <img class="rounded-image" [src]="
-                'data:image/jpg;base64,' + o!!.recipe.imageList[0].byteArray
-              " alt="Recipe image" />
-          </div>
-          <div class="col-2">
-            <a routerLink="/myOrders" class="link-class">
-              <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center link-class">
-                <h5>View all orders</h5>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="orders.length == 0">
-        <div class="row">
-          <div class="col-2">
-            <div class="rounded-image bg-dark text-white d-flex justify-content-center align-items-center">
-              <h5 class="text-center">No orders available. Please add some</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div>  
   </div>
 </div>
