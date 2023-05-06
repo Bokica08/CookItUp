@@ -9,6 +9,7 @@ import com.sorsix.cookitup.model.dto.IngredientDTO
 import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.IngredientRepository
+import com.sorsix.cookitup.service.AdminService
 import com.sorsix.cookitup.service.OrderService
 import com.sorsix.cookitup.service.UserService
 import org.springframework.http.ResponseEntity
@@ -23,6 +24,7 @@ class AdminController(
     val ingredientRepository: IngredientRepository,
     val userService: UserService,
     val orderService: OrderService,
+    val adminService: AdminService
 ) {
     @PostMapping("/category")
     fun addCategory(@RequestBody categoryDTO: CategoryDTO) : ResponseEntity<Any> {
@@ -56,5 +58,29 @@ class AdminController(
         orderService.changeStatus(order,OrderStatus.Processing)
         return ResponseEntity.ok(order)
     }
-
+    @GetMapping("/users")
+    fun getUsersStatistic(request:HttpServletRequest):ResponseEntity<Any>
+    {
+        return ResponseEntity.ok(adminService.getUsersStatistic())
+    }
+    @GetMapping("/recipesCreated")
+    fun getRecipesCreated(request:HttpServletRequest):ResponseEntity<Any>
+    {
+        return ResponseEntity.ok(adminService.getRecipesCreated())
+    }
+    @GetMapping("/customersCreated")
+    fun getCustomersCreated(request:HttpServletRequest):ResponseEntity<Any>
+    {
+        return ResponseEntity.ok(adminService.getCustomersCreated())
+    }
+    @GetMapping("/ordersCreated")
+    fun getOrdersCreated(request:HttpServletRequest):ResponseEntity<Any>
+    {
+        return ResponseEntity.ok(adminService.getOrdersCreated())
+    }
+    @GetMapping("/reviewsCreated")
+    fun getReviewsCreated(request:HttpServletRequest):ResponseEntity<Any>
+    {
+        return ResponseEntity.ok(adminService.getReviewsCreated())
+    }
 }

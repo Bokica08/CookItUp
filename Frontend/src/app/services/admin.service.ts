@@ -5,6 +5,7 @@ import { Customer } from '../models/customer';
 import { Category } from '../models/category';
 import { Ingredient } from '../models/ingredient';
 import { orderAdmin } from '../models/orderAdmin';
+import { UserStatistic } from '../models/userStatistic';
 
 @Injectable({
   providedIn: 'root',
@@ -37,4 +38,20 @@ export class AdminService {
       this.adminUrl + '/changeStatus/' + order.orderId
     );
   }
+  getUsers(): Observable<UserStatistic[]> {
+    return this.http.get<UserStatistic[]>(this.adminUrl + '/users');
+  }
+  getRecipesCreated(): Observable<number> {
+    return this.http.get<number>(this.adminUrl + '/recipesCreated');
+  }
+  getReviewsCreated(): Observable<number> {
+    return this.http.get<number>(this.adminUrl + '/reviewsCreated');
+  }
+  getOrdersCreated(): Observable<number> {
+    return this.http.get<number>(this.adminUrl + '/ordersCreated');
+  }
+  getCustomersCreated(): Observable<number> {
+    return this.http.get<number>(this.adminUrl + '/customersCreated');
+  }
+  
 }
