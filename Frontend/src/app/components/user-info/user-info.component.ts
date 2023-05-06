@@ -40,10 +40,10 @@ export class UserInfoComponent implements OnInit {
   customersCreated:number=0;
   users:UserStatistic[]=[];
   images = [
-    { src: 'https://img.freepik.com/free-vector/male-chef-mixing-flour-eggs-dough-with-whisk-hands-happy-man-apron-preparing-homemade-sweet-dessert-table-home-kitchen-flat-vector-illustration-pastry-cooking-recipe-concept_74855-21965.jpg?w=1060&t=st=1682299686~exp=1682300286~hmac=cf7ece8ccb58e55284c985529e8fb1ab76998cc9b9bf0d20d44437925d3f7f2f', alt: 'Customers', text: 'Customers', count:0 },
-    { src: 'https://img.freepik.com/free-photo/soup-veggies-arrangement-flat-lay_23-2148452857.jpg?w=996&t=st=1682299735~exp=1682300335~hmac=505cd761a84a9c1b51023e455049c254cc40947544f750c3a510b5241f8ec6f1', alt: 'Recipes', text: 'Recipes', count:0 },
-    { src: 'https://img.freepik.com/premium-photo/comments-with-two-stars-concept-evaluation-rating-3d-rendering_567294-384.jpg?w=740', alt: 'Reviews', text: 'Reviews', count:0 },
-    { src: 'https://img.freepik.com/free-vector/gradient-delivery-concept-with-phone_23-2149164058.jpg?w=740&t=st=1682299870~exp=1682300470~hmac=a63fa1a02b1ebc477b5e22e77e801b068c9196c8630509b525f88410c7c6c20a', alt: 'Orders', text: 'Orders', count:0 }
+    { src: 'https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/343898926_211360974984064_5693006648702113092_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ae9488&_nc_ohc=l1R5HGZCsVkAX-SAf2i&_nc_ht=scontent.fskp4-1.fna&oh=03_AdQGSkd5iVDep36y8lTCWyq72GwnFXbJJOzRyGQDpmigLA&oe=647D8907', alt: 'Customers', text: 'Customers', count:0 },
+    { src: 'https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/345077306_1282397092405509_3226986097444120482_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ae9488&_nc_ohc=yyP0t6QKc90AX8BOpcH&_nc_ht=scontent.fskp4-1.fna&oh=03_AdS4CS3Gh73MW8Iuq6iZ8NF5kvxUK8eFYMFIArwxIWFP2A&oe=647D6ADE', alt: 'Recipes', text: 'Recipes', count:0 },
+    { src: 'https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/344289340_1385626078903473_8425649328455422000_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=KFI4AAUWM1QAX8P28Ep&_nc_ht=scontent.fskp4-1.fna&oh=03_AdRiKoz6-xr_V_orXqp8tWOSXuTFLbkv92oiFPbsJSCrwg&oe=647D68BC', alt: 'Reviews', text: 'Reviews', count:0 },
+    { src: 'https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/343857919_1201893140471363_5815012129178626399_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=GYxJMULVN0sAX-mjkIe&_nc_ht=scontent.fskp4-1.fna&oh=03_AdTtUaaFAhDmOfdrm9Abrs0jLy9j4tpAndwU20z5UhVvNQ&oe=647D73C2', alt: 'Orders', text: 'Orders', count:0 }
   ];
   constructor(
     private userService: UserService,

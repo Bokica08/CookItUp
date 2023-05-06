@@ -9,6 +9,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 import { Customer } from 'src/app/models/customer'
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerDto } from 'src/app/models/customerDto';
+import { StorageService } from 'src/app/_services/storage.service';
 
 @Component({
   selector: 'app-add-order',
@@ -29,8 +30,16 @@ export class AddOrderComponent implements OnInit {
     recipeId: 0
   }
   phoneNumber: string = ''
+  isAdmin=false;
+  isUser = false;
+  isLoggedIn = false;
+  user:Customer | undefined
   constructor(private route: ActivatedRoute, private recipeService: RecipeService,
-    private orderService: OrderService, private customerService: CustomerService) { }
+    private orderService: OrderService, private customerService: CustomerService,
+    private storageService: StorageService) {
+      this.isLoggedIn = this.route.snapshot.data['data5'];
+      this.user=this.route.snapshot.data['data6']
+     }
   ngOnInit() {
     this.customerService.getCustomerPhoneNumberAndAddress().subscribe((res) => { 
       this.customer = res; 
@@ -49,7 +58,16 @@ export class AddOrderComponent implements OnInit {
         this.getDetailsForRecipe(this.recipeId)
       }
     });
+    const user = this.storageService.getUser();
+    if(user!=null){
+    if (user.role[0] == 'ROLE_ADMIN') {
+      this.isAdmin = true;
+    }
+    else if(user.role[0] == 'ROLE_USER') {
+      this.isUser = true;
+    }
   }
+}
   onSubmit(f: NgForm) {
     this.order.numPersons = this.numPersons!!;
     this.order.recipeId = parseInt(this.recipeId!!);

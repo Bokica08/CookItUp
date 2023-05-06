@@ -65,6 +65,10 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
         return userRepository.existsUserByUsername(username) || userRepository.existsByEmail(email)
     }
 
+    override fun getUserByUsername(username: String): User {
+        return userRepository.findByUsername(username)
+    }
+
     override fun addToFavorites(username: String, id: Long): Any {
         val customer = customerRepository.getByUsername(username)
         val recipe: Recipe = recipeRepository.findById(id).get()

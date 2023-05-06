@@ -31,6 +31,7 @@ export class RecipeDetailsComponent {
   formOrder:FormGroup = new FormGroup({})
   private roles: string[] = [];
   isAdmin=false;
+  isUser = false;
   constructor(private route: ActivatedRoute,
     private recipeService: RecipeService,
     private fb:FormBuilder,
@@ -55,6 +56,9 @@ export class RecipeDetailsComponent {
     this.roles = user.role;
     if (this.roles[0] == 'ROLE_ADMIN') {
       this.isAdmin = true;
+    }
+    else if(this.roles[0] == 'ROLE_USER') {
+      this.isUser = true;
     }
   }
 

@@ -6,7 +6,7 @@
           <img class="img-fluid" [src]="'data:image/jpg;base64,' + recipe!.imageList[0]!.byteArray"
             alt="Recipe image" />
         </div>
-        <div *ngIf="!isAdmin && isLoggedIn">
+        <div *ngIf="!isAdmin && isLoggedIn && isUser">
           <a class="btn btn-success mt-3" (click)="addToFavorites()"><img [src]="img">
             {{buttonText}}</a>
         </div>
@@ -37,7 +37,7 @@
         </ul>
       </div>
       <div class="col-4">
-        <form *ngIf="!isAdmin" [formGroup]="formOrder" (submit)="submitOrder()">
+        <form [formGroup]="formOrder" (submit)="submitOrder()">
           <label>Enter number of persons for the order:</label>
           <input [defaultValue]="1" type="number" required min="1" max="10" placeholder="Number of Persons"
             formControlName="numPersons" class="form-control mt-3 mb-3 w-50" />
@@ -112,7 +112,7 @@
         <h3 class="text-danger">You have already put review on this recipe</h3>
       </div>
       <div
-        *ngIf="isLoggedIn && !hasAlreadyReviewed && !isAdmin &&(this.recipe?.customer?.username!=this.user?.username)">
+        *ngIf="isLoggedIn && !hasAlreadyReviewed && !isAdmin && isUser &&(this.recipe?.customer?.username!=this.user?.username)">
         <h5>What do you think of this recipe? Share your experience to help others.</h5>
         <form [formGroup]="form" (submit)="onSubmit()">
           <input type="text" placeholder="Content not required" formControlName="content"
