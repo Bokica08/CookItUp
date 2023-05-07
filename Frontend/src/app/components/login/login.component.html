@@ -20,6 +20,7 @@
                   <input required #password="ngModel" type="password" id="typePasswordX" class="form-control form-control-lg" name="password" [(ngModel)]="form.password" />
                   <label class="form-label" for="password">Password</label><br>
                   <span *ngIf="password.invalid && password.touched  || (f.submitted && password.invalid)" class="error text-danger">Password filed is required</span>
+                  <div *ngIf="isLoginFailed" class="text-danger">Incorrect username or password</div>
 
                 </div>
                 <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>

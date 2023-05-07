@@ -32,10 +32,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe({
       next: data => {
-        console.log(username)
-        console.log(password)
         this.storageService.saveUser(data);
-        debugger
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().role;
