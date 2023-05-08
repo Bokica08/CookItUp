@@ -7,8 +7,6 @@ import com.sorsix.cookitup.model.User
 import com.sorsix.cookitup.model.dto.CategoryDTO
 import com.sorsix.cookitup.model.dto.IngredientDTO
 import com.sorsix.cookitup.model.enumeration.OrderStatus
-import com.sorsix.cookitup.repository.CategoryRepository
-import com.sorsix.cookitup.repository.IngredientRepository
 import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -67,17 +65,17 @@ class AdminController(
         return ResponseEntity.ok(adminService.getRecipesCreated())
     }
     @GetMapping("/customersCreated")
-    fun getCustomersCreated(request:HttpServletRequest):ResponseEntity<Any>
+    fun getCustomersCreated(request:HttpServletRequest):ResponseEntity<Long>
     {
         return ResponseEntity.ok(adminService.getCustomersCreated())
     }
     @GetMapping("/ordersCreated")
-    fun getOrdersCreated(request:HttpServletRequest):ResponseEntity<Any>
+    fun getOrdersCreated(request:HttpServletRequest):ResponseEntity<Long>
     {
         return ResponseEntity.ok(adminService.getOrdersCreated())
     }
     @GetMapping("/reviewsCreated")
-    fun getReviewsCreated(request:HttpServletRequest):ResponseEntity<Any>
+    fun getReviewsCreated(request:HttpServletRequest):ResponseEntity<Long>
     {
         return ResponseEntity.ok(adminService.getReviewsCreated())
     }

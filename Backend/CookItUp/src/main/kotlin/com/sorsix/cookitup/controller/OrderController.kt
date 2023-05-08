@@ -1,7 +1,9 @@
 package com.sorsix.cookitup.controller
 
 import com.sorsix.cookitup.model.Customer
+import com.sorsix.cookitup.model.Order
 import com.sorsix.cookitup.model.dto.OrderDTO
+import com.sorsix.cookitup.model.dto.OrderPreviewDTO
 import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.model.enumeration.Role
 import com.sorsix.cookitup.service.OrderService
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletRequest
 class OrderController(val orderService: OrderService, val userService: UserService) {
 
     @PostMapping
-    fun saveOrder(@RequestBody orderDto:OrderDTO,request: HttpServletRequest):ResponseEntity<Any>
+    fun saveOrder(@RequestBody orderDto:OrderDTO,request: HttpServletRequest):ResponseEntity<Order>
     {
         return if(request.remoteUser!=null) {
             if(userService.getUserByUsername(request.remoteUser).role==Role.ROLE_USER) {
@@ -31,11 +33,11 @@ class OrderController(val orderService: OrderService, val userService: UserServi
         }
     }
     @GetMapping("/ordersCount")
-    fun getOrdersCount():ResponseEntity<Any>{
+    fun getOrdersCount():ResponseEntity<Long>{
         return ResponseEntity.ok(orderService.getNumberOfOrders())
     }
     @GetMapping("/searchByStatus")
-    fun searchByStatus(@RequestParam(required = false) status: OrderStatus, request: HttpServletRequest):ResponseEntity<Any>{
+    fun searchByStatus(@RequestParam(required = false) status: OrderStatus, request: HttpServletRequest):ResponseEntity<List<OrderPreviewDTO>>{
         return ResponseEntity.ok(orderService.getOrdersByStatusAndUser(status, userService.getCustomerByUsername(request.remoteUser)))
     }
 }

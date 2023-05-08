@@ -1,5 +1,6 @@
 package com.sorsix.cookitup.controller
 
+import com.sorsix.cookitup.model.Category
 import com.sorsix.cookitup.model.Image
 import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.Review
@@ -7,16 +8,12 @@ import com.sorsix.cookitup.model.dto.RecipeDTO
 import com.sorsix.cookitup.model.dto.RecipeInfoDTO
 import com.sorsix.cookitup.model.dto.RecipePreviewDTO
 import com.sorsix.cookitup.model.dto.ReviewDTO
-import com.sorsix.cookitup.repository.CategoryRepository
-import com.sorsix.cookitup.repository.ImageRepository
-import com.sorsix.cookitup.repository.RecipeRepository
 import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletRequest
 
@@ -30,14 +27,12 @@ class RecipeController(val recipeService: RecipeService,
                        val imageService: ImageService,
                        val ingredientService: IngredientService,
                        val orderService: OrderService) {
-    // Get all recipes
     @GetMapping
-    fun getAllRecipes() : ResponseEntity<Any> {
+    fun getAllRecipes() : ResponseEntity<List<RecipePreviewDTO>> {
         return ResponseEntity.ok(recipeService.getAll())
     }
-    // 2 methods for adding recipe to the system, separate method for adding the images, onSubmit on frontend will call these 2 methods together
     @PostMapping
-    fun addRecipe(@RequestBody recipeDTO: RecipeDTO, request: HttpServletRequest) : ResponseEntity<Any>{
+    fun addRecipe(@RequestBody recipeDTO: RecipeDTO, request: HttpServletRequest) : ResponseEntity<Recipe>{
         val recipe = recipeService.save(recipeDTO, userService.getCustomerByUsername(request.remoteUser))
         request.session.setAttribute("recipe",recipe)
         return ResponseEntity.ok(recipe)
@@ -65,7 +60,7 @@ class RecipeController(val recipeService: RecipeService,
         }
     }
     @GetMapping("/images/{id}")
-    fun getImagesForRecipe(@PathVariable id:Long):ResponseEntity<Any>
+    fun getImagesForRecipe(@PathVariable id:Long):ResponseEntity<List<Image>>
     {
         val recipe=recipeService.getRecipeById(id)
         return ResponseEntity.ok(imageService.getAllByRecipe(recipe))
@@ -73,13 +68,13 @@ class RecipeController(val recipeService: RecipeService,
 
     // Get details for specific recipe
     @GetMapping("/details/{id}")
-    fun getDetailsForRecipe(@PathVariable id:String):ResponseEntity<Any>{
+    fun getDetailsForRecipe(@PathVariable id:String):ResponseEntity<RecipeInfoDTO>{
         val recipe: RecipeInfoDTO = recipeService.getDetailsForRecipe(id.toLong())
         return ResponseEntity.ok(recipe)
     }
     // Add review for recipe
     @PostMapping("/addReview/{id}")
-    fun addReviewForRecipe(@PathVariable id:Long, @RequestBody reviewDTO: ReviewDTO, request: HttpServletRequest):ResponseEntity<Any>{
+    fun addReviewForRecipe(@PathVariable id:Long, @RequestBody reviewDTO: ReviewDTO, request: HttpServletRequest):ResponseEntity<Review>{
         val recipe = recipeService.getRecipeById(id)
         val review = reviewService.addReview(Review(null,reviewDTO.content,reviewDTO.stars,
             LocalDateTime.now() ,recipe,userService.getCustomerByUsername(
@@ -94,42 +89,42 @@ class RecipeController(val recipeService: RecipeService,
     }
     // Get the top-rated recipes
     @GetMapping("/topRated")
-    fun getTopRatedRecipes() : ResponseEntity<Any> {
+    fun getTopRatedRecipes() : ResponseEntity<List<RecipePreviewDTO>> {
         return ResponseEntity.ok(recipeService.getTopRatedRecipes())
     }
     // Get the most viewed recipes
     @GetMapping("/mostViewed")
-    fun getMostViewedRecipes() : ResponseEntity<Any> {
+    fun getMostViewedRecipes() : ResponseEntity<List<RecipePreviewDTO>> {
         return ResponseEntity.ok(recipeService.getMostViewedRecipes())
     }
     // Get the newest recipes
     @GetMapping("/newest")
-    fun getNewestRecipes() : ResponseEntity<Any> {
+    fun getNewestRecipes() : ResponseEntity<List<RecipePreviewDTO>> {
         return ResponseEntity.ok(recipeService.getNewestRecipes())
     }
     @GetMapping("/getCategories")
-    fun getCategories() : ResponseEntity<Any> {
+    fun getCategories() : ResponseEntity<List<Category>> {
         return ResponseEntity.ok(categoryService.findAll())
     }
     @GetMapping("/search")
-    fun getRecipesByName(@RequestParam (required = false) name:String):ResponseEntity<Any>
+    fun getRecipesByName(@RequestParam (required = false) name:String):ResponseEntity<List<RecipePreviewDTO>>
     {
         return ResponseEntity.ok(recipeService.findAllByNameContainingIgnoreCase(name))
     }
     @GetMapping("/userRecipes/{username}")
-    fun getAllRecipesByUser(@PathVariable username: String):ResponseEntity<Any>{
+    fun getAllRecipesByUser(@PathVariable username: String):ResponseEntity<List<RecipePreviewDTO>>{
         return ResponseEntity.ok(recipeService.findAllByCustomer(userService.getCustomerByUsername(username)))
     }
     @GetMapping("/category/{category}")
-    fun getRecipesByCategory(@PathVariable category: String):ResponseEntity<Any>{
+    fun getRecipesByCategory(@PathVariable category: String):ResponseEntity<List<RecipePreviewDTO>>{
         return ResponseEntity.ok(recipeService.findAllByCategoryListContains(category = categoryService.findByNameIgnoreCase(category)))
     }
     @GetMapping("/recipesCount")
-    fun getRecipesCount():ResponseEntity<Any>{
+    fun getRecipesCount():ResponseEntity<Long>{
         return ResponseEntity.ok(recipeService.getNumberOfRecipes())
     }
     @GetMapping("/categoriesCount")
-    fun getCategoriesCount():ResponseEntity<Any>{
+    fun getCategoriesCount():ResponseEntity<Long>{
         return ResponseEntity.ok(categoryService.count())
     }
     @GetMapping("/filtered")
@@ -139,11 +134,11 @@ class RecipeController(val recipeService: RecipeService,
         @RequestParam(required = false) difficultyLevels: String?,
         @RequestParam(required = false) prepTimes: String?,
         @RequestParam(required = false) username: String?
-    ):ResponseEntity<Any>{
+    ):ResponseEntity<List<RecipePreviewDTO>>{
         return ResponseEntity.ok(recipeService.getFilteredRecipes(category, inputText, difficultyLevels, prepTimes, username))
     }
     @GetMapping("/similarRecipes/{id}")
-    fun getSimilarRecipes(@PathVariable id:String):ResponseEntity<Any>{
+    fun getSimilarRecipes(@PathVariable id:String):ResponseEntity<List<RecipePreviewDTO>>{
         val similarRecipes: List<RecipePreviewDTO> = recipeService.getSimilarRecipes(id.toLong())
         return ResponseEntity.ok(similarRecipes)
     }

@@ -2,9 +2,9 @@ package com.sorsix.cookitup.controller
 
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.Order
+import com.sorsix.cookitup.model.User
 import com.sorsix.cookitup.model.dto.*
 import com.sorsix.cookitup.model.enumeration.OrderStatus
-import com.sorsix.cookitup.repository.CustomerRepository
 import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
@@ -68,8 +68,6 @@ class CustomerController(val userService: UserService,
     @GetMapping("/addFavorite/{id}")
     fun addToFavorite(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Customer>
     {
-        // treba da se odi preku userService za da mozhe da se zacchuvaat promenite u baza
-        // userService.addToFave(request.remoteUser, id)
         val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
         userService.addToFavorites(request.remoteUser,id)
         return ResponseEntity.ok(customer)
@@ -99,7 +97,7 @@ class CustomerController(val userService: UserService,
 
     }
     @GetMapping("/myOrdersPreview")
-    fun getCustomerOrdersPreview(request: HttpServletRequest):ResponseEntity<Any>
+    fun getCustomerOrdersPreview(request: HttpServletRequest):ResponseEntity<List<OrderPreviewDTO>>
     {
         val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
         val orders = orderService.findAllByCustomer(customer)
@@ -110,7 +108,7 @@ class CustomerController(val userService: UserService,
         }
     }
     @GetMapping("/myFavoritesPreview")
-    fun getCustomerFavoritesPreview(request:HttpServletRequest):ResponseEntity<Any>
+    fun getCustomerFavoritesPreview(request:HttpServletRequest):ResponseEntity<List<RecipePreviewDTO>>
     {
         val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
         val recipesForCustomer:List<RecipePreviewDTO> =customer.recipeList.map { r->recipeService.getPreviewForRecipe(r.recipeId!!) }
@@ -121,7 +119,7 @@ class CustomerController(val userService: UserService,
         }
     }
     @GetMapping("/myRecipesPreview")
-    fun getCustomerRecipesPreview(request:HttpServletRequest):ResponseEntity<Any>
+    fun getCustomerRecipesPreview(request:HttpServletRequest):ResponseEntity<List<RecipePreviewDTO>>
     {
 
         val customer: Customer =userService.getCustomerByUsername(request.remoteUser)
@@ -133,7 +131,7 @@ class CustomerController(val userService: UserService,
         }
     }
     @GetMapping("/getCustomerPhoneNumberAndAddress")
-    fun getCustomerPhoneNumberAndAddress(request: HttpServletRequest):ResponseEntity<Any>{
+    fun getCustomerPhoneNumberAndAddress(request: HttpServletRequest):ResponseEntity<CustomerInfoDTO>{
         return ResponseEntity.ok(userService.findByUsername(request.remoteUser));
     }
     @GetMapping("/changeStatusToCanceled/{id}")
@@ -151,11 +149,11 @@ class CustomerController(val userService: UserService,
         return ResponseEntity.ok(order)
     }
     @GetMapping("/getUserByUsername")
-    fun getUserByUsername(@RequestParam username:String):ResponseEntity<Any>{
+    fun getUserByUsername(@RequestParam username:String):ResponseEntity<User>{
         return ResponseEntity.ok(userService.getUserByUsername(username))
     }
     @GetMapping("/userRecipesPreview")
-    fun getUserRecipesPreview(@RequestParam username:String):ResponseEntity<Any>
+    fun getUserRecipesPreview(@RequestParam username:String):ResponseEntity<List<RecipePreviewDTO>>
     {
         val customer: Customer =userService.getCustomerByUsername(username)
         val recipes = recipeService.findAllByCustomer(customer)

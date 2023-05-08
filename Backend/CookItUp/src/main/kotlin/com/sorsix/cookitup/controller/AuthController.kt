@@ -45,10 +45,10 @@ class AuthController(
     }
 
     @PostMapping("/logout")
-    fun logoutUser(): ResponseEntity<*> {
+    fun logoutUser(): ResponseEntity<MessageResponse> {
         val cookie = jwtUtils.getCleanJwtCookie()
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,cookie.toString())
-            .body<MessageResponse>(MessageResponse("You have been logged out"))
+            .body(MessageResponse("You have been logged out"))
     }
 
     @PostMapping("/register")
