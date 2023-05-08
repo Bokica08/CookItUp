@@ -40,9 +40,7 @@ class AuthTokenFilter(private val jwtUtils: JwtUtils, private val userDetailsSer
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
             }
-        } catch (e: Exception) {
-            Companion.logger.error("Cannot set user authentication: {%s}", e)
-        }
+        } catch (_: Exception) { }
         filterChain.doFilter(request, response)
     }
 

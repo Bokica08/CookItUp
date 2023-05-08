@@ -83,6 +83,10 @@ class RecipeServiceImplementation(
         return recipe
     }
 
+    override fun save(recipe: Recipe): Recipe {
+        return recipeRepository.save(recipe)
+    }
+
     override fun getDetailsForRecipe(id: Long): RecipeInfoDTO {
         val recipe = recipeRepository.getReferenceById(id)
         recipe.viewCount = recipe.viewCount?.plus(1)

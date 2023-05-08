@@ -23,8 +23,14 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 @RequestMapping("/api/recipe")
 
-class RecipeController(val recipeService: RecipeService, val imageRepository: ImageRepository, val reviewService: ReviewService, val userService: UserService,
-val categoryRepository: CategoryRepository,val imageService: ImageService,val ingredientService: IngredientService,val recipeRepository:RecipeRepository, val orderService: OrderService) {
+class RecipeController(val recipeService: RecipeService,
+                       val imageRepository: ImageRepository,
+                       val reviewService: ReviewService,
+                       val userService: UserService,
+                       val categoryRepository: CategoryRepository,
+                       val imageService: ImageService,
+                       val ingredientService: IngredientService,
+                       val orderService: OrderService) {
     // Get all recipes
     @GetMapping
     fun getAllRecipes() : ResponseEntity<Any> {
@@ -99,7 +105,7 @@ val categoryRepository: CategoryRepository,val imageService: ImageService,val in
         val avg=reviewsByRecipe.stream().mapToInt{it.stars!!}.summaryStatistics().average
         val bd = BigDecimal(avg)
         recipe.avRating =bd.setScale(2, RoundingMode.FLOOR).toDouble()
-        recipeRepository.save(recipe)
+        recipeService.save(recipe)
         return ResponseEntity.ok(review)
     }
     // Get the top-rated recipes

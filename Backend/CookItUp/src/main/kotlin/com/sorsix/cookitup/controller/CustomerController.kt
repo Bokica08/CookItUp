@@ -21,8 +21,11 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 @RequestMapping("/api/customer")
 @CrossOrigin(origins = ["http://localhost:4200"], allowCredentials = "true", maxAge = 3600)
-class CustomerController(val userService: UserService, val reviewService: ReviewService
-,val orderService:OrderService, val recipeService: RecipeService, val customerRepository: CustomerRepository) {
+class CustomerController(val userService: UserService,
+                         val reviewService: ReviewService,
+                         val orderService:OrderService,
+                         val recipeService: RecipeService,
+                         val customerRepository: CustomerRepository) {
     @GetMapping
     fun user(request: HttpServletRequest): Principal? {
         val authToken = request.getHeader("Authorization")

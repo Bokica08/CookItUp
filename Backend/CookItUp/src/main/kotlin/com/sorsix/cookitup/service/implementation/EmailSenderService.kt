@@ -14,7 +14,7 @@ class EmailSenderService(private val mailSender: JavaMailSender) {
     ) {
         for (email in toEmail) {
             val message = SimpleMailMessage()
-            message.setFrom("noreply.cookitup@gmail.com")
+            message.setFrom("noreplymail.cookitup@gmail.com")
             message.setTo(email)
             message.setText(body)
             message.setSubject(subject)
