@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/ingredient")
-class IngredientController(private val ingredientService: IngredientService) {
+class IngredientController(val ingredientService: IngredientService) {
     @GetMapping("/all")
     fun findAll():ResponseEntity<List<Ingredient>>
     {

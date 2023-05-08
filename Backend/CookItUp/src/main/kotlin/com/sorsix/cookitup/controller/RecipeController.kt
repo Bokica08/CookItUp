@@ -24,10 +24,9 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/api/recipe")
 
 class RecipeController(val recipeService: RecipeService,
-                       val imageRepository: ImageRepository,
                        val reviewService: ReviewService,
                        val userService: UserService,
-                       val categoryRepository: CategoryRepository,
+                       val categoryService: CategoryService,
                        val imageService: ImageService,
                        val ingredientService: IngredientService,
                        val orderService: OrderService) {
@@ -57,34 +56,19 @@ class RecipeController(val recipeService: RecipeService,
     }
     @PostMapping("/{id}/img")
     fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile,@RequestParam(required=false) optionalFile1: MultipartFile?,@RequestParam(required = false) optionalFile2: MultipartFile?, request: HttpServletRequest){
-            imageRepository.save(
-                Image(
-                    null, requiredFile.name, requiredFile.contentType, requiredFile.bytes,
-                    recipeService.getRecipeById(id)
-                )
-            )
+        imageService.save(requiredFile,id)
         if(optionalFile1!=null) {
-            imageRepository.save(
-                Image(
-                    null, optionalFile1.name, optionalFile1.contentType, optionalFile1.bytes,
-                    recipeService.getRecipeById(id)
-                )
-            )
+           imageService.save(optionalFile1,id)
         }
         if(optionalFile2!=null) {
-            imageRepository.save(
-                Image(
-                    null, optionalFile2.name, optionalFile2.contentType, optionalFile2.bytes,
-                    recipeService.getRecipeById(id)
-                )
-            )
+            imageService.save(optionalFile2,id)
         }
     }
     @GetMapping("/images/{id}")
     fun getImagesForRecipe(@PathVariable id:Long):ResponseEntity<Any>
     {
         val recipe=recipeService.getRecipeById(id)
-        return ResponseEntity.ok(imageRepository.getAllByRecipe(recipe))
+        return ResponseEntity.ok(imageService.getAllByRecipe(recipe))
     }
 
     // Get details for specific recipe
@@ -125,7 +109,7 @@ class RecipeController(val recipeService: RecipeService,
     }
     @GetMapping("/getCategories")
     fun getCategories() : ResponseEntity<Any> {
-        return ResponseEntity.ok(categoryRepository.findAll())
+        return ResponseEntity.ok(categoryService.findAll())
     }
     @GetMapping("/search")
     fun getRecipesByName(@RequestParam (required = false) name:String):ResponseEntity<Any>
@@ -138,7 +122,7 @@ class RecipeController(val recipeService: RecipeService,
     }
     @GetMapping("/category/{category}")
     fun getRecipesByCategory(@PathVariable category: String):ResponseEntity<Any>{
-        return ResponseEntity.ok(recipeService.findAllByCategoryListContains(category = categoryRepository.findByNameIgnoreCase(category)))
+        return ResponseEntity.ok(recipeService.findAllByCategoryListContains(category = categoryService.findByNameIgnoreCase(category)))
     }
     @GetMapping("/recipesCount")
     fun getRecipesCount():ResponseEntity<Any>{
@@ -146,7 +130,7 @@ class RecipeController(val recipeService: RecipeService,
     }
     @GetMapping("/categoriesCount")
     fun getCategoriesCount():ResponseEntity<Any>{
-        return ResponseEntity.ok(categoryRepository.count())
+        return ResponseEntity.ok(categoryService.count())
     }
     @GetMapping("/filtered")
     fun getFilteredRecipes(

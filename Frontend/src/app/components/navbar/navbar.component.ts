@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-// import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -32,7 +31,6 @@ export class NavbarComponent implements OnInit {
   user = null
   constructor(private recipeService: RecipeService,
     private router:Router,
-    private activateRoute:ActivatedRoute,
     private authService:AuthService,
     private storageService:StorageService,
     private cookieService:CookieService

@@ -2,11 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { flatMap, of } from 'rxjs';
-import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-my-recipes',
@@ -24,9 +22,7 @@ export class MyRecipesComponent {
   userAccount: any;
   myRecipes: Recipe[] | null = null;
   constructor(
-    private userService: UserService,
     private activateRoute: ActivatedRoute,
-    private strorageService: StorageService,
     private httpClient: HttpClient,
     private router: Router,
     private recipeService:RecipeService,

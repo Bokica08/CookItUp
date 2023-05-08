@@ -3,8 +3,6 @@ import { NgForm } from '@angular/forms';
 import { Observable, flatMap, mergeMap, mergeMapTo, of } from 'rxjs';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Register } from 'src/app/models/register';
-import { UserService } from 'src/app/services/user.service';
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,7 +13,7 @@ export class RegisterComponent {
   register = new Register()
   usernameorEmailExists: boolean = false;
 
-  constructor(private authService: AuthService, private userService: UserService) {
+  constructor(private authService: AuthService) {
     this.register.role == this.roles[0]
   }
 

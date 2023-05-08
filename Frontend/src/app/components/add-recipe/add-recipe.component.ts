@@ -8,7 +8,6 @@ import { ingredientService } from 'src/app/services/ingredient.service';
 import { Measure } from 'src/app/models/measure';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { RecipeDTO } from 'src/app/models/recipedto';
-import { DifficultyLevel } from 'src/app/models/difficultyLevel';
 import { IngInRecipe } from 'src/app/models/ingInRecipe';
 import { flatMap } from 'rxjs';
 @Component({
@@ -69,11 +68,7 @@ export class AddRecipeComponent implements OnInit {
       categoryList: f.form.value.categoryList,
       ingredientList: this.newIngredients,
     };
-    console.log("recipe",this.recipe);
     let idRecipe = 0;
-    console.log("required",this.requiredImage);
-    console.log("o1",this.optionalImage1);
-    console.log("o2",this.optionalImage2);
     
     
     
@@ -107,12 +102,9 @@ export class AddRecipeComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          console.log(res);
-          // Handle the response of the addImgRecipe operation
           window.location.href="/"
         },
         (error) => {
-          // Handle any errors
         }
       );
       

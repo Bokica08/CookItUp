@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { StorageService } from 'src/app/_services/storage.service';
-import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-footer',

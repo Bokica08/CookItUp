@@ -5,7 +5,6 @@ import { flatMap, mergeMap, of } from 'rxjs';
 import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Recipe } from 'src/app/models/recipe';
-import { ReviewInfo } from 'src/app/models/reviewInfo';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { UserService } from 'src/app/services/user.service';
@@ -43,7 +42,6 @@ export class RecipeDetailsComponent {
       this.user=this.route.snapshot.data['data6']
     }
   ngOnInit(): void {
-    // ova treba da e api povik dali e u favorite na userot
     this.form= this.fb.group({
       content:"",
       stars:"1"

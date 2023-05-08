@@ -9,9 +9,9 @@ import com.sorsix.cookitup.service.AdminService
 import org.springframework.stereotype.Service
 
 @Service
-class AdminServiceImplementation(private val customerRepository: CustomerRepository,
-private val orderRepository: OrderRepository, private val reviewRepository: ReviewRepository,
-private val recipeRepository: RecipeRepository) : AdminService {
+class AdminServiceImplementation( val customerRepository: CustomerRepository,
+ val orderRepository: OrderRepository,  val reviewRepository: ReviewRepository,
+ val recipeRepository: RecipeRepository) : AdminService {
     override fun getUsersStatistic(): List<UserStatistic> {
         return customerRepository.findAll().map { it-> UserStatistic(
             it.userId,

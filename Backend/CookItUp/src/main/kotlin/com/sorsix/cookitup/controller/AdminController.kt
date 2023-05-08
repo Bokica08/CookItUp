@@ -9,9 +9,7 @@ import com.sorsix.cookitup.model.dto.IngredientDTO
 import com.sorsix.cookitup.model.enumeration.OrderStatus
 import com.sorsix.cookitup.repository.CategoryRepository
 import com.sorsix.cookitup.repository.IngredientRepository
-import com.sorsix.cookitup.service.AdminService
-import com.sorsix.cookitup.service.OrderService
-import com.sorsix.cookitup.service.UserService
+import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
@@ -20,19 +18,19 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 @RequestMapping("/api/admin")
 class AdminController(
-    val categoryRepository: CategoryRepository,
-    val ingredientRepository: IngredientRepository,
+    val categoryService: CategoryService,
+    val ingredientService:IngredientService,
     val userService: UserService,
     val orderService: OrderService,
     val adminService: AdminService
 ) {
     @PostMapping("/category")
-    fun addCategory(@RequestBody categoryDTO: CategoryDTO) : ResponseEntity<Any> {
-      return ResponseEntity.ok(categoryRepository.save(Category(null,categoryDTO.name)))
+    fun addCategory(@RequestBody categoryDTO: CategoryDTO) : ResponseEntity<Category> {
+      return ResponseEntity.ok(categoryService.save(categoryDTO))
     }
     @PostMapping("/ingredient")
-    fun addIngredient(@RequestBody ingredientDTO: IngredientDTO) : ResponseEntity<Any> {
-        return ResponseEntity.ok(ingredientRepository.save(Ingredient(null,ingredientDTO.name,ingredientDTO.description)))
+    fun addIngredient(@RequestBody ingredientDTO: IngredientDTO) : ResponseEntity<Ingredient> {
+        return ResponseEntity.ok(ingredientService.save(ingredientDTO))
     }
 
     @GetMapping("/pending")

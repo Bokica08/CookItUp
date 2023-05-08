@@ -15,13 +15,12 @@ import java.time.LocalDateTime
 
 @Service
 class RecipeServiceImplementation(
-    private val recipeRepository: RecipeRepository,
-    private val ingredientIsInRecipeRepository: IngredientIsInRecipeRepository,
-    private val customerRepository: CustomerRepository,
-    private val categoryRepository: CategoryRepository,
-    private val ingredientRepository: IngredientRepository,
-    private val imageRepository: ImageRepository,
-    private val reviewService: ReviewService,
+     val recipeRepository: RecipeRepository,
+     val ingredientIsInRecipeRepository: IngredientIsInRecipeRepository,
+     val categoryRepository: CategoryRepository,
+     val ingredientRepository: IngredientRepository,
+     val imageRepository: ImageRepository,
+     val reviewService: ReviewService,
 
 ) : RecipeService{
     override fun findAllByCustomer(customer: Customer): List<RecipePreviewDTO> {

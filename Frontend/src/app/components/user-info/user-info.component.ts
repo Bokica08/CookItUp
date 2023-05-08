@@ -1,14 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StorageService } from 'src/app/_services/storage.service';
-import { Customer } from 'src/app/models/customer';
-import { Order } from 'src/app/models/order';
+import { ActivatedRoute} from '@angular/router';
 import { Recipe } from 'src/app/models/recipe';
-import { Review } from 'src/app/models/review';
 import { User } from 'src/app/models/user';
-import { UserStatistic } from 'src/app/models/userStatistic';
-import { AdminService } from 'src/app/services/admin.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,11 +17,7 @@ export class UserInfoComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private strorageService: StorageService,
-    private httpClient: HttpClient,
-    private router: Router,
     private customerService: CustomerService,
-    private adminService: AdminService
   ) {
 
   }

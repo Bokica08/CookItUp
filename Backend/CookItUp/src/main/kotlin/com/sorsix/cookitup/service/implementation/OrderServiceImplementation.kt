@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class OrderServiceImplementation(private val orderRepository: OrderRepository,
-private val userService: UserService, private val recipeRepository: RecipeRepository,private val imageRepository: ImageRepository,
-private val customerRepository: CustomerRepository) : OrderService {
+class OrderServiceImplementation( val orderRepository: OrderRepository,
+val userService: UserService,val recipeRepository: RecipeRepository, val imageRepository: ImageRepository,
+val customerRepository: CustomerRepository) : OrderService {
     override fun findAllByOrderStatus(orderStatus: OrderStatus): List<Order> {
         return orderRepository.findAllByOrderStatus(orderStatus)
     }

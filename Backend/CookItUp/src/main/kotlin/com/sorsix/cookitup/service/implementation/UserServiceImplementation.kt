@@ -9,7 +9,7 @@ import com.sorsix.cookitup.service.UserService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
-import kotlin.math.log
+
 
 
 @Service
@@ -101,9 +101,6 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
 
     override fun authorizePendingAdmin(username: String?): Optional<User> {
         val user: PendingAdmin = pendingAdminRepository.findByUsername(username)
-        if (user.role!=Role.ROLE_PENDING_ADMIN) {
-            throw TODO()
-        }
         user.role=Role.ROLE_ADMIN
         val admin= Admin(user.userId,user.firstname,user.lastname,user.username,user.email,user.password,user.role)
         pendingAdminRepository.delete(user)

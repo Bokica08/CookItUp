@@ -11,7 +11,7 @@ import java.util.*
 @RestController
 @RequestMapping("/api/contact")
 class ContactController(
-private val mailSender: EmailSenderService
+    val mailSender: EmailSenderService
 ) {
     @PostMapping("")
     fun submitContactForm(@RequestBody form: ContactForm): ResponseEntity<Any>? {

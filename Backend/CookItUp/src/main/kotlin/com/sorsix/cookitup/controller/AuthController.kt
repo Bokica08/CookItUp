@@ -7,7 +7,6 @@ import com.sorsix.cookitup.model.dto.MessageResponse
 import com.sorsix.cookitup.model.dto.RegisterDTO
 import com.sorsix.cookitup.model.dto.UserInfoDTO
 import com.sorsix.cookitup.service.UserService
-import org.springframework.boot.web.server.Cookie
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager

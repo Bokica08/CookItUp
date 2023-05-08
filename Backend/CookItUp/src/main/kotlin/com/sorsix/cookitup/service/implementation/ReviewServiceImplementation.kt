@@ -14,8 +14,8 @@ import com.sorsix.cookitup.service.ReviewService
 import org.springframework.stereotype.Service
 
 @Service
-class ReviewServiceImplementation(private val repository: ReviewRepository,
-private val imageRepository: ImageRepository, private val recipeRepository: RecipeRepository) : ReviewService {
+class ReviewServiceImplementation(val repository: ReviewRepository,
+val imageRepository: ImageRepository, val recipeRepository: RecipeRepository) : ReviewService {
     override fun findAllByCustomer(customer: Customer): List<ReviewPreviewDTO> {
         return repository.findAllByCustomer(customer).map {
             this.getReviewPreview(it.reviewId!!)

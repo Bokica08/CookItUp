@@ -15,10 +15,8 @@ export class FaqComponent {
     { title: 'Are the recipes on your platform suitable for beginner cooks?', content: "Yes, our platform features recipes submitted by our community of users. This means that you can find a diverse range of recipes with varying levels of difficulty, including options for beginner cooks. You can easily filter recipes based on difficulty level as well as by category", isExpanded: false }
   ];
   onAccordionItemClick(item:FAQ) {
-    // Toggle the clicked accordion item's expanded state
     item.isExpanded = !item.isExpanded;
 
-    // Collapse other accordion items
     this.faq.forEach(q => {
       if (q !== item) {
         q.isExpanded = false;

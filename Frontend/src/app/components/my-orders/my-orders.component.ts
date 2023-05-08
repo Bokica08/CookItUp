@@ -3,14 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { flatMap, of } from 'rxjs';
-import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Order } from 'src/app/models/order';
-import { Recipe } from 'src/app/models/recipe';
-import { Review } from 'src/app/models/review';
 import { CustomerService } from 'src/app/services/customer.service';
 import { OrderService } from 'src/app/services/order.service';
-import { RecipeService } from 'src/app/services/recipe.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -93,7 +89,6 @@ export class MyOrdersComponent implements OnInit {
   clearSelection() {
     this.form.get('status')?.reset();
     this.getOrders();
-    //this.onChange()
   }
 
 }

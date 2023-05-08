@@ -1,7 +1,5 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StorageService } from 'src/app/_services/storage.service';
 import { Customer } from 'src/app/models/customer';
 import { Order } from 'src/app/models/order';
 import { Recipe } from 'src/app/models/recipe';
@@ -10,8 +8,6 @@ import { User } from 'src/app/models/user';
 import { UserStatistic } from 'src/app/models/userStatistic';
 import { AdminService } from 'src/app/services/admin.service';
 import { CustomerService } from 'src/app/services/customer.service';
-import { UserService } from 'src/app/services/user.service';
-
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
@@ -48,10 +44,7 @@ export class MyProfileComponent implements OnInit {
     { src: 'https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/343857919_1201893140471363_5815012129178626399_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=GYxJMULVN0sAX-mjkIe&_nc_ht=scontent.fskp4-1.fna&oh=03_AdTtUaaFAhDmOfdrm9Abrs0jLy9j4tpAndwU20z5UhVvNQ&oe=647D73C2', alt: 'Orders', text: 'Orders', count:0 }
   ];
   constructor(
-    private userService: UserService,
     private activateRoute: ActivatedRoute,
-    private strorageService: StorageService,
-    private httpClient: HttpClient,
     private router: Router,
     private customerService: CustomerService,
     private adminService: AdminService
