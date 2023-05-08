@@ -33,7 +33,7 @@ export class ApproveAdminComponent implements OnInit{
   {
     this.adminService.approveAdmin(username).subscribe(res=>
       {
-        console.log(res);
+
        
       })
       this.ngOnInit()

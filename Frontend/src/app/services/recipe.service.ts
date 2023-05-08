@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recipe } from '../models/recipe';
 import { Category } from '../models/category';
-import { Image } from '../models/image';
 import { RecipeDTO } from '../models/recipedto';
 
 @Injectable({
@@ -42,9 +41,7 @@ export class RecipeService {
   getDetailsForRecipe(id: string): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.recipeUrl}/details/${id}`);
   }
-  searchByName(name: string): Observable<Recipe[]> {
-    console.log(name);
-    
+  searchByName(name: string): Observable<Recipe[]> {    
     return this.http.get<Recipe[]>(`${this.recipeUrl}/search?name=${name}`);
   }
   getRecipesCount(): Observable<number> {

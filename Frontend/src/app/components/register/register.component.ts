@@ -23,15 +23,13 @@ export class RegisterComponent {
       .existsByUsernameOrEmail(this.register.username!, this.register.email!)
       .pipe(
         mergeMap((res) => {
-          console.log(res);
-          if (res) {
+                    if (res) {
             this.usernameorEmailExists = true;
             return of(res);
           }
           else {
             this.usernameorEmailExists = false;
             this.authService.register(this.register).subscribe(ress => {
-              console.log(ress);
             window.location.href = "/login"
           })
             return of(res);

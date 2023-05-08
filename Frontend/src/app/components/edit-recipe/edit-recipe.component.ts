@@ -46,11 +46,9 @@ export class EditRecipeComponent implements OnInit{
     this.getAllIngredients();
     this.recipeService.getDetailsForRecipe(this.id!!).subscribe(
       res=>{this.recipe=res
-        console.log(this.recipe.categoryList);
       }
       
     )
-    console.log(this.recipe.categoryList);
     this.recipeService.getImagesForRecipe(this.id!!).subscribe(res=>
       {
         this.images=res
@@ -61,8 +59,6 @@ export class EditRecipeComponent implements OnInit{
         this.images[0]?.name
         
       );
-      console.log("img"+this.images[0]),
-
       this.formData.append(
         'optionalFile1',
         this.images[1]!!,
@@ -81,7 +77,6 @@ export class EditRecipeComponent implements OnInit{
     });
   }
   submit(f: NgForm): void {
-    console.log(this.recipe.ingredientList);
 
     this.recipe = {
       name: f.form.value.name,
@@ -92,7 +87,6 @@ export class EditRecipeComponent implements OnInit{
       categoryList: f.form.value.categoryList,
       ingredientList: this.newIngredients,
     };
-    console.log(this.images);
     let idRecipe = 0;
     this.formData.append(
       'requiredFile',
@@ -114,17 +108,13 @@ export class EditRecipeComponent implements OnInit{
       .pipe(
         flatMap((res) => {
           idRecipe = res.recipeId;
-          console.log('idRecipe:', idRecipe);
           return this.recipeService.addImgRecipe(this.formData, idRecipe);
         })
       )
       .subscribe(
         (res) => {
-          console.log(res);
-          // Handle the response of the addImgRecipe operation
         },
         (error) => {
-          // Handle any errors
         }
       );
       window.location.href="/"
@@ -140,18 +130,15 @@ export class EditRecipeComponent implements OnInit{
   }
   onFileAdded(event: any) {
     this.requiredImage = event.target.files[0];
-    console.log(this.requiredImage);
     
   }
   onOptionalFileAdded(event:any, n:number){
     if(n==1){
       this.optionalImage1 = event.target.files[0];
-      console.log(this.optionalImage1);
       
     }
     else{
       this.optionalImage2 = event.target.files[0];
-      console.log(this.optionalImage2);
       
     }
   }

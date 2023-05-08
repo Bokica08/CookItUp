@@ -29,7 +29,6 @@ export class MyReviewsComponent implements OnInit{
     this.user = this.activateRoute.snapshot.data['data6'];
   }
   ngOnInit(): void {
-    console.log(this.isLoggedIn);
     
     if (this.isLoggedIn) {
       this.getReviews();
@@ -40,9 +39,7 @@ export class MyReviewsComponent implements OnInit{
   }
   getReviews() {
     this.userService.getMyReveiws().subscribe(res=>{
-      this.myReviews=res;
-      console.log(res);
-      
+      this.myReviews=res;      
     })
   }
 

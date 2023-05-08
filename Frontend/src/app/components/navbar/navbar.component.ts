@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -43,12 +43,17 @@ export class NavbarComponent implements OnInit {
     this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((term: string) => this.recipeService.searchByName(term))
-    ).subscribe((resultRecipes:Recipe[])=>{
+      switchMap((term: string) => {
+        if (term.length > 0) {
+          return this.recipeService.searchByName(term);
+        } else {
+          return of([]);
+        }
+      })
+    ).subscribe((resultRecipes: Recipe[]) => {
       this.recipes = resultRecipes;
       this.searchResultsVisible = true;
-    })    
-        
+    });
   } 
   getCategories() {
 
@@ -59,7 +64,6 @@ export class NavbarComponent implements OnInit {
   }
   handleButtonClick() {
     this.hideSearchResults()
-    console.log(this.inputText)
     this.router.navigate(["/search/",this.inputText])
   }
   logout(){

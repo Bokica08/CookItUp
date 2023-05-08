@@ -131,7 +131,6 @@ export class RecipeDetailsComponent {
       this.img = "../../../assets/emptyheart.png"
       this.buttonText = "Add to favorites"
       this.userService.deleteFromFavotires(this.id!).subscribe(res=>{
-        console.log(res);
         
       })
     }
@@ -139,7 +138,6 @@ export class RecipeDetailsComponent {
       this.img = "../../../assets/blackheart.png"
       this.buttonText = "Already added to favorites"
       this.userService.addToFavorite(this.id!).subscribe(res=>{
-        console.log(res);
       })
     }
   }

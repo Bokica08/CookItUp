@@ -42,9 +42,7 @@ export class AddOrderComponent implements OnInit {
      }
   ngOnInit() {
     this.customerService.getCustomerPhoneNumberAndAddress().subscribe((res) => { 
-      this.customer = res; 
-      console.log(this.customer.address);
-      console.log(this.customer.phoneNumber);      
+      this.customer = res;   
       if(this.customer.address!=null && this.customer.phoneNumber!=null){
         this.order.address = this.customer.address
         this.order.phoneNumber = this.customer.phoneNumber
@@ -76,7 +74,6 @@ export class AddOrderComponent implements OnInit {
       window.location.href='/myOrders'
       }
       else{window.location.href='/'}
-      console.log(res);
     });
   }
   getDetailsForRecipe(id: string) {

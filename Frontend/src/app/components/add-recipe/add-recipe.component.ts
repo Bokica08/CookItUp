@@ -57,7 +57,6 @@ export class AddRecipeComponent implements OnInit {
     });
   }
   submit(f: NgForm): void {
-    console.log(this.recipe.ingredientList);
 
     this.recipe = {
       name: f.form.value.name,
@@ -96,7 +95,6 @@ export class AddRecipeComponent implements OnInit {
       .pipe(
         flatMap((res) => {
           idRecipe = res.recipeId;
-          console.log('idRecipe:', idRecipe);
           return this.recipeService.addImgRecipe(this.formData, idRecipe);
         })
       )
@@ -120,18 +118,17 @@ export class AddRecipeComponent implements OnInit {
   }
   onFileAdded(event: any) {
     this.requiredImage = event.target.files[0];
-    console.log(this.requiredImage);
+
     
   }
   onOptionalFileAdded(event:any, n:number){
     if(n==1){
       this.optionalImage1 = event.target.files[0];
-      console.log(this.optionalImage1);
+
       
     }
     else{
       this.optionalImage2 = event.target.files[0];
-      console.log(this.optionalImage2);
       
     }
   }

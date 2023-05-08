@@ -51,8 +51,6 @@ export class MyOrdersComponent implements OnInit {
   getOrders() {
     this.userService.getMyOrders().subscribe(res => {
       this.myOrders = res;
-      console.log(res);
-
     })
   }
   cancelOrder(orderId: string) {
@@ -64,7 +62,6 @@ export class MyOrdersComponent implements OnInit {
         }
         ))
       .subscribe(res => {
-        console.log(res);
 
       })
   }
@@ -77,7 +74,6 @@ export class MyOrdersComponent implements OnInit {
         }
         ))
       .subscribe(res => {
-        console.log(res);
 
       })
   }
