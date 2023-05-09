@@ -23,6 +23,7 @@ export class EditRecipeComponent implements OnInit{
   ) {}
   recipe: RecipeDTO = new RecipeDTO();
   categories: Category[] = this.activateRoute.snapshot.data['data'];
+  categoryIds: number[] = [];
   ingredients: Ingredient[] = [];
   boxes: number[] = [1];
   images: File[] = [];
@@ -32,20 +33,26 @@ export class EditRecipeComponent implements OnInit{
   optionalImage2: File | undefined;
   quantities: number | undefined;
   measure: string | undefined;
+  measures = Object.keys(Measure);
   formData: FormData = new FormData();
   newIngredients: IngInRecipe[] = [];
   newIngredient: IngInRecipe = {
-    name: '',
-    measure: '',
-    quantity: 0,
+    name:'',
+    measure:this.measures[0],
+    quantity: 1,
   };
-  measures = Object.keys(Measure);
-
+get Categories():Number[]
+{
+  
+  return this.recipe.categoryList.map(x=>x.categoryId);
+}
   ngOnInit() {
     this.id = (this.activateRoute.snapshot.paramMap.get('id'));
     this.getAllIngredients();
     this.recipeService.getDetailsForRecipe(this.id!!).subscribe(
-      res=>{this.recipe=res
+      res=>{
+        this.recipe=res        
+        this.getCategoryIds()
       }
       
     )
@@ -69,11 +76,44 @@ export class EditRecipeComponent implements OnInit{
         this.images[2]!!,
         this.images[2]?.name
       );
-  }
+      
 
+  }
+  toggleCategorySelection(event:any,category:Category) {
+    let checked= (<HTMLInputElement>event).checked;
+    console.log(checked);
+    let index=-1
+    if(this.recipe.categoryList.map(ca=>ca.categoryId).includes(category.categoryId))
+    {
+      index=this.recipe.categoryList.map(ca=>ca.categoryId).indexOf(category.categoryId)
+      
+    }
+    console.log(index);
+    
+    if (checked && index === -1) {
+      this.recipe.categoryList.push(category);
+  
+    } else if (!checked && index !== -1) {
+      this.recipe.categoryList.splice(index, 1);
+    }
+    console.log(this.recipe.categoryList);
+
+  }
   public getAllIngredients() {
     return this.ingredientService.getAllIngredients().subscribe((res) => {
       this.ingredients = res;
+      this.newIngredient={
+        name:this.ingredients[0].name,
+        measure: this.measures[0].toString(),
+        quantity: 1,
+
+      }
+    });
+  }
+  getCategoryIds()
+  {
+    this.recipe.categoryList.forEach(c => {
+      this.categoryIds.push(c.categoryId)      
     });
   }
   submit(f: NgForm): void {
@@ -84,7 +124,7 @@ export class EditRecipeComponent implements OnInit{
       numPersons: f.form.value.numPersons,
       difficultyLevel: f.form.value.difficultyLevel,
       prepTime: f.form.value.prepTime,
-      categoryList: f.form.value.categoryList,
+      categoryList:this.recipe.categoryList,
       ingredientList: this.newIngredients,
     };
     let idRecipe = 0;

@@ -58,9 +58,11 @@
                 <option *ngFor="let c of this.categories" [ngValue]="c.categoryId">{{c.name}}</option>
             </select> -->
             <!--NE SAKA DA GI SELEKTIRA TIE SHO GI IMA PROBLEEEEM-->
-            <select required #categoryList="ngModel" class="d-flex justify-content-center form-select form-select-lg mb-1"  [(ngModel)]="recipe.categoryList" name="categoryList" multiple="multiple">
-                <option *ngFor="let c of this.categories" [attr.selected]="recipe.categoryList.includes(c)" [ngValue]="c.name">{{c.name}}</option>
-            </select>
+            <div *ngFor="let c of categories">
+                <input type="checkbox" [value]="c.name" [checked]="Categories.includes(c.categoryId)"
+                  (change)="toggleCategorySelection($event.target!!, c)">
+                {{ c.name }}
+              </div>
         </div>
 
         <div *ngFor="let box of boxes" class="box">
