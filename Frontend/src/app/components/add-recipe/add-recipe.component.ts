@@ -100,7 +100,7 @@ export class AddRecipeComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          window.location.href="/"
+          //window.location.href="/"
         },
         (error) => {
         }

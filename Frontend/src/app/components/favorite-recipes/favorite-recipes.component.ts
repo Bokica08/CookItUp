@@ -50,7 +50,7 @@ export class FavoriteRecipesComponent {
     .pipe(
       flatMap(res => {      
       this.getRecipe();
-      return of(res)
+       return of(res)
     }
       ))
     .subscribe(res=>{

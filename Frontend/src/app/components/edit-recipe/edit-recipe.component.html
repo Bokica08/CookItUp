@@ -1,5 +1,8 @@
-<h2 class="text-center mt-3">Edit Recipe</h2>
-<hr />
+<h2 class="text-center" *ngIf="myRecipesIds==null|| !myRecipesIds!!.includes(idNumber!!)">You cannot edit this recipe</h2>
+
+<div *ngIf="myRecipesIds!!.includes(idNumber!!)">
+    <h2 class="text-center mt-3">Edit Recipe</h2>
+    <hr />
 
 <form #f="ngForm" (ngSubmit)="submit(f)">
     <div class="mt-4">
@@ -98,26 +101,35 @@
             </div>
             
         </div>
-        <div class="container" *ngIf="this.images!=null">
-            <div>{{this.images[1]}}</div>
+        <div class="container">
             <h2>Image Upload Form</h2>
                 <div class="form-group">
                     <label for="image1">Upload Required Image:</label>
-                    <input type="file" class="form-control-file m-3" id="image1" value="imageList" name="image1" required (change)="onFileAdded($event)">
+                    <input type="file" class="form-control-file m-3" id="image1" name="image1" required (change)="onFileAdded($event)" [class.transparent]="isImageUploaded(0) && this.requiredImage==null">
+                    <span *ngIf="isImageUploaded(0) && requiredImage==null">
+                        You already have an image. If you want to change it, please select a new one.
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="image2">Upload Optional Image 1:</label>
-                    <input type="file" class="form-control-file m-3" id="image2" name="image2" (change)="onOptionalFileAdded($event,1)">
+                    <input type="file" class="form-control-file m-3" id="image2" name="image2" (change)="onOptionalFileAdded($event,1)" [class.transparent]="isImageUploaded(1) && this.optionalImage1==null">
+                    <span *ngIf="isImageUploaded(1) && optionalImage1==null">
+                        You already have an image. If you want to change it, please select a new one.
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="image3">Upload Optional Image 2:</label>
-                    <input type="file" class="form-control-file m-3" id="image3" name="image3" (change)="onOptionalFileAdded($event,2)">
+                    <input type="file" class="form-control-file m-3" id="image3" name="image3" (change)="onOptionalFileAdded($event,2)" [class.transparent]="isImageUploaded(2) && this.optionalImage2==null">
+                    <span *ngIf="isImageUploaded(2) && optionalImage2==null">
+                        You already have an image. If you want to change it, please select a new one.
+                    </span>
                 </div>
         </div>
-        
     </div>
     <button class="btn btn-info m-3" type="submit">Create</button><br>
 </form>
+</div>
 <div class="row" style="margin-bottom: 4em;">
-    <div class="col-md-12"></div>
+    <div class="col-md-12">
+    </div>
 </div>

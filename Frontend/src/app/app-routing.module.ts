@@ -38,7 +38,7 @@ const routes: Routes = [
   {path:'search/:inputText', component: RecipesComponent},
   {path:'userRecipes/:username', component: RecipesComponent},
   {path:'recipe/:id', component: RecipeDetailsComponent,resolve:{data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
-  {path:'edit/:id',component:EditRecipeComponent,resolve:{data:dataResolverGetCategories}},
+  {path:'edit/:id',component:EditRecipeComponent,resolve:{data:dataResolverGetCategories,data5:dataResolverLoggedIn,data6:dataResolverGetAdmin}},
   {path:'contact',component: ContactComponent},
   {path:'aboutUs', component: AboutUsComponent},
   {path:'faq', component: FaqComponent},

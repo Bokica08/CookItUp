@@ -10,7 +10,7 @@
     </div> -->
     <div class="position-relative pt-3 pb-5">
       <img src="../../../assets/ingredients.jpg" class="mainPageImage" />
-      <a routerLink="/addRecipe"
+      <a routerLink="/addRecipe" *ngIf=" user !=null && user.role[0]=='ROLE_USER'"
          class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x"
       >
         Add Recipe

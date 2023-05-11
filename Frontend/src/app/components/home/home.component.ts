@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { StorageService } from 'src/app/_services/storage.service';
 import { Recipe } from 'src/app/models/recipe';
+import { User } from 'src/app/models/user';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -11,8 +13,10 @@ export class HomeComponent {
   newest: Recipe[] = [];
   topRated: Recipe[] = [];
   mostViewed: Recipe[] = [];
+  user:User =this.storageService.getUser()!;
+
   imageUrl: string | undefined
-  constructor(private recipeService: RecipeService){}
+  constructor(private recipeService: RecipeService,private storageService:StorageService){}
   ngOnInit(): void {
     this.getRecipes() 
   }

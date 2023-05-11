@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { flatMap } from 'rxjs';
+import { flatMap, of } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { IngInRecipe } from 'src/app/models/ingInRecipe';
 import { Ingredient } from 'src/app/models/ingredient';
@@ -9,25 +9,30 @@ import { Measure } from 'src/app/models/measure';
 import { RecipeDTO } from 'src/app/models/recipedto';
 import { ingredientService } from 'src/app/services/ingredient.service';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { Image } from 'src/app/models/image';
+import { Recipe } from 'src/app/models/recipe';
 
 @Component({
   selector: 'app-edit-recipe',
   templateUrl: './edit-recipe.component.html',
   styleUrls: ['./edit-recipe.component.css']
 })
-export class EditRecipeComponent implements OnInit{
+export class EditRecipeComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private ingredientService: ingredientService,
     private recipeService: RecipeService
-  ) {}
+  ) { }
   recipe: RecipeDTO = new RecipeDTO();
   categories: Category[] = this.activateRoute.snapshot.data['data'];
+  user = this.activateRoute.snapshot.data['data6'];
+  myRecipesIds: Number[] | null = null;
   categoryIds: number[] = [];
   ingredients: Ingredient[] = [];
   boxes: number[] = [1];
-  images: File[] = [];
-  id:string | null | undefined
+  images: Image[] = [];
+  id: string | null | undefined
+  idNumber:Number | undefined
   requiredImage: File | undefined;
   optionalImage1: File | undefined;
   optionalImage2: File | undefined;
@@ -37,83 +42,81 @@ export class EditRecipeComponent implements OnInit{
   formData: FormData = new FormData();
   newIngredients: IngInRecipe[] = [];
   newIngredient: IngInRecipe = {
-    name:'',
-    measure:this.measures[0],
+    name: '',
+    measure: this.measures[0],
     quantity: 1,
   };
-get Categories():Number[]
-{
-  
-  return this.recipe.categoryList.map(x=>x.categoryId);
-}
+  get Categories(): Number[] {
+    return this.recipe.categoryList.map(x => x.categoryId);
+  }
+  get Images(): Image[] {
+    return this.images
+  }
   ngOnInit() {
     this.id = (this.activateRoute.snapshot.paramMap.get('id'));
+    this.idNumber=parseInt(this.id!!)
     this.getAllIngredients();
-    this.recipeService.getDetailsForRecipe(this.id!!).subscribe(
-      res=>{
-        this.recipe=res        
-        this.getCategoryIds()
+    this.recipeService.getDetailsForRecipe(this.id!!).pipe(flatMap(res => {
+        this.recipe = res
+        this.getRecipe();
+
+        return of(res)
       }
-      
     )
-    this.recipeService.getImagesForRecipe(this.id!!).subscribe(res=>
-      {
-        this.images=res
+    ).subscribe(res => {
+    })
+    
+    this.recipeService.getImagesForRecipe(this.id!!)
+      .pipe(
+        flatMap(res => {
+          this.images = res;
+          
+          return of(res)
+        }
+        ))
+      .subscribe(res => {
       })
-      this.formData.append(
-        'requiredFile',        
-        this.images[0]!!,
-        this.images[0]?.name
-        
-      );
-      this.formData.append(
-        'optionalFile1',
-        this.images[1]!!,
-        this.images[1]?.name
-      );
-      this.formData.append(
-        'optionalFile2',
-        this.images[2]!!,
-        this.images[2]?.name
-      );
-      
 
   }
-  toggleCategorySelection(event:any,category:Category) {
-    let checked= (<HTMLInputElement>event).checked;
+  isImageUploaded(n: number) {  
+    return this.images[n] !== undefined
+  }
+  toggleCategorySelection(event: any, category: Category) {
+    let checked = (<HTMLInputElement>event).checked;
     console.log(checked);
-    let index=-1
-    if(this.recipe.categoryList.map(ca=>ca.categoryId).includes(category.categoryId))
-    {
-      index=this.recipe.categoryList.map(ca=>ca.categoryId).indexOf(category.categoryId)
-      
+    let index = -1
+    if (this.recipe.categoryList.map(ca => ca.categoryId).includes(category.categoryId)) {
+      index = this.recipe.categoryList.map(ca => ca.categoryId).indexOf(category.categoryId)
+
     }
     console.log(index);
-    
+
     if (checked && index === -1) {
       this.recipe.categoryList.push(category);
-  
+
     } else if (!checked && index !== -1) {
       this.recipe.categoryList.splice(index, 1);
     }
-    console.log(this.recipe.categoryList);
+
+  }
+  getRecipe() {
+    this.recipeService.getAllRecipesByUser(this.user.username)
+    .subscribe((res) => {
+      this.myRecipesIds = res.map((x) => x.id);
+      console.log(this.myRecipesIds);
+      
+    });
 
   }
   public getAllIngredients() {
     return this.ingredientService.getAllIngredients().subscribe((res) => {
       this.ingredients = res;
-      this.newIngredient={
-        name:this.ingredients[0].name,
+      this.newIngredient = {
+        name: this.ingredients[0].name,
         measure: this.measures[0].toString(),
         quantity: 1,
 
       }
-    });
-  }
-  getCategoryIds()
-  {
-    this.recipe.categoryList.forEach(c => {
-      this.categoryIds.push(c.categoryId)      
     });
   }
   submit(f: NgForm): void {
@@ -124,40 +127,53 @@ get Categories():Number[]
       numPersons: f.form.value.numPersons,
       difficultyLevel: f.form.value.difficultyLevel,
       prepTime: f.form.value.prepTime,
-      categoryList:this.recipe.categoryList,
+      categoryList: this.recipe.categoryList,
       ingredientList: this.newIngredients,
     };
     let idRecipe = 0;
-    this.formData.append(
-      'requiredFile',
-      this.requiredImage!!,
-      this.requiredImage?.name
-    );
+    
+    if(this.requiredImage!=null){
+        
+      this.formData.append(
+        'requiredFile',
+        this.requiredImage!!,
+        this.requiredImage?.name
+      );
+    }
+    if(this.optionalImage1!=null){
     this.formData.append(
       'optionalFile1',
       this.optionalImage1!!,
       this.optionalImage1?.name
     );
+    }
+    if(this.optionalImage2!=null){
     this.formData.append(
       'optionalFile2',
       this.optionalImage2!!,
       this.optionalImage2?.name
     );
+    }
+
     this.recipeService
-      .addRecipe(this.recipe)
+      .editRecipe(this.recipe,this.id!!.toString())
       .pipe(
         flatMap((res) => {
-          idRecipe = res.recipeId;
-          return this.recipeService.addImgRecipe(this.formData, idRecipe);
+          
+          return this.recipeService.addImgRecipe(this.formData,parseInt(this.id!!));
+    
+        return of(res)
         })
       )
       .subscribe(
         (res) => {
+          console.log(res);
+          
         },
         (error) => {
         }
       );
-      window.location.href="/"
+    // window.location.href = "/"
   }
   addBox(): void {
     const ingredient: IngInRecipe = { ...this.newIngredient };
@@ -170,16 +186,19 @@ get Categories():Number[]
   }
   onFileAdded(event: any) {
     this.requiredImage = event.target.files[0];
+    console.log(this.requiredImage);
     
   }
-  onOptionalFileAdded(event:any, n:number){
-    if(n==1){
+  onOptionalFileAdded(event: any, n: number) {
+    if (n == 1) {
       this.optionalImage1 = event.target.files[0];
-      
     }
-    else{
+    else {
       this.optionalImage2 = event.target.files[0];
-      
     }
+    console.log(this.optionalImage1);
+    console.log(this.optionalImage2);
+    
+    
   }
 }

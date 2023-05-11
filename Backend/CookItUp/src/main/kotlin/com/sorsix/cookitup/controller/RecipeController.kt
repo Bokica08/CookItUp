@@ -4,10 +4,7 @@ import com.sorsix.cookitup.model.Category
 import com.sorsix.cookitup.model.Image
 import com.sorsix.cookitup.model.Recipe
 import com.sorsix.cookitup.model.Review
-import com.sorsix.cookitup.model.dto.RecipeDTO
-import com.sorsix.cookitup.model.dto.RecipeInfoDTO
-import com.sorsix.cookitup.model.dto.RecipePreviewDTO
-import com.sorsix.cookitup.model.dto.ReviewDTO
+import com.sorsix.cookitup.model.dto.*
 import com.sorsix.cookitup.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -37,6 +34,12 @@ class RecipeController(val recipeService: RecipeService,
         request.session.setAttribute("recipe",recipe)
         return ResponseEntity.ok(recipe)
     }
+    @PostMapping("/edit/{id}")
+    fun editRecipe(@RequestBody recipeDTO: EditRecipeDTO,@PathVariable id:Long, request: HttpServletRequest) : ResponseEntity<Recipe>{
+
+        val recipe=recipeService.edit(recipeDTO,id)
+        return ResponseEntity.ok(recipe)
+    }
     @DeleteMapping("/delete/{id}")
     fun deleteRecipe(@PathVariable id:Long,request: HttpServletRequest):ResponseEntity<Any>
     {
@@ -50,12 +53,33 @@ class RecipeController(val recipeService: RecipeService,
 
     }
     @PostMapping("/{id}/img")
-    fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile,@RequestParam(required=false) optionalFile1: MultipartFile?,@RequestParam(required = false) optionalFile2: MultipartFile?, request: HttpServletRequest){
-        imageService.save(requiredFile,id)
+    fun addRecipeImages(@PathVariable id:Long, @RequestParam requiredFile: MultipartFile?,@RequestParam(required=false) optionalFile1: MultipartFile?,@RequestParam(required = false) optionalFile2: MultipartFile?, request: HttpServletRequest){
+        val recipe=recipeService.getRecipeById(id)
+        if(requiredFile!=null) {
+            val image=imageService.getAllByRecipe(recipe).filter { it.name=="requiredFile" }
+            if(image.isNotEmpty())
+            {
+                imageService.delete(image[0])
+
+            }
+            imageService.save(requiredFile,id)
+        }
         if(optionalFile1!=null) {
-           imageService.save(optionalFile1,id)
+            val image=imageService.getAllByRecipe(recipe).filter { it.name=="optionalFile1" }
+            if(image.isNotEmpty())
+            {
+                imageService.delete(image[0])
+
+            }
+            imageService.save(optionalFile1,id)
         }
         if(optionalFile2!=null) {
+            val image=imageService.getAllByRecipe(recipe).filter { it.name=="optionalFile2" }
+            if(image.isNotEmpty())
+            {
+                imageService.delete(image[0])
+
+            }
             imageService.save(optionalFile2,id)
         }
     }

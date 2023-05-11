@@ -8,5 +8,6 @@ interface ImageService {
     fun deleteByRecipe(recipe: Recipe):Any
     fun save(file:MultipartFile,id:Long): Image
     fun getAllByRecipe(recipe: Recipe):List<Image>
+    fun delete(image: Image):Any
 
 }

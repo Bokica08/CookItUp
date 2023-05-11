@@ -4,10 +4,7 @@ import com.sorsix.cookitup.model.Category
 import com.sorsix.cookitup.model.Customer
 import com.sorsix.cookitup.model.Ingredient
 import com.sorsix.cookitup.model.Recipe
-import com.sorsix.cookitup.model.dto.IngredientIsInRecipeDTO
-import com.sorsix.cookitup.model.dto.RecipeDTO
-import com.sorsix.cookitup.model.dto.RecipeInfoDTO
-import com.sorsix.cookitup.model.dto.RecipePreviewDTO
+import com.sorsix.cookitup.model.dto.*
 import com.sorsix.cookitup.model.enumeration.DifficultyLevel
 
 interface RecipeService {
@@ -32,4 +29,5 @@ interface RecipeService {
     fun getFilteredRecipes(category: String?,inputText: String?,difficultyLevels: String?,prepTimes: String?, username: String?):List<RecipePreviewDTO>
     fun getSimilarRecipes(id: Long) : List<RecipePreviewDTO>
     fun getIngredientsInRecipe(id: Long) : List<Ingredient>
+    fun edit(recipeDTO: EditRecipeDTO, id: Long):Recipe
 }

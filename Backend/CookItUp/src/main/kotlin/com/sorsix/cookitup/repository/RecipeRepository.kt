@@ -12,4 +12,5 @@ interface RecipeRepository : JpaRepository<Recipe, Long> {
     fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel) : List<Recipe>
     fun findAllByNameContainingIgnoreCase(name: String) : List<Recipe>
     override fun findAll() : List<Recipe>
+
 }

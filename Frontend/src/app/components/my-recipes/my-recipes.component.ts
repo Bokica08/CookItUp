@@ -41,8 +41,7 @@ export class MyRecipesComponent {
     this.getRecipe();
   }
   getRecipe() {
-    this.httpClient
-      .get<any>('http://localhost:8080/api/customer/myRecipes')
+    this.recipeService.getAllRecipesByUser(this.username)
       .subscribe((res) => {
         this.myRecipes = res;
       });
@@ -58,6 +57,10 @@ export class MyRecipesComponent {
       ))
     .subscribe(res=>{
     })
+  }
+  editRecipe(id:Number)
+  {
+    window.location.href = '/edit/'+id;
   }
   
 }

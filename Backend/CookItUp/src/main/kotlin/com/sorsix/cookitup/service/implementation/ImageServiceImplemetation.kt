@@ -28,4 +28,8 @@ class ImageServiceImplemetation(val imageRepository: ImageRepository,
     override fun getAllByRecipe(recipe: Recipe): List<Image> {
       return imageRepository.getAllByRecipe(recipe);
     }
+
+    override fun delete(image: Image): Any {
+        return imageRepository.delete(image)
+    }
 }

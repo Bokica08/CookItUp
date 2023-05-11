@@ -12,12 +12,12 @@ class Recipe(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val recipeId: Long? = null,
-    val name: String? = null,
-    val description: String? = null,
-    val numPersons: Int? = null,
+    var name: String? = null,
+    var description: String? = null,
+    var numPersons: Int? = null,
     @Enumerated(value = EnumType.STRING)
-    val difficultyLevel: DifficultyLevel? = null,
-    val prepTime: Int? = null,
+    var difficultyLevel: DifficultyLevel? = null,
+    var prepTime: Int? = null,
     var avRating: Double? = null,
     var viewCount: Int? = null,
     val createdOn: LocalDateTime? = null,
@@ -31,7 +31,7 @@ class Recipe(
         joinColumns = [JoinColumn(name = "recipeId")],
         inverseJoinColumns = [JoinColumn(name = "categoryId")],
     )
-    val categoryList: MutableList<Category> = arrayListOf(),
+    var categoryList: MutableList<Category> = arrayListOf(),
     @ManyToMany
     @JsonManagedReference
     @JoinTable(

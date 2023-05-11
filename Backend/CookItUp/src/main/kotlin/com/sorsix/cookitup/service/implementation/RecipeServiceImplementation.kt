@@ -22,37 +22,41 @@ class RecipeServiceImplementation(
      val imageRepository: ImageRepository,
      val reviewService: ReviewService,
 
-) : RecipeService{
+) : RecipeService {
     override fun findAllByCustomer(customer: Customer): List<RecipePreviewDTO> {
-        return recipeRepository.findAllByCustomer(customer).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAllByCustomer(customer)
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun findAllByCategoryListContains(category: Category): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().filter { it.categoryList.contains(category) }.map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAll().filter { it.categoryList.contains(category) }
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun findAllByDifficultyLevel(difficultyLevel: DifficultyLevel): List<RecipePreviewDTO> {
-        return recipeRepository.findAllByDifficultyLevel(difficultyLevel).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAllByDifficultyLevel(difficultyLevel)
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun findAllByNameContainingIgnoreCase(name: String): List<RecipePreviewDTO> {
-        return recipeRepository.findAllByNameContainingIgnoreCase(name).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAllByNameContainingIgnoreCase(name)
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun findAllByRecipe(recipe: Recipe): List<Ingredient> {
-        return ingredientIsInRecipeRepository.findAllByRecipe(recipe).map {
-            ingredientIsInRecipe ->  ingredientIsInRecipe.ingredient
+        return ingredientIsInRecipeRepository.findAllByRecipe(recipe).map { ingredientIsInRecipe ->
+            ingredientIsInRecipe.ingredient
         }.toList()
     }
 
     override fun findAllByIngredient(ingredient: Ingredient): List<RecipeInfoDTO> {
-        return ingredientIsInRecipeRepository.findAllByIngredient(ingredient).map {
-            ingredientIsInRecipe -> ingredientIsInRecipe.recipe
-        }.map { recipe->this.getDetailsForRecipe(recipe.recipeId!!) }.toList()
+        return ingredientIsInRecipeRepository.findAllByIngredient(ingredient).map { ingredientIsInRecipe ->
+            ingredientIsInRecipe.recipe
+        }.map { recipe -> this.getDetailsForRecipe(recipe.recipeId!!) }.toList()
     }
 
     override fun getAll(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAll().map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun save(recipeDTO: RecipeDTO, customer: Customer): Recipe {
@@ -60,24 +64,29 @@ class RecipeServiceImplementation(
             categoryRepository.findByNameIgnoreCase(cat)
         }.toMutableList()
         val recipe = Recipe(
-                null,
-                recipeDTO.name,
-                recipeDTO.description,
-                recipeDTO.numPersons,
-                DifficultyLevel.valueOf(recipeDTO.difficultyLevel),
-                recipeDTO.prepTime, 0.0 ,0, LocalDateTime.now(),
-                customer,
-                categoryList
+            null,
+            recipeDTO.name,
+            recipeDTO.description,
+            recipeDTO.numPersons,
+            DifficultyLevel.valueOf(recipeDTO.difficultyLevel),
+            recipeDTO.prepTime, 0.0, 0, LocalDateTime.now(),
+            customer,
+            categoryList
         )
         recipeRepository.save(recipe)
-        for(ing in recipeDTO.ingredientList){
+        for (ing in recipeDTO.ingredientList) {
             val ingredient: Ingredient = ingredientRepository.findByName(ing.name)
-            ingredientIsInRecipeRepository.save(IngredientIsInRecipe(
-                IngredientIsInRecipeId(ingredient.ingredientId!!,
-                recipe.recipeId!!),
-                ingredient,
-                recipe,ing.quantity,
-                Measure.valueOf(ing.measure)))
+            ingredientIsInRecipeRepository.save(
+                IngredientIsInRecipe(
+                    IngredientIsInRecipeId(
+                        ingredient.ingredientId!!,
+                        recipe.recipeId!!
+                    ),
+                    ingredient,
+                    recipe, ing.quantity,
+                    Measure.valueOf(ing.measure)
+                )
+            )
         }
         return recipe
     }
@@ -91,8 +100,8 @@ class RecipeServiceImplementation(
         recipe.viewCount = recipe.viewCount?.plus(1)
         recipeRepository.save(recipe)
         val ingredientList: List<Ingredient> = this.findAllByRecipe(recipe)
-        val ingredientIsInRecipeList: List<IngredientIsInRecipeDTO> = ingredientList.map {
-            ing -> this.getIngredientInRecipe(id, ing.ingredientId!!)
+        val ingredientIsInRecipeList: List<IngredientIsInRecipeDTO> = ingredientList.map { ing ->
+            this.getIngredientInRecipe(id, ing.ingredientId!!)
         }
         val imageList: List<Image> = imageRepository.getAllByRecipe(recipe)
         val reviewList: List<ReviewForRecipeDTO> = reviewService.findAllByRecipe(recipe).map {
@@ -121,15 +130,18 @@ class RecipeServiceImplementation(
     }
 
     override fun getNewestRecipes(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().sortedByDescending { it.createdOn }.subList(0,5).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAll().sortedByDescending { it.createdOn }.subList(0, 5)
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun getTopRatedRecipes(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().sortedByDescending { it.avRating }.subList(0,5).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAll().sortedByDescending { it.avRating }.subList(0, 5)
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun getMostViewedRecipes(): List<RecipePreviewDTO> {
-        return recipeRepository.findAll().sortedByDescending { it.viewCount }.subList(0,5).map { recipe->this.getPreviewForRecipe(recipe.recipeId!!) }
+        return recipeRepository.findAll().sortedByDescending { it.viewCount }.subList(0, 5)
+            .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
     override fun getPreviewForRecipe(id: Long): RecipePreviewDTO {
@@ -158,7 +170,7 @@ class RecipeServiceImplementation(
     }
 
     override fun getIngredientInRecipe(recipeId: Long, ingredientId: Long): IngredientIsInRecipeDTO {
-        return ingredientIsInRecipeRepository.findById(IngredientIsInRecipeId(ingredientId,recipeId)).map {
+        return ingredientIsInRecipeRepository.findById(IngredientIsInRecipeId(ingredientId, recipeId)).map {
             IngredientIsInRecipeDTO(it.ingredient.name!!, it.quantity, it.measure.toString())
         }.get()
     }
@@ -171,33 +183,36 @@ class RecipeServiceImplementation(
         username: String?
     ): List<RecipePreviewDTO> {
         var firstFilter = recipeRepository.findAll().map { this.getPreviewForRecipe(it.recipeId!!) }
-        if(category!=null) {
+        if (category != null) {
             val categoryObject = categoryRepository.findByNameIgnoreCase(category)
             firstFilter = recipeRepository.findAll().filter { it.categoryList.contains(categoryObject) }
                 .map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
         }
         var secondFilter = firstFilter
-        if(inputText!=null) {
+        if (inputText != null) {
             secondFilter = firstFilter.filter { it.name!!.contains(inputText, ignoreCase = true) }
         }
         var thirdFilter = secondFilter
-        if(difficultyLevels!=null) {
+        if (difficultyLevels != null) {
             thirdFilter = secondFilter.filter { it.difficultyLevel!!.toString() == difficultyLevels }
         }
         var fourthFilter = thirdFilter
-        if(username!=null){
+        if (username != null) {
             fourthFilter = thirdFilter.filter { it.customerName!! == username }
         }
         return when (prepTimes) {
             "Under 30 minutes" -> {
-                fourthFilter.filter { it.prepTime!!<30}
+                fourthFilter.filter { it.prepTime!! < 30 }
             }
+
             "30 to 60 minutes" -> {
-                fourthFilter.filter { it.prepTime!!>=30 && it.prepTime<=60 }
+                fourthFilter.filter { it.prepTime!! >= 30 && it.prepTime <= 60 }
             }
+
             "Over 60 minutes" -> {
-                fourthFilter.filter { it.prepTime!!>60}
+                fourthFilter.filter { it.prepTime!! > 60 }
             }
+
             else -> {
                 fourthFilter
             }
@@ -214,7 +229,8 @@ class RecipeServiceImplementation(
             val mutualIngredients: ArrayList<Ingredient> = ArrayList(this.getIngredientsInRecipe(id))
             mutualIngredients.retainAll(this.getIngredientsInRecipe(r.recipeId!!).toSet())
             val categoryCoef = (mutualCategories.size.toDouble() / recipe.categoryList.size.toDouble()) * 0.5
-            val ingredientCoef = (mutualIngredients.size.toDouble() / this.getIngredientsInRecipe(id).size.toDouble()) * 0.5
+            val ingredientCoef =
+                (mutualIngredients.size.toDouble() / this.getIngredientsInRecipe(id).size.toDouble()) * 0.5
             val similarityCoef = categoryCoef + ingredientCoef
             map[r] = similarityCoef
         }
@@ -228,4 +244,29 @@ class RecipeServiceImplementation(
         ).map { it.ingredient };
     }
 
+    override fun edit(recipeDTO: EditRecipeDTO, id: Long): Recipe {
+        val recipe = recipeRepository.findById(id).orElseThrow()
+        recipe.name = recipeDTO.name
+        recipe.numPersons = recipeDTO.numPersons
+        recipe.prepTime = recipeDTO.prepTime
+        recipe.difficultyLevel = DifficultyLevel.valueOf(recipeDTO.difficultyLevel)
+        recipe.description = recipeDTO.description
+        recipe.categoryList = recipeDTO.categoryList.toMutableList()
+        for (ing in recipeDTO.ingredientList) {
+            val ingredient: Ingredient = ingredientRepository.findByName(ing.name)
+            ingredientIsInRecipeRepository.save(
+                IngredientIsInRecipe(
+                    IngredientIsInRecipeId(
+                        ingredient.ingredientId!!,
+                        recipe.recipeId!!
+                    ),
+                    ingredient,
+                    recipe, ing.quantity,
+                    Measure.valueOf(ing.measure)
+                )
+            )
+        }
+        recipeRepository.save(recipe)
+    return recipe
+    }
 }
