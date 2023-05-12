@@ -19,8 +19,6 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.lang.Boolean.TRUE
 
-import java.util.Arrays
-
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

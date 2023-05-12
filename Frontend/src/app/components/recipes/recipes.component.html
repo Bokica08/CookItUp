@@ -49,6 +49,9 @@
                             <p class="card-text"><small class="text-muted">{{recipe.difficultyLevel}}</small></p>
                         </div>
                     </div>
+                    <div *ngIf="allRecipes.length==0" class="text-center col-md-9 align-self-center pt-5">
+                        <h3 class="display-6">No recipes available</h3>
+                    </div>
                 </div>
             </div>
         </div>

@@ -56,8 +56,10 @@
         <div *ngIf="userRecipes.length != 0">
           <div class="row">
             <div class="col-2" *ngFor="let r of userRecipes">
-              <img class="rounded-image" [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
+              <a routerLink="/recipe/{{r.id}}">
+                <img class="rounded-image" [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
                 alt="Recipe image" />
+                </a>
             </div>
             <div class="col-2">
               <a routerLink="/myRecipes" class="link-class">
@@ -84,8 +86,10 @@
         <div *ngIf="favoriteRecipes.length != 0">
           <div class="row">
             <div class="col-2" *ngFor="let r of favoriteRecipes">
-              <img class="rounded-image" [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
+              <a routerLink="/recipe/{{r.id}}"><img class="rounded-image"
+                [src]="'data:image/jpg;base64,' + r!!.imageList[0].byteArray"
                 alt="Recipe image" />
+                </a>
             </div>
             <div class="col-2">
               <a routerLink="/myFavoriteRecipes" class="link-class">
@@ -114,9 +118,10 @@
         <div *ngIf="reviews.length != 0">
           <div class="row">
             <div class="col-2" *ngFor="let r of reviews">
-              <img class="rounded-image" [src]="
+              <a routerLink="/recipe/{{r.recipe.id}}"><img class="rounded-image"                [src]="
                   'data:image/jpg;base64,' + r!!.recipe.imageList[0].byteArray
                 " alt="Recipe image" />
+                </a>
             </div>
             <div class="col-2">
               <a routerLink="/myReviews" class="link-class">
@@ -142,9 +147,11 @@
         <div *ngIf="orders.length != 0">
           <div class="row">
             <div class="col-2" *ngFor="let o of orders">
-              <img class="rounded-image" [src]="
+              <a routerLink="/recipe/{{o.recipe.id}}"><img class="rounded-image"
+               [src]="
                   'data:image/jpg;base64,' + o!!.recipe.imageList[0].byteArray
                 " alt="Recipe image" />
+                </a>
             </div>
             <div class="col-2">
               <a routerLink="/myOrders" class="link-class">

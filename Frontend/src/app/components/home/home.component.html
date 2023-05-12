@@ -1,19 +1,11 @@
 <div class="bg-dark text-white">
   <div class="container pb-1">
-    <!-- <div class="d-flex align-items-center flex-column mb-5 pt-3">
-      <img src="../../../assets/ingredients.jpg" class="mainPageImage" />
-      <a routerLink="/addRecipe"
-        class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x"
-      >
-        Add Recipe
-      </a>
-    </div> -->
     <div class="position-relative pt-3 pb-5">
       <img src="../../../assets/ingredients.jpg" class="mainPageImage" />
       <a routerLink="/addRecipe" *ngIf=" user !=null && user.role[0]=='ROLE_USER'"
-         class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x"
+         class="btn btn-block btn-success position-absolute bottom-20 start-50 translate-middle-x ps-5 pe-5 pt-3"
       >
-        Add Recipe
+        <h5>Add Recipe</h5>
       </a>
     </div>
     </div>

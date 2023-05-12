@@ -13,12 +13,41 @@
       </div>
       <div class="col-7">
         <h1 class="display-6">{{ recipe?.name }}</h1>
-        <p>{{ recipe?.numPersons }} persons, {{ recipe?.prepTime }} minutes</p>
+        <p>For {{ recipe?.numPersons }} people, prepared in {{ recipe?.prepTime }} minutes</p>
         <p>
-          Difficulty: {{ recipe?.difficultyLevel }}, Average Rating:
-          {{ recipe?.avRating }}
+          Difficulty: {{ recipe?.difficultyLevel }}</p>
+          <p>
+            Total views: {{ recipe?.viewCount }}
         </p>
-        <p>Total views: {{ recipe?.viewCount }}</p>
+        <div class="mb-2">Average Rating: 
+          <div>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe?.avRating!!,1)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!,1)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe?.avRating!!, 2)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 2)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe?.avRating!!, 3)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 3)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe?.avRating!!, 4)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 4)"
+            ></span>
+            <span
+              class="star"
+              [class.filled]="isStarFilled(recipe?.avRating!!, 5)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 5)"
+            ></span>
+          </div>
+        </div>
         <p>
           Added by: <a routerLink="/userInfo/{{recipe?.customer?.username}}" class="recipeName">{{ recipe?.customer?.username }}</a> on {{ recipe?.createdOn }}
         </p>
@@ -29,7 +58,7 @@
       </div>
     </div>
     <div class="row m-3">
-      <div class="col-8">
+      <div class="col-8 align-self-center">
         <ul class="list-group list-group-horizontal">
           <li class="list-group-item" *ngFor="let c of recipe?.categoryList">
             <a class="link-class text-dark" routerLink="/category/{{ c.name.toLocaleLowerCase() }}">{{ c.name }}</a>
@@ -144,11 +173,11 @@
         </div>
         <div class="d-flex mb-3">
           <div class="d-inline-block">
-            <span class="star" [class.filled]="isStarFilled(r.stars, 1)"></span>
-            <span class="star" [class.filled]="isStarFilled(r.stars, 2)"></span>
-            <span class="star" [class.filled]="isStarFilled(r.stars, 3)"></span>
-            <span class="star" [class.filled]="isStarFilled(r.stars, 4)"></span>
-            <span class="star" [class.filled]="isStarFilled(r.stars, 5)"></span>
+            <span class="star" [class.filled]="isStarFilledRating(r.stars, 1)"></span>
+            <span class="star" [class.filled]="isStarFilledRating(r.stars, 2)"></span>
+            <span class="star" [class.filled]="isStarFilledRating(r.stars, 3)"></span>
+            <span class="star" [class.filled]="isStarFilledRating(r.stars, 4)"></span>
+            <span class="star" [class.filled]="isStarFilledRating(r.stars, 5)"></span>
           </div>
           <span class="text-muted ms-4">{{r.reviewedOn}}</span>
         </div>

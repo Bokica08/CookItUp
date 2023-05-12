@@ -52,7 +52,7 @@ val customerRepository: CustomerRepository) : OrderService {
 
     override fun getOrderPreview(id: Long): OrderPreviewDTO {
         val order:Order = orderRepository.getReferenceById(id);
-        val recipe = recipeRepository.getReferenceById(order.recipe!!.recipeId!!)
+        val recipe:Recipe = recipeRepository.getReferenceById(order.recipe!!.recipeId!!)
         val imageList: List<Image> = imageRepository.getAllByRecipe(recipe)
         val recipePreview =  RecipePreviewDTO(
             recipe.recipeId,

@@ -58,9 +58,4 @@ export class MyRecipesComponent {
     .subscribe(res=>{
     })
   }
-  editRecipe(id:Number)
-  {
-    window.location.href = '/edit/'+id;
-  }
-  
 }

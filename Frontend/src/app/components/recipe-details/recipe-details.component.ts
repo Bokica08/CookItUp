@@ -141,7 +141,7 @@ export class RecipeDetailsComponent {
       })
     }
   }
-  isStarFilled(rating: number, starNumber: number): boolean {
+  isStarFilledRating(rating: number, starNumber: number): boolean {
     return starNumber <= rating;
   }
   getNStarReviewPercentage(n:number): number {
@@ -177,5 +177,13 @@ export class RecipeDetailsComponent {
     })    
     this.router.navigate([`/addOrder/${this.recipe?.id}/${parseInt(this.formOrder.value.numPersonsForOrder)}`])
   }
+}
+isStarFilled(averageRating: number, starNumber: number): boolean {
+  return starNumber <= Math.floor(averageRating) ||
+  (starNumber > Math.floor(averageRating) && averageRating > starNumber - 0.25 && averageRating <= starNumber + 0.25);
+}
+isStarHalfFilled(averageRating: number, starNumber: number): boolean {
+  return starNumber > Math.floor(averageRating) && starNumber <= Math.ceil(averageRating)
+  && averageRating > starNumber-0.75 && averageRating <= starNumber-0.25;
 }
 }

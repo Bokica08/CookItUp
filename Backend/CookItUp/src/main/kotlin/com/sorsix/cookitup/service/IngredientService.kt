@@ -8,6 +8,6 @@ import com.sorsix.cookitup.model.dto.IngredientDTO
 interface IngredientService {
     fun getAllIngredients():List<Ingredient>
     fun deleteAllByRecipe(recipe: Recipe) : Any
-    fun save(ingredient: IngredientDTO):Ingredient
+    fun save(ingredientDTO: IngredientDTO):Ingredient
 
 }

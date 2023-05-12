@@ -165,9 +165,7 @@ export class EditRecipeComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-         window.location.href = "/"
-
-          
+         window.location.href = "/myRecipes"
         },
         (error) => {
         }
