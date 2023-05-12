@@ -46,9 +46,6 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
         }
     }
 
-    override fun getUser(username: String, password: String): User {
-        TODO("Not yet implemented")
-    }
 
     override fun getCustomerByUsername(username: String): Customer {
         return customerRepository.getByUsername(username)
@@ -59,9 +56,6 @@ class UserServiceImplementation(val pendingAdminRepository: PendingAdminReposito
     }
 
     override fun findIfExists(username: String,email: String): Boolean {
-        println("$username - $email")
-        println(userRepository.existsUserByUsername(username))
-        println(userRepository.existsByEmail(email))
         return userRepository.existsUserByUsername(username) || userRepository.existsByEmail(email)
     }
 

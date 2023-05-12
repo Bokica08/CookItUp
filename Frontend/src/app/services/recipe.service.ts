@@ -32,9 +32,7 @@ export class RecipeService {
   addImgRecipe(images: FormData, id: number): Observable<any> {
     return this.http.post<FormData>(this.recipeUrl + `/${id}/img`, images);
   }
-  addRecipe(recipe: RecipeDTO): Observable<any> {
-    console.log(recipe);
-    
+  addRecipe(recipe: RecipeDTO): Observable<any> {    
     return this.http.post<Recipe>(this.recipeUrl, recipe);
   }
   getRecipeDetails(id: string): Observable<Recipe> {
@@ -94,7 +92,6 @@ export class RecipeService {
     return this.http.get<Recipe[]>(`${this.recipeUrl}/userRecipes/${username}`);
   }
   editRecipe(recipe: RecipeDTO, id: string): Observable<any> {
-    console.log("recipe",recipe);
     
     return this.http.post<Recipe>(this.recipeUrl + '/edit/' + id, recipe);
 }

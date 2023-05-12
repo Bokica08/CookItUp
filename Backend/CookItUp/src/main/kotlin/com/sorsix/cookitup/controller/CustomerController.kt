@@ -34,7 +34,6 @@ class CustomerController(val userService: UserService,
     }
     @GetMapping("/info")
     fun getCustomerInfo(request:HttpServletRequest): ResponseEntity<CustomerInfoDTO> {
-        println(SecurityContextHolder.getContext().authentication.name)
         return ResponseEntity.ok(this.userService.findByUsername(request.remoteUser))
     }
     @GetMapping("/myReviews")

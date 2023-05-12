@@ -84,13 +84,11 @@ export class EditRecipeComponent implements OnInit {
   }
   toggleCategorySelection(event: any, category: Category) {
     let checked = (<HTMLInputElement>event).checked;
-    console.log(checked);
     let index = -1
     if (this.recipe.categoryList.map(ca => ca.categoryId).includes(category.categoryId)) {
       index = this.recipe.categoryList.map(ca => ca.categoryId).indexOf(category.categoryId)
 
     }
-    console.log(index);
 
     if (checked && index === -1) {
       this.recipe.categoryList.push(category);
@@ -104,7 +102,6 @@ export class EditRecipeComponent implements OnInit {
     this.recipeService.getAllRecipesByUser(this.user.username)
     .subscribe((res) => {
       this.myRecipesIds = res.map((x) => x.id);
-      console.log(this.myRecipesIds);
       
     });
 
@@ -168,18 +165,17 @@ export class EditRecipeComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          console.log(res);
+         window.location.href = "/"
+
           
         },
         (error) => {
         }
       );
-    // window.location.href = "/"
   }
   addBox(): void {
     const ingredient: IngInRecipe = { ...this.newIngredient };
     this.newIngredients.push(ingredient);
-    console.log(this.newIngredients);
     
     this.newIngredient = {
       name: this.ingredients[0].name,
@@ -189,8 +185,7 @@ export class EditRecipeComponent implements OnInit {
   }
   onFileAdded(event: any) {
     this.requiredImage = event.target.files[0];
-    console.log(this.requiredImage);
-    
+
   }
   onOptionalFileAdded(event: any, n: number) {
     if (n == 1) {
@@ -199,8 +194,7 @@ export class EditRecipeComponent implements OnInit {
     else {
       this.optionalImage2 = event.target.files[0];
     }
-    console.log(this.optionalImage1);
-    console.log(this.optionalImage2);
+
     
     
   }

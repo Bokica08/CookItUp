@@ -12,7 +12,6 @@ import java.util.*
 interface UserService : UserDetailsService {
     override fun loadUserByUsername(username: String): User
     fun register(userDTO: RegisterDTO): User
-    fun getUser(username: String, password: String): User
     fun getCustomerByUsername(username: String): Customer
     fun findByUsername(username: String) : CustomerInfoDTO
     fun addToFavorites(username:String,id:Long):Any
