@@ -58,6 +58,7 @@ export class EditRecipeComponent implements OnInit {
     this.getAllIngredients();
     this.recipeService.getDetailsForRecipe(this.id!!).pipe(flatMap(res => {
         this.recipe = res
+        this.newIngredients = this.recipe.ingredientList;
         this.getRecipe();
 
         return of(res)
@@ -178,10 +179,12 @@ export class EditRecipeComponent implements OnInit {
   addBox(): void {
     const ingredient: IngInRecipe = { ...this.newIngredient };
     this.newIngredients.push(ingredient);
+    console.log(this.newIngredients);
+    
     this.newIngredient = {
-      name: '',
-      measure: Measure.grams,
-      quantity: 0,
+      name: this.ingredients[0].name,
+      measure: this.measures[0].toString(),
+      quantity: 1,
     };
   }
   onFileAdded(event: any) {

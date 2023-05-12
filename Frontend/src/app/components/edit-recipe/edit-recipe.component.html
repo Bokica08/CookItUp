@@ -1,7 +1,8 @@
 <h2 class="text-center" *ngIf="myRecipesIds==null|| !myRecipesIds!!.includes(idNumber!!)">You cannot edit this recipe</h2>
-
+<div class="bg-light">
+<div class="container">
 <div *ngIf="myRecipesIds!!.includes(idNumber!!)">
-    <h2 class="text-center mt-3">Edit Recipe</h2>
+    <h2 class="text-center pt-4 display-4">Edit Recipe</h2>
     <hr />
 
 <form #f="ngForm" (ngSubmit)="submit(f)">
@@ -95,7 +96,7 @@
                     <div class="col-6 bg-primary m-3"></div>
                 </div>
                 <h3>Already added:</h3>
-                <div *ngFor="let ri of this.recipe.ingredientList">
+                <div *ngFor="let ri of newIngredients">
                     {{ri.quantity}} {{ri.measure}} {{ri.name}}
                 </div>
             </div>
@@ -132,4 +133,6 @@
 <div class="row" style="margin-bottom: 4em;">
     <div class="col-md-12">
     </div>
+</div>
+</div>
 </div>
