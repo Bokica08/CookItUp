@@ -1,138 +1,185 @@
-<h2 class="text-center" *ngIf="myRecipesIds==null|| !myRecipesIds!!.includes(idNumber!!)">You cannot edit this recipe</h2>
+<h2 class="text-center" *ngIf="myRecipesIds==null|| !myRecipesIds!!.includes(idNumber!!)">You cannot edit this recipe
+</h2>
 <div class="bg-light">
-<div class="container">
-<div *ngIf="myRecipesIds!!.includes(idNumber!!)">
-    <h2 class="text-center pt-4 display-4">Edit Recipe</h2>
-    <hr />
-
-<form #f="ngForm" (ngSubmit)="submit(f)">
-    <div class="mt-4">
-        <div class="row mb-3 w-80">
-            <div class="col-md-3"></div>
-            <label class="form-label col-md-1 font-weight-bold text-right" for="name">Name</label><br>
-            <div class="col-md-4">
-                <input required #name="ngModel" type="text" id="name" class="form-control" name="name"
-                    [(ngModel)]="recipe!.name" />
-            </div>
-        </div>
-        <div class="row mb-3 w-80">
-            <div class="col-md-3"></div>
-            <label class="form-label col-md-1 font-weight-bold text-right" for="numPersons">numPersons</label><br>
-            <div class="col-md-4">
-                <input required #numPersons="ngModel" type="number" id="numPersons" class="form-control" min="1"
-                    name="numPersons" [(ngModel)]="recipe!.numPersons" />
-            </div>
-        </div>
-        <div class="mb-3 row w-80">
-            <div class="col-md-3"></div>
-            <label class="form-label col-md-1 font-weight-bold text-right" for="prepTime">prepTime</label><br>
-            <div class="col-md-4">
-                <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control" name="prepTime" min="1"
-                    [(ngModel)]="recipe!.prepTime" />
-            </div>
-        </div>
-        <div class="mb-3 row w-80">
-            <div class="col-md-3"></div>
-            <label class="form-label col-md-1 font-weight-bold text-right" for="city">Difficulty level</label><br>
-            <span class="col-md-2">
-                <input #difficultyLevel="ngModel" type="radio" name="difficultyLevel" value="Easy" [(ngModel)]="recipe!.difficultyLevel">
-                Easy
-            </span>
-            <span class="col-md-2">
-                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Medium" [(ngModel)]="recipe!!.difficultyLevel">
-                Medium
-            </span>
-            <span class="col-md-1">
-                <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard" [(ngModel)]="recipe!!.difficultyLevel">
-                Hard
-            </span>
-        </div>
-        <div class="row mb-3 w-80">
-            <div class="col-md-3"></div>
-            <label class="form-label col-md-1 font-weight-bold text-right" for="description">Description</label><br>
-            <div class="col-md-4">
-                <textarea required id="description" rows="8" class="form-control"
-                    name="description" [(ngModel)]="recipe!.description"></textarea>
-            </div>
-        </div>
-
-        <div class=" container" *ngIf="this.recipe.categoryList != undefined">
-            Categories:
-            <!-- <select #categoryList="ngModel" class="form-select form-select-lg mb-1" [(ngModel)]="recipe!.categoryList" multiple="multiple">
-                <option *ngFor="let c of this.categories" [ngValue]="c.categoryId">{{c.name}}</option>
-            </select> -->
-            <!--NE SAKA DA GI SELEKTIRA TIE SHO GI IMA PROBLEEEEM-->
-            <div *ngFor="let c of categories">
-                <input type="checkbox" [value]="c.name" [checked]="Categories.includes(c.categoryId)"
-                  (change)="toggleCategorySelection($event.target!!, c)">
-                {{ c.name }}
-              </div>
-        </div>
-
-        <div *ngFor="let box of boxes" class="box">
-            <div class="container">
-                <a  class="m-3 btn btn-success" (click)="addBox()">Add Ingredient</a>
-                <div class="row justify-content-center mb-3">
-                    <label class="form-label col-md-2 font-weight-bold text-right" for="">Quantity:</label>
-                    <div class="col-3">
-                        <input required  type="number" id="quantity" class="form-control" min="0"
-                            style="width: 300px;" name="quantity" [(ngModel)]="newIngredient.quantity" />
+    <div class="container">
+        <div *ngIf="myRecipesIds!!.includes(idNumber!!)">
+            <h2 class="text-center pt-4 display-4">Edit Recipe</h2>
+            <hr />
+            <form #f="ngForm" (ngSubmit)="submit(f)">
+                <div>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="form-label col-md-2 font-weight-bold" for="name">Name</label><br>
+                                <div class="col-md-10">
+                                    <input required #name="ngModel" type="text" id="name" class="form-control"
+                                        name="name" [(ngModel)]="recipe!.name" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-3">
-
-                        <select class="form-select" style="width: 300px;" required [(ngModel)]="newIngredient.measure" name="measure">
-                            <option selected *ngFor="let m of measures" [ngValue]="m.toString()">{{m.toString()}}</option>
-                        </select>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="form-label col-md-2 font-weight-bold text-right"
+                                    for="numPersons">For</label><br>
+                                <div class="col-md-8">
+                                    <input required #numPersons="ngModel" type="number" id="numPersons"
+                                        class="form-control" min="1" name="numPersons"
+                                        [(ngModel)]="recipe!.numPersons" />
+                                </div>
+                                <span class="col-md-2">people</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <select required #nameIng="ngModel" class="form-select" style="width: 300px;" [(ngModel)]="newIngredient.name" name="nameIng">
-                            >
-                            <option *ngFor="let i of ingredients" [ngValue]="i.name">{{i.name}}</option>
-                        </select>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="form-label col-md-3 font-weight-bold text-right"
+                                    for="prepTime">Preparation time:</label><br>
+                                <div class="col-md-9">
+                                    <input required #prepTime="ngModel" type="number" id="prepTime" class="form-control"
+                                        name="prepTime" min="1" [(ngModel)]="recipe!.prepTime" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-3 bg-primary m-3"></div>
-                    <div class="col-6 bg-primary m-3"></div>
-                </div>
-                <h3>Already added:</h3>
-                <div *ngFor="let ri of newIngredients">
-                    {{ri.quantity}} {{ri.measure}} {{ri.name}}
-                </div>
-            </div>
-            
-        </div>
-        <div class="container">
-            <h2>Image Upload Form</h2>
-                <div class="form-group">
-                    <label for="image1">Upload Required Image:</label>
-                    <input type="file" class="form-control-file m-3" id="image1" name="image1" required (change)="onFileAdded($event)" [class.transparent]="isImageUploaded(0) && this.requiredImage==null">
-                    <span *ngIf="isImageUploaded(0) && requiredImage==null">
-                        You already have an image. If you want to change it, please select a new one.
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label for="image2">Upload Optional Image 1:</label>
-                    <input type="file" class="form-control-file m-3" id="image2" name="image2" (change)="onOptionalFileAdded($event,1)" [class.transparent]="isImageUploaded(1) && this.optionalImage1==null">
-                    <span *ngIf="isImageUploaded(1) && optionalImage1==null">
-                        You already have an image. If you want to change it, please select a new one.
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label for="image3">Upload Optional Image 2:</label>
-                    <input type="file" class="form-control-file m-3" id="image3" name="image3" (change)="onOptionalFileAdded($event,2)" [class.transparent]="isImageUploaded(2) && this.optionalImage2==null">
-                    <span *ngIf="isImageUploaded(2) && optionalImage2==null">
-                        You already have an image. If you want to change it, please select a new one.
-                    </span>
-                </div>
+                    <div class="mb-3 row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="form-label col-md-3 font-weight-bold text-right" for="city">Difficulty
+                                    level: </label>
+                                <span class="col-md-3">
+                                    <input #difficultyLevel="ngModel" type="radio" name="difficultyLevel" value="Easy"
+                                        [(ngModel)]="recipe!.difficultyLevel">
+                                    Easy
+                                </span>
+                                <span class="col-md-3">
+                                    <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Medium"
+                                        [(ngModel)]="recipe!!.difficultyLevel">
+                                    Medium
+                                </span>
+                                <span class="col-md-3">
+                                    <input type="radio" #difficultyLevel="ngModel" name="difficultyLevel" value="Hard"
+                                        [(ngModel)]="recipe!!.difficultyLevel">
+                                    Hard
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="form-label col-md-2 font-weight-bold text-right"
+                                    for="description">Description</label><br>
+                                <div class="col-md-10">
+                                    <textarea required id="description" rows="8" class="form-control" name="description"
+                                        [(ngModel)]="recipe!.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-2 form-check-label" for="categoryList">Categories:</label>
+                                <div class="col-md-10">
+                                    <div *ngFor="let c of categories">
+                                        <input type="checkbox" class="form-check-input" [value]="c.name"
+                                            [checked]="Categories.includes(c.categoryId)"
+                                            (change)="toggleCategorySelection($event.target!!, c)">
+                                        {{ c.name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="form-label col-md-3">Added Ingredients:</label>
+                                <div class="col-md-9">
+                                    <div *ngIf="newIngredients.length==0" class="text-danger">Add at least one
+                                        ingredient
+                                    </div>
+                                    <div *ngFor="let ni of newIngredients">
+                                        {{ni.quantity}} {{ni.measure}} {{ni.name}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label" for="">Quantity:</label>
+                                    <input required type="number" id="quantity" class="form-control" min="0"
+                                        name="quantity" [(ngModel)]="newIngredient.quantity" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label" for="">Measure:</label>
+                                    <select class="form-select" required [(ngModel)]="newIngredient.measure"
+                                        name="measure">
+                                        <option selected *ngFor="let m of measures" [ngValue]="m.toString()">
+                                            {{m.toString()}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label" for="">Ingredient:</label>
+                                    <select required #nameIng="ngModel" class="form-select"
+                                        [(ngModel)]="newIngredient.name" name="nameIng">
+                                        >
+                                        <option *ngFor="let i of ingredients" [ngValue]="i.name">{{i.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-3">
+                                    <a class="btn btn-success" (click)="addBox()">Add Ingredient</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-md-6">
+                            <h2 class="display-6">Upload images</h2>
+                            <div class="row mb-3">
+                                <label for="image1" class="col-md-5">Upload Required Image:</label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control-file" id="image1" name="image1" required
+                                        (change)="onFileAdded($event)"
+                                        [class.transparent]="isImageUploaded(0) && this.requiredImage==null">
+                                </div>
+                                <span *ngIf="isImageUploaded(0) && requiredImage==null" class="text-muted">
+                                    You already have an image. If you want to change it, please select a new one.
+                                </span>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="image2" class="col-md-5">Upload Optional Image 1:</label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control-file" id="image2" name="image2"
+                                        (change)="onOptionalFileAdded($event,1)"
+                                        [class.transparent]="isImageUploaded(1) && this.optionalImage1==null">
+                                </div>
+                                <span *ngIf="isImageUploaded(1) && optionalImage1==null" class="text-muted">
+                                    You already have an image. If you want to change it, please select a new one.
+                                </span>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="image3" class="col-md-5">Upload Optional Image 2:</label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control-file" id="image3" name="image3"
+                                        (change)="onOptionalFileAdded($event,2)"
+                                        [class.transparent]="isImageUploaded(2) && this.optionalImage2==null">
+                                </div>
+                                <span *ngIf="isImageUploaded(2) && optionalImage2==null" class="text-muted">
+                                    You already have an image. If you want to change it, please select a new one.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <button class="btn btn-success col-md-5 mb-3" type="submit">Update recipe</button>
+                        </div>
+                        </div>
+                    </div>
+            </form>
         </div>
     </div>
-    <button class="btn btn-success m-3" type="submit">Update recipe</button><br>
-</form>
-</div>
-<div class="row" style="margin-bottom: 4em;">
-    <div class="col-md-12">
-    </div>
-</div>
-</div>
 </div>
