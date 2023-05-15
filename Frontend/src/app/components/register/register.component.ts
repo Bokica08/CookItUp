@@ -12,9 +12,8 @@ export class RegisterComponent {
   roles = [{ id: 1, value: 'ROLE_USER', name: "User" }, { id: 2, value: 'ROLE_PENDING_ADMIN', name: "Admin" }]
   register = new Register()
   usernameorEmailExists: boolean = false;
-
   constructor(private authService: AuthService) {
-    this.register.role == this.roles[0]
+    this.register.role = this.roles[0].value;
   }
 
   submit(f: NgForm) {
@@ -23,7 +22,7 @@ export class RegisterComponent {
       .existsByUsernameOrEmail(this.register.username!, this.register.email!)
       .pipe(
         mergeMap((res) => {
-                    if (res) {
+           if (res) {
             this.usernameorEmailExists = true;
             return of(res);
           }

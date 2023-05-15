@@ -59,10 +59,8 @@ class RecipeServiceImplementation(
         return recipeRepository.findAll().map { recipe -> this.getPreviewForRecipe(recipe.recipeId!!) }
     }
 
-    override fun save(recipeDTO: RecipeDTO, customer: Customer): Recipe {
-        val categoryList: MutableList<Category> = recipeDTO.categoryList.map { cat ->
-            categoryRepository.findByNameIgnoreCase(cat)
-        }.toMutableList()
+    override fun save(recipeDTO: EditRecipeDTO, customer: Customer): Recipe {
+        val categoryList: MutableList<Category> = recipeDTO.categoryList.toMutableList()
         val recipe = Recipe(
             null,
             recipeDTO.name,

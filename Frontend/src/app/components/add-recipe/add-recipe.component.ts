@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from 'src/app/models/recipe';
 import { Category } from 'src/app/models/category';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -32,7 +31,6 @@ export class AddRecipeComponent implements OnInit {
   quantities: number | undefined;
   measure: string | undefined;
   measures = Object.keys(Measure);
-
   formData: FormData = new FormData();
   newIngredients: IngInRecipe[] = [];
   newIngredient: IngInRecipe = {
@@ -43,13 +41,15 @@ export class AddRecipeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllIngredients();
+    this.recipe.categoryList = this.recipe.categoryList ?? [];
+
   }
 
   public getAllIngredients() {
     return this.ingredientService.getAllIngredients().subscribe((res) => {
       this.ingredients = res;
       this.newIngredient={
-        name:this.ingredients[1].name,
+        name:this.ingredients[0].name,
         measure: this.measures[0].toString(),
         quantity: 1,
 
@@ -64,7 +64,7 @@ export class AddRecipeComponent implements OnInit {
       numPersons: f.form.value.numPersons,
       difficultyLevel: f.form.value.difficultyLevel,
       prepTime: f.form.value.prepTime,
-      categoryList: f.form.value.categoryList,
+      categoryList: this.recipe.categoryList,
       ingredientList: this.newIngredients,
     };
     let idRecipe = 0;
@@ -100,7 +100,7 @@ export class AddRecipeComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          //window.location.href="/"
+          window.location.href="/"
         },
         (error) => {
         }
@@ -115,6 +115,23 @@ export class AddRecipeComponent implements OnInit {
       measure: this.measures[0].toString(),
       quantity: 1,
     };
+  }
+  toggleCategorySelection(event: any, category: Category) {
+    let checked = (<HTMLInputElement>event).checked;
+    let index = -1
+    if (this.recipe.categoryList.map(ca => ca.categoryId).includes(category.categoryId)) {
+      index = this.recipe.categoryList.map(ca => ca.categoryId).indexOf(category.categoryId)
+
+    }
+
+    if (checked && index === -1) {
+      this.recipe.categoryList.push(category);
+
+    } else if (!checked && index !== -1) {
+      this.recipe.categoryList.splice(index, 1);
+    }
+    console.log(this.recipe.categoryList);
+    
   }
   onFileAdded(event: any) {
     this.requiredImage = event.target.files[0];

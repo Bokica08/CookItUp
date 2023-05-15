@@ -15,7 +15,7 @@ interface RecipeService {
     fun findAllByRecipe(recipe: Recipe) : List<Ingredient>
     fun findAllByIngredient(ingredient: Ingredient) : List<RecipeInfoDTO>
     fun getAll() : List<RecipePreviewDTO>
-    fun save(recipeDTO: RecipeDTO, customer: Customer) : Recipe
+    fun save(recipeDTO: EditRecipeDTO, customer: Customer) : Recipe
     fun save(recipe: Recipe) : Recipe
     fun getDetailsForRecipe(id: Long) : RecipeInfoDTO
     fun getRecipeById(id: Long) : Recipe

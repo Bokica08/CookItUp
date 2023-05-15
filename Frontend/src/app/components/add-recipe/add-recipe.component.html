@@ -113,20 +113,19 @@
                 <div class="row mb-3 justify-content-center">
                     <div class="col-md-6">
                         <div class="row">
-                            <label class="form-label col-md-2" for="categoryList">Categories:</label>
+                            <label class="col-md-2 form-check-label" for="categoryList">Categories:</label>
                             <div class="col-md-10">
-
-                                <select required #categoryList="ngModel"
-                                    class="d-flex justify-content-center form-select form-select-lg mb-1"
-                                    [(ngModel)]="recipe!!.categoryList" name="categoryList" multiple="multiple">
-                                    <option *ngFor="let c of this.categories" [ngValue]="c.name">{{c.name}}</option>
-                                </select>
+                                <div *ngFor="let c of categories">
+                                    <input type="checkbox" class="form-check-input" [value]="c.name"
+                                        (change)="toggleCategorySelection($event.target!!, c)">
+                                    {{ c.name }}
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-10">
-                                <div *ngIf="recipe.categoryList==null && categoryList.touched ||  (f.submitted && categoryList.invalid)"
+                                <div *ngIf="recipe.categoryList==null ||  (f.submitted)"
                                     class="text-danger">Select at least one category</div>
                             </div>
                         </div>

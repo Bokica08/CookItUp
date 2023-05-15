@@ -16,40 +16,26 @@
         <p>For {{ recipe?.numPersons }} people, prepared in {{ recipe?.prepTime }} minutes</p>
         <p>
           Difficulty: {{ recipe?.difficultyLevel }}</p>
-          <p>
-            Total views: {{ recipe?.viewCount }}
+        <p>
+          Total views: {{ recipe?.viewCount }}
         </p>
-        <div class="mb-2">Average Rating: 
+        <div class="mb-2">Average Rating:
           <div>
-            <span
-              class="star"
-              [class.filled]="isStarFilled(recipe?.avRating!!,1)"
-              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!,1)"
-            ></span>
-            <span
-              class="star"
-              [class.filled]="isStarFilled(recipe?.avRating!!, 2)"
-              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 2)"
-            ></span>
-            <span
-              class="star"
-              [class.filled]="isStarFilled(recipe?.avRating!!, 3)"
-              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 3)"
-            ></span>
-            <span
-              class="star"
-              [class.filled]="isStarFilled(recipe?.avRating!!, 4)"
-              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 4)"
-            ></span>
-            <span
-              class="star"
-              [class.filled]="isStarFilled(recipe?.avRating!!, 5)"
-              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 5)"
-            ></span>
+            <span class="star" [class.filled]="isStarFilled(recipe?.avRating!!,1)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!,1)"></span>
+            <span class="star" [class.filled]="isStarFilled(recipe?.avRating!!, 2)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 2)"></span>
+            <span class="star" [class.filled]="isStarFilled(recipe?.avRating!!, 3)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 3)"></span>
+            <span class="star" [class.filled]="isStarFilled(recipe?.avRating!!, 4)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 4)"></span>
+            <span class="star" [class.filled]="isStarFilled(recipe?.avRating!!, 5)"
+              [class.half-filled]="isStarHalfFilled(recipe?.avRating!!, 5)"></span>
           </div>
         </div>
         <p>
-          Added by: <a routerLink="/userInfo/{{recipe?.customer?.username}}" class="recipeName">{{ recipe?.customer?.username }}</a> on {{ recipe?.createdOn }}
+          Added by: <a routerLink="/userInfo/{{recipe?.customer?.username}}" class="recipeName">{{
+            recipe?.customer?.username }}</a> on {{ recipe?.createdOn }}
         </p>
         <h6 class="display-6">Ingredients</h6>
         <div *ngFor="let ing of recipe?.ingredientList">
@@ -73,13 +59,8 @@
           <div *ngIf="this.formOrder.value.numPersons<1 || this.formOrder.value.numPersons >=11"
             class="text-danger m-3">Invalid number of persons</div>
           <button type="submit" class="btn btn-success">Order ingredients for recipe</button>
-          <!-- after adding button is disabled -->
-          <!-- if user not logged in this form won't show -->
-          <!-- if the logged user is the one that posted the recipe, button disabled -->
+
         </form>
-        <!-- if already in favorites = button disabled -->
-        <!-- if user not logged in button is hidden -->
-        <!-- if the logged user is the one that posted the recipe, button disabled -->
       </div>
     </div>
     <div class="row mb-3">
@@ -152,9 +133,6 @@
           </div>
 
           <button type="submit" class="btn btn-success">Add review</button>
-          <!-- after adding button is disabled -->
-          <!-- if user not logged in this form won't show -->
-          <!-- if the logged user is the one that posted the recipe, button disabled -->
         </form>
       </div>
       <div *ngIf="recipe?.reviews?.length==0">
@@ -167,8 +145,8 @@
             <img class="img-fluid" src="../../../assets/user.png" />
           </div>
           <div class="col-11 align-self-center"><span>
-            <a routerLink="/userInfo/{{r.username}}" class="recipeName">{{ r.username }}</a>
-          </span></div>
+              <a routerLink="/userInfo/{{r.username}}" class="recipeName">{{ r.username }}</a>
+            </span></div>
 
         </div>
         <div class="d-flex mb-3">

@@ -29,7 +29,7 @@ class RecipeController(val recipeService: RecipeService,
         return ResponseEntity.ok(recipeService.getAll())
     }
     @PostMapping
-    fun addRecipe(@RequestBody recipeDTO: RecipeDTO, request: HttpServletRequest) : ResponseEntity<Recipe>{
+    fun addRecipe(@RequestBody recipeDTO: EditRecipeDTO, request: HttpServletRequest) : ResponseEntity<Recipe>{
         val recipe = recipeService.save(recipeDTO, userService.getCustomerByUsername(request.remoteUser))
         request.session.setAttribute("recipe",recipe)
         return ResponseEntity.ok(recipe)
