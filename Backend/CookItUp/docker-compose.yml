@@ -1,0 +1,31 @@
+version: '1'
+services:
+
+  cookitup-db:
+    image: "postgres"
+    container_name: cookitup-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=cookitup
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=at
+
+  cookitup-app:
+    image: "andrejtodorovski5/cookitup"
+    container_name: cookitup-app
+    environment:
+      - DB_SERVER=cookitup-db
+      - POSTGRES_DB=cookitup
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=at
+    ports:
+      - 8000:8080
+    links:
+      - cookitup-db
+
+
+volumes:
+  postgres-data:
