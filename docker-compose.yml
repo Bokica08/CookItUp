@@ -22,9 +22,20 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=at
     ports:
-      - 8000:8080
+      - 8080:8080
     links:
       - cookitup-db
+      
+  cookitup-angular:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    container_name: cookitup-angular
+    volumes:
+       - ./frontend:/usr/src/app/frontend
+       - /usr/src/app/frontend/node_modules
 
 
 volumes:
