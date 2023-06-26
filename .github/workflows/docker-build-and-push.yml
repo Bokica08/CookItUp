@@ -33,7 +33,7 @@ jobs:
         name: Build with Gradle
         run: |
           cd Backend/CookItUp
-          gradle clean build
+          ./gradlew clean build --info
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
