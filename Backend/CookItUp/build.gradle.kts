@@ -51,7 +51,3 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-
-bootRun {
-    systemProperties['spring.profiles.active'] = 'bojan'
-}
