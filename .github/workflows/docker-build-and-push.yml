@@ -33,6 +33,7 @@ jobs:
         name: Build with Gradle
         run: |
           cd Backend/CookItUp
+          chmod +x gradlew
           ./gradlew clean build --info
       -
         name: Set up QEMU
