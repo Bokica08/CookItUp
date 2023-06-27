@@ -80,3 +80,27 @@ jobs:
           push: true
           file: ./Backend/CookItUp/Dockerfile
           tags: andrejtodorovski5/cookitup:latest
+   deploy:
+    needs: backend
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Install ArgoCD CLI
+      run: |
+        curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+        chmod +x /usr/local/bin/argocd
+
+    - name: Deploy to Kubernetes
+      run: |
+        argocd app create cookitup \
+          --repo https://github.com/andrejtodorovski/CookItUp.git \
+          --path k8s/ \
+          --dest-namespace default \
+          --dest-server https://kubernetes.default.svc \
+          --revision main \
+          --sync-policy automated
+        argocd app sync cookitup
+
