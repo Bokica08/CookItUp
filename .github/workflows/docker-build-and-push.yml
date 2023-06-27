@@ -81,7 +81,7 @@ jobs:
           file: ./Backend/CookItUp/Dockerfile
           tags: andrejtodorovski5/cookitup:latest
    deploy:
-    needs: backend
+    needs: frontend
     runs-on: ubuntu-latest
 
     steps:
